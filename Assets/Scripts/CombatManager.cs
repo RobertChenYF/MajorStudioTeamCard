@@ -8,7 +8,6 @@ public class CombatManager : MonoBehaviour
     [Header("OtherScript")]
     [SerializeField] private PlayerResourceManager playerResource;
 
-
     [Header("Time Circle")]
     [SerializeField] private Image timeCycleDisplay;
     [SerializeField] private float timeCircleDuration;
