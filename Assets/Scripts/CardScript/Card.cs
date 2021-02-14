@@ -8,11 +8,11 @@ public class Card : ScriptableObject
     public Sprite cardSplashArt;
     public string cardEffectDiscription;
 
-    public enum cardType {Attack, Instant};
-    public enum cardClass {A, B};
+    public enum CardType {Attack, Instant};
+    public enum CardClass { testing };
     [Header("Type and Class")]
-    public cardType type;
-    public cardClass Class;
+    public CardType type;
+    public CardClass Class;
     
     
 
@@ -20,17 +20,15 @@ public class Card : ScriptableObject
     public float attackBarCost;
     public float drawBarCost;
 
-    //[Header("Additional Script")]
-    //public CardEffect script;
 
 }
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/AttackCard", order = 1)]
+/*[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/AttackCard", order = 1)]
 public class AttackCard : Card
 {
     public AttackCard()
     {
-        type = cardType.Attack;
+        type = CardType.Attack;
     }
 
 }
@@ -40,7 +38,9 @@ public class InstantCard : Card
 {
     public InstantCard()
     {
-        type = cardType.Instant;
+        type = CardType.Instant;
     }
 
 }
+
+    */
