@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
-  m_Name: Simple Add Attack
+  m_Name: Gain 5 armor
   m_EditorClassIdentifier: 
-  cardName: 
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 
-  type: 0
+  cardName: Armor Up
+  cardSplashArt: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  cardEffectDiscription: Gain 5 armor
+  type: 1
   Class: 0
-  attackBarCost: 5
-  drawBarCost: 0
+  attackBarCost: 0
+  drawBarCost: 10

@@ -55,6 +55,7 @@ public class PlayerStatsManager : MonoBehaviour
     public void GainArmor(float value)
     {
         currentArmor += value;
+        TempUpdateDisplayStat();
     }
 
     public void LoseArmor(float dmg)
@@ -75,5 +76,10 @@ public class PlayerStatsManager : MonoBehaviour
     {
         currentHp += value;
         currentHp = Mathf.Min(maxHp,currentHp);
+    }
+
+    public void GainAttack()
+    {
+
     }
 }

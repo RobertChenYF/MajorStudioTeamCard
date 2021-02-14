@@ -46,7 +46,7 @@ public class PlayerResourceManager : MonoBehaviour
         currentAttackBarValue += currentAttackBarFillAmount;
         currentAttackBarValue = Mathf.Min(defaultMaxBar + attackBarMaxIncrement, currentAttackBarValue);
         currentDrawBarValue += currentDrawBarFillAmount;
-        currentDrawBarValue = Mathf.Min(defaultMaxBar + drawBarMaxIncrement, currentAttackBarValue);
+        currentDrawBarValue = Mathf.Min(defaultMaxBar + drawBarMaxIncrement, currentDrawBarValue);
     }
 
     public void UpdateResourceBarDisplay()
@@ -73,5 +73,10 @@ public class PlayerResourceManager : MonoBehaviour
             return true;
         }
         else return false;
+    }
+
+    public void ConsumeDrawBar(float value)
+    {
+        currentDrawBarValue -= value;
     }
 }

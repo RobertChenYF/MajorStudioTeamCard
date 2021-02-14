@@ -10,9 +10,10 @@ public class CardFunction : MonoBehaviour
     protected int instanceId;
 
     [Header("card basic info")]
-    [SerializeField] private Card card;
+    public Card card;
     private float attackCost;
     private float drawCost;
+    private Card.CardType cardType;
     private SpriteRenderer splashArt;
     private TextMeshPro nameText;
     private TextMeshPro AttackCostText;
@@ -54,6 +55,7 @@ public class CardFunction : MonoBehaviour
 
         splashArt.sprite = card.cardSplashArt;
         nameText.text = card.cardName;
+        cardType = card.type;
         gameObject.name = card.cardName;
         attackCost = card.attackBarCost;
         drawCost = card.drawBarCost;
@@ -109,4 +111,11 @@ public class CardFunction : MonoBehaviour
     {
         return drawCost;
     }
+
+    public Card.CardType GetCardType()
+    {
+        return cardType;
+    }
+
+
 }
