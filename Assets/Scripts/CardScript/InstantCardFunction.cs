@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class InstantCardFunction : CardFunction
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void AfterPlayed()
     {
-        
+        //move up a bit then trigger effect
+        TriggerEffect();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

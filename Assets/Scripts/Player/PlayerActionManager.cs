@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 public class PlayerActionManager : MonoBehaviour
 {
 
     private PlayerResourceManager resourceManager;
+    public static CardFunction currentDragCard;
     public List<CardFunction> DrawDeck;
     public List<CardFunction> PlayerHand;
     public List<CardFunction> DiscardPile;
     public List<CardFunction> AttackField;
 
     [SerializeField] private int playerHandMaxSize;
+
+    [Header("Deck Position")]
+    [SerializeField] private Transform discardPile;
+    [SerializeField] private Transform drawDeck;
+    [SerializeField] private Transform hand;
+    [SerializeField] private Transform attackField;
+    public BoxCollider2D handArea;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,13 +30,16 @@ public class PlayerActionManager : MonoBehaviour
         PlayerHand = new List<CardFunction>();
         DiscardPile = new List<CardFunction>();
         AttackField = new List<CardFunction>();
-        DrawMutipleCard(3);
+        TempStart();
+        DrawMutipleCard(5);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        UpdateCardInHandPos();
+        UpdateDragCardPos();
+        UpdateCardInAttackField();
     }
 
 
@@ -35,7 +47,10 @@ public class PlayerActionManager : MonoBehaviour
     {
         if (resourceManager.CheckAttackBar(card.GetAttackCost()) && resourceManager.CheckDrawBar(card.GetDrawCost()))
         {
+            resourceManager.ConsumeDrawBar(card.GetDrawCost());
+            resourceManager.ConsumeAttackBar(card.GetAttackCost());
             card.Played();
+            PlayerHand.Remove(card);
         }
 
     }
@@ -55,6 +70,7 @@ public class PlayerActionManager : MonoBehaviour
 
         if (PlayerHand.Count <= playerHandMaxSize - 1)
         {
+            DrawDeck[0].transform.position = drawDeck.position;
             PlayerHand.Add(DrawDeck[0]);
             //DrawDeck[0].TriggerEffect();
             DrawDeck.RemoveAt(0);
@@ -76,15 +92,15 @@ public class PlayerActionManager : MonoBehaviour
     IEnumerator DrawOneCoroutine(int times)
     {
         DrawCard();
-        yield return new WaitForSeconds(0.5f);
-        
+        yield return new WaitForSeconds(0.2f);
+
         if (times > 1)
         {
             times--;
             StartCoroutine(DrawOneCoroutine(times));
         }
-        
-        
+
+
     }
 
     public void ReDraw()
@@ -92,30 +108,82 @@ public class PlayerActionManager : MonoBehaviour
         if (resourceManager.CheckDrawBar(10))
         {
             resourceManager.ConsumeDrawBar(10);
-        while (PlayerHand.Count > 0)
-        {
-            MoveFromHandToDiscardPile(PlayerHand[0]);
-        }
-        DrawMutipleCard(5);
+            while (PlayerHand.Count > 0)
+            {
+                MoveFromHandToDiscardPile(PlayerHand[0]);
+            }
+            DrawMutipleCard(5);
         }
 
-        
+
     }
     public void MoveFromHandToDiscardPile(CardFunction card)
     {
+
         PlayerHand.Remove(card);
         DiscardPile.Add(card);
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
+    }
+
+    public void AddToDiscardPile(CardFunction card)
+    {
+        DiscardPile.Add(card);
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
     }
     public void DrawPileRefillCard()
     {
         Shuffle(DiscardPile);
         foreach (CardFunction card in DiscardPile)
         {
+            card.transform.position = drawDeck.position;
             DrawDeck.Add(card);
         }
         DiscardPile.Clear();
     }
 
+    public void TempStart()
+    {
+        foreach (CardFunction card in DrawDeck)
+        {
+            card.transform.position = drawDeck.position;
+            card.gameObject.SetActive(true);
+        }
+    }
+
+    public void UpdateCardInHandPos()
+    {
+        foreach (CardFunction card in PlayerHand)
+        {
+            if (currentDragCard != card)
+            {
+                Vector3 target = hand.position + PlayerHand.IndexOf(card) * new Vector3(1, 0, 0);
+                card.gameObject.GetComponent<SortingGroup>().sortingOrder = PlayerHand.IndexOf(card);
+                card.transform.position = Vector3.MoveTowards(card.transform.position, target, Time.deltaTime * Mathf.Max(Vector3.Distance(card.transform.position, target) * 2, 5));
+            }
+
+        }
+    }
+    public void UpdateCardInAttackField()
+    {
+        foreach (CardFunction card in AttackField)
+        {
+
+            Vector3 target = attackField.position + AttackField.IndexOf(card) * new Vector3(1, 0, 0);
+            card.gameObject.GetComponent<SortingGroup>().sortingOrder = AttackField.IndexOf(card);
+            card.transform.position = Vector3.MoveTowards(card.transform.position, target, Time.deltaTime * Mathf.Max(Vector3.Distance(card.transform.position, target) * 5, 8));
+
+        }
+    }
+    public void UpdateDragCardPos()
+    {
+        if (currentDragCard != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 rayPoint = ray.GetPoint(Vector3.Distance(currentDragCard.gameObject.transform.position, Camera.main.transform.position));
+            currentDragCard.gameObject.transform.position = rayPoint;
+        }
+
+    }
     public void Shuffle(List<CardFunction> cards)
     {
 
@@ -133,5 +201,25 @@ public class PlayerActionManager : MonoBehaviour
         list[i] = list[j];
         list[j] = temp;
     }
+    IEnumerator MoveFromTo(Transform objectToMove, Vector3 a, Vector3 b, float speed)
+    {
+        float step = (speed / (a - b).magnitude) * Time.deltaTime;
+        float t = 0;
+        while (t <= 1.0f)
+        {
+            t += step; // Goes from 0 to 1, incrementing by step each time
+            objectToMove.position = Vector3.Lerp(a, b, t); // Move objectToMove closer to b
+            yield return null;         // Leave the routine and return here in the next frame
+        }
+        objectToMove.position = b;
+    }
+    public void AddToAttackField(CardFunction card)
+    {
+        AttackField.Add(card);
+    }
 
+    public bool InHand(CardFunction card)
+    {
+        return PlayerHand.Contains(card);
+    }
 }

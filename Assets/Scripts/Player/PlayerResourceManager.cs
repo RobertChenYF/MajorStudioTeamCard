@@ -79,4 +79,8 @@ public class PlayerResourceManager : MonoBehaviour
     {
         currentDrawBarValue -= value;
     }
+    public void ConsumeAttackBar(float value)
+    {
+        currentAttackBarValue -= value;
+    }
 }
