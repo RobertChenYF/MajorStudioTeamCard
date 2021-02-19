@@ -9,6 +9,7 @@ public class PlayerStatsManager : MonoBehaviour
     private float currentHp;
     [SerializeField]private float startAttackDmg;
     private float currentAttackDmg;
+    private float buffedAttackDmg;
     private float currentArmor;
     [SerializeField] private TextMeshPro playerStatsText;
 
@@ -78,8 +79,20 @@ public class PlayerStatsManager : MonoBehaviour
         currentHp = Mathf.Min(maxHp,currentHp);
     }
 
-    public void GainAttack()
+    public void GainTempAttack(float value)
     {
-
+        buffedAttackDmg += value;
+        currentAttackDmg = startAttackDmg + buffedAttackDmg;
+        TempUpdateDisplayStat();
+    }
+    public void LoseAllTempAttack()
+    {
+        buffedAttackDmg = 0;
+        currentAttackDmg = startAttackDmg + buffedAttackDmg;
+        TempUpdateDisplayStat();
+    }
+    public float GetCurrentAttackDmg()
+    {
+        return currentAttackDmg;
     }
 }
