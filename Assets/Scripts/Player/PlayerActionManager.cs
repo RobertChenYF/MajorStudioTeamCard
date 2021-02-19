@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class PlayerActionManager : MonoBehaviour
 {
 
     private PlayerResourceManager resourceManager;
+    private PlayerStatsManager statsManager;
+    private CombatManager combatManager;
+
+    [SerializeField]private Enemy tempTestEnemy;
+
     public static CardFunction currentDragCard;
     public List<CardFunction> DrawDeck;
     public List<CardFunction> PlayerHand;
@@ -22,10 +28,15 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private Transform hand;
     [SerializeField] private Transform attackField;
     public BoxCollider2D handArea;
+
+    [Header("UI button")]
+    [SerializeField]private Button attackButton;
     // Start is called before the first frame update
     void Start()
     {
         resourceManager = GetComponent<PlayerResourceManager>();
+        combatManager = GameObject.Find("CombatManager").GetComponent<CombatManager>();
+        statsManager = GetComponent<PlayerStatsManager>();
         //DrawDeck = new List<CardFunction>();
         PlayerHand = new List<CardFunction>();
         DiscardPile = new List<CardFunction>();
@@ -92,7 +103,7 @@ public class PlayerActionManager : MonoBehaviour
     IEnumerator DrawOneCoroutine(int times)
     {
         DrawCard();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.0f);
 
         if (times > 1)
         {
@@ -221,5 +232,33 @@ public class PlayerActionManager : MonoBehaviour
     public bool InHand(CardFunction card)
     {
         return PlayerHand.Contains(card);
+    }
+    public void StartAttack()
+    {
+        if (resourceManager.CheckAttackBar(20))
+        {
+            resourceManager.ConsumeAttackBar(20);
+            StartCoroutine(AttackCoroutine());
+            attackButton.interactable = false;
+            combatManager.PauseTimeCycle();
+        }
+        Debug.Log("attack");
+    }
+    IEnumerator AttackCoroutine()
+    {
+        while (AttackField.Count != 0)
+        {
+            CardFunction card = AttackField[0];
+            card.TriggerEffect();
+            AttackField.RemoveAt(0);
+            AddToDiscardPile(card);
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        Debug.Log("end attack");
+        tempTestEnemy.TakeDamage(statsManager.GetCurrentAttackDmg());
+        combatManager.ContinueTimeCycle();
+        statsManager.LoseAllTempAttack();
+        attackButton.interactable = true;
     }
 }

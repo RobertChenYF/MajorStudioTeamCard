@@ -9,8 +9,8 @@ public class CardEffect : MonoBehaviour
 
     public void zz_Effect_AddAttack(int value)
    {
-        Debug.Log("player add attack " + value);
-        //statsManager.
+        statsManager = GameObject.Find("Player").GetComponent<PlayerStatsManager>();
+        statsManager.GainTempAttack(value);
     }
 
     public void zz_Effect_ConsumeDrawBar(int value)

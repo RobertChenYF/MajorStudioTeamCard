@@ -169,10 +169,11 @@ public class CardFunction : MonoBehaviour
     {
         BoxCollider2D a = playerActionManager.handArea;
         
-        if (!a.bounds.Contains(transform.position))
+        if (transform.position.x <= a.transform.position.x + a.bounds.size.x/2 && transform.position.x >= a.transform.position.x - a.bounds.size.x/2
+            && transform.position.y <= a.transform.position.y + a.bounds.size.y/2 && transform.position.y >= a.transform.position.y - a.bounds.size.y/2)
         {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }
