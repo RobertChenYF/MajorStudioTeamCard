@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerActionManager : MonoBehaviour
 {
-
+    public static PlayerActionManager instance;
     private PlayerResourceManager resourceManager;
     private PlayerStatsManager statsManager;
     private CombatManager combatManager;
@@ -34,13 +34,15 @@ public class PlayerActionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+        PlayerHand = new List<CardFunction>();
+        DiscardPile = new List<CardFunction>();
+        AttackField = new List<CardFunction>();
         resourceManager = GetComponent<PlayerResourceManager>();
         combatManager = GameObject.Find("CombatManager").GetComponent<CombatManager>();
         statsManager = GetComponent<PlayerStatsManager>();
         //DrawDeck = new List<CardFunction>();
-        PlayerHand = new List<CardFunction>();
-        DiscardPile = new List<CardFunction>();
-        AttackField = new List<CardFunction>();
+        
         TempStart();
         DrawMutipleCard(5);
     }
@@ -56,7 +58,7 @@ public class PlayerActionManager : MonoBehaviour
 
     public void PlayCard(CardFunction card)
     {
-        if (resourceManager.CheckAttackBar(card.GetAttackCost()) && resourceManager.CheckDrawBar(card.GetDrawCost()))
+        if (card.CanPlay())
         {
             resourceManager.ConsumeDrawBar(card.GetDrawCost());
             resourceManager.ConsumeAttackBar(card.GetAttackCost());
