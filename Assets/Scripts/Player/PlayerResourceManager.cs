@@ -6,6 +6,7 @@ using TMPro;
 
 public class PlayerResourceManager : MonoBehaviour
 {
+    public static PlayerResourceManager instance;
     [SerializeField] private float defaultMaxBar;
     [SerializeField] private float defaultStartBarValue;
     private float attackBarMaxIncrement;
@@ -28,6 +29,7 @@ public class PlayerResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         currentAttackBarFillAmount = defaultAttackBarFillAmount + attackBarFillAmountIncrement;
         currentDrawBarFillAmount = defaultDrawBarFillAmount + drawBarFillAmountIncrement;
 

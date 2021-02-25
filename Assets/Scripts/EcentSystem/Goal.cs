@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    public WhoScored whoScored;
+    //public WhoScored whoScored;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class Goal : MonoBehaviour
 
     public void OnHeal()
     {
-        Service.EventManager.Fire(new PlayerGainsHealth(4));
+       // Service.EventManager.Fire(new PlayerGainsHealth(4));
     }
 
 
@@ -32,7 +32,7 @@ public class Goal : MonoBehaviour
     {
         if (other.tag == "Böll") // My fun for the week
         {
-            Service.EventManager.Fire(new ScoreEvent(whoScored));
+          //  Service.EventManager.Fire(new ScoreEvent(whoScored));
         }
     }
 }

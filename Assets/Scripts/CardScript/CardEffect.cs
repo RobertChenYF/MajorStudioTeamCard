@@ -18,9 +18,13 @@ public class CardEffect : MonoBehaviour
 
     }
 
+
+
     public void zz_Effect_GainArmor(int value)
     {
         statsManager = GameObject.Find("Player").GetComponent<PlayerStatsManager>();
         statsManager.GainArmor(value);
     }
+
+
 }

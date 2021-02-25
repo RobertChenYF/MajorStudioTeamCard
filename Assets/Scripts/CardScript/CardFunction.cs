@@ -23,9 +23,11 @@ public class CardFunction : MonoBehaviour
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
     protected PlayerActionManager playerActionManager;
-    private float distance;
-    private bool dragging = false;
+ 
+    [HideInInspector]public bool canBePlayed;
 
+    [Header("requirement fot the card to get played")]
+    [SerializeField] protected UnityEvent playRequirement;
 
     [Header("effects happen when card play, leave it empty as default")]
     [SerializeField] protected UnityEvent played;
@@ -74,6 +76,16 @@ public class CardFunction : MonoBehaviour
     {
         AttackCostText.text = attackCost.ToString();
         DrawCostText.text = drawCost.ToString();
+    }
+
+    public virtual bool CanPlay()
+    {
+        canBePlayed = true;
+        playRequirement.Invoke();
+        //Debug.Log(PlayerResourceManager.instance.CheckDrawBar(drawCost));
+
+        canBePlayed = (canBePlayed&& PlayerResourceManager.instance.CheckDrawBar(drawCost)&&PlayerResourceManager.instance.CheckAttackBar(attackCost));
+        return (canBePlayed);
     }
 
     public virtual void Played()
