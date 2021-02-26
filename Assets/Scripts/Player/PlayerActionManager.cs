@@ -7,11 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerActionManager : MonoBehaviour
 {
-    public static PlayerActionManager instance;
-    private PlayerResourceManager resourceManager;
-    private PlayerStatsManager statsManager;
-    private CombatManager combatManager;
-
+    
     [SerializeField]private Enemy tempTestEnemy;
 
     public static CardFunction currentDragCard;
@@ -34,13 +30,11 @@ public class PlayerActionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
+       
         PlayerHand = new List<CardFunction>();
         DiscardPile = new List<CardFunction>();
         AttackField = new List<CardFunction>();
-        resourceManager = GetComponent<PlayerResourceManager>();
-        combatManager = GameObject.Find("CombatManager").GetComponent<CombatManager>();
-        statsManager = GetComponent<PlayerStatsManager>();
+        
         //DrawDeck = new List<CardFunction>();
         
         TempStart();
@@ -60,8 +54,8 @@ public class PlayerActionManager : MonoBehaviour
     {
         if (card.CanPlay())
         {
-            resourceManager.ConsumeDrawBar(card.GetDrawCost());
-            resourceManager.ConsumeAttackBar(card.GetAttackCost());
+            Services.resourceManager.ConsumeDrawBar(card.GetDrawCost());
+            Services.resourceManager.ConsumeAttackBar(card.GetAttackCost());
             card.Played();
             PlayerHand.Remove(card);
         }
@@ -118,9 +112,9 @@ public class PlayerActionManager : MonoBehaviour
 
     public void ReDraw()
     {
-        if (resourceManager.CheckDrawBar(10))
+        if (Services.resourceManager.CheckDrawBar(10))
         {
-            resourceManager.ConsumeDrawBar(10);
+            Services.resourceManager.ConsumeDrawBar(10);
             while (PlayerHand.Count > 0)
             {
                 MoveFromHandToDiscardPile(PlayerHand[0]);
@@ -237,12 +231,12 @@ public class PlayerActionManager : MonoBehaviour
     }
     public void StartAttack()
     {
-        if (resourceManager.CheckAttackBar(20))
+        if (Services.resourceManager.CheckAttackBar(20))
         {
-            resourceManager.ConsumeAttackBar(20);
+            Services.resourceManager.ConsumeAttackBar(20);
             StartCoroutine(AttackCoroutine());
             attackButton.interactable = false;
-            combatManager.PauseTimeCycle();
+            Services.combatManager.PauseTimeCycle();
         }
         Debug.Log("attack");
     }
@@ -258,9 +252,9 @@ public class PlayerActionManager : MonoBehaviour
         }
         
         Debug.Log("end attack");
-        tempTestEnemy.TakeDamage(statsManager.GetCurrentAttackDmg());
-        combatManager.ContinueTimeCycle();
-        statsManager.LoseAllTempAttack();
+        tempTestEnemy.TakeDamage(Services.statsManager.GetCurrentAttackDmg());
+        Services.combatManager.ContinueTimeCycle();
+        Services.statsManager.LoseAllTempAttack();
         attackButton.interactable = true;
     }
 }

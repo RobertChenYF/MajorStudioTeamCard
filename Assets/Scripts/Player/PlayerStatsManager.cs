@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlayerStatsManager : MonoBehaviour
 {
-    public static PlayerStatsManager instance;
+    
     [SerializeField]private float maxHp;
     private float currentHp;
     [SerializeField]private float startAttackDmg;
@@ -18,7 +18,7 @@ public class PlayerStatsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
+        
         currentHp = maxHp;
         currentAttackDmg = startAttackDmg;
         TempUpdateDisplayStat();
