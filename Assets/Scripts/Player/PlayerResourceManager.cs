@@ -37,7 +37,7 @@ public class PlayerResourceManager : MonoBehaviour
         currentAttackBarValue = defaultStartBarValue;
         currentDrawBarValue = defaultStartBarValue;
 
-        Services.eventManager.Register<CombatManager.TimeCycleEnd>(TimeCycleEnd);
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(TimeCycleEndRefillResourceBar);
     }
 
     // Update is called once per frame
@@ -48,7 +48,7 @@ public class PlayerResourceManager : MonoBehaviour
 
 
 
-    public void TimeCycleEnd(AGPEvent e)
+    public void TimeCycleEndRefillResourceBar(AGPEvent e)
     {
         currentAttackBarValue += currentAttackBarFillAmount;
         currentAttackBarValue = Mathf.Min(defaultMaxBar + attackBarMaxIncrement, currentAttackBarValue);

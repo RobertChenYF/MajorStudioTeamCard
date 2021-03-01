@@ -234,9 +234,10 @@ public class PlayerActionManager : MonoBehaviour
         if (Services.resourceManager.CheckAttackBar(20))
         {
             Services.resourceManager.ConsumeAttackBar(20);
-            StartCoroutine(AttackCoroutine());
-            attackButton.interactable = false;
             Services.combatManager.PauseTimeCycle();
+            attackButton.interactable = false;
+            StartCoroutine(AttackCoroutine());
+            
         }
         Debug.Log("attack");
     }
@@ -256,5 +257,6 @@ public class PlayerActionManager : MonoBehaviour
         Services.combatManager.ContinueTimeCycle();
         Services.statsManager.LoseAllTempAttack();
         attackButton.interactable = true;
+        yield return null;
     }
 }

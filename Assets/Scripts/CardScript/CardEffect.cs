@@ -7,7 +7,7 @@ public class CardEffect : MonoBehaviour
 
 
     public void zz_Effect_AddAttack(int value)
-   {
+    {
         
         Services.statsManager.GainTempAttack(value);
     }
@@ -25,5 +25,8 @@ public class CardEffect : MonoBehaviour
         Services.statsManager.GainArmor(value);
     }
 
-
+    public void zz_Test_Power_Whenever_Get_Armor(PowerCardFunction card)
+    {
+        Services.eventManager.Register<PlayerStatsManager.GainArmorEvent>(card.TriggerEffect);
+    }
 }

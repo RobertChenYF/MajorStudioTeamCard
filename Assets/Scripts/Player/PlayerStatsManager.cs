@@ -9,6 +9,8 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField]private float maxHp;
     private float currentHp;
     [SerializeField]private float startAttackDmg;
+    [SerializeField]private float defaultArmorDepletion;
+
     private float currentAttackDmg;
     private float buffedAttackDmg;
     private float currentArmor;
@@ -21,6 +23,7 @@ public class PlayerStatsManager : MonoBehaviour
         
         currentHp = maxHp;
         currentAttackDmg = startAttackDmg;
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(LoseArmorAtCycleEnd);
         TempUpdateDisplayStat();
     }
 
@@ -29,6 +32,12 @@ public class PlayerStatsManager : MonoBehaviour
     {
         
     }
+
+    private void LoseArmorAtCycleEnd(AGPEvent e)
+    {
+        LoseArmor(defaultArmorDepletion);
+    }
+
 
     void TempUpdateDisplayStat()
     {
@@ -54,16 +63,30 @@ public class PlayerStatsManager : MonoBehaviour
         TempUpdateDisplayStat();
         
     }
+    public class GainArmorEvent : AGPEvent
+    {
 
+        public GainArmorEvent(float amount)
+        {
+
+        }
+    }
     public void GainArmor(float value)
     {
+        if (value > 0)
+        {
         currentArmor += value;
         TempUpdateDisplayStat();
+            Services.eventManager.Fire(new GainArmorEvent(value));
+        }
+        
     }
 
     public void LoseArmor(float dmg)
     {
         currentArmor -= dmg;
+        currentArmor = Mathf.Max(0, currentArmor);
+        TempUpdateDisplayStat();
     }
 
     public void LoseHp(float dmg)

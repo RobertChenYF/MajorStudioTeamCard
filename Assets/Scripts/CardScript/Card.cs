@@ -8,7 +8,7 @@ public class Card : ScriptableObject
     public Sprite cardSplashArt;
     public string cardEffectDiscription;
 
-    public enum CardType {Attack, Instant};
+    public enum CardType {Attack, Instant, Power};
     public enum CardClass { testing };
     [Header("Type and Class")]
     public CardType type;
