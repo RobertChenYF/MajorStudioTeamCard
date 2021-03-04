@@ -9,7 +9,7 @@ public class Card : ScriptableObject
     public string cardEffectDiscription;
 
     public enum CardType {Attack, Instant, Power};
-    public enum CardClass { testing };
+    public enum CardClass { testing , Evasion, Vanilla, Basic};
     [Header("Type and Class")]
     public CardType type;
     public CardClass Class;
