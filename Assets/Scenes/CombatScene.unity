@@ -682,6 +682,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6703414335622520007, guid: dd6d30955bbfd594abe2f024bc3fe6a2, type: 3}
   m_PrefabInstance: {fileID: 974776142}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &403420364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6703414335622520006, guid: dd6d30955bbfd594abe2f024bc3fe6a2, type: 3}
+  m_PrefabInstance: {fileID: 974776142}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e92e0d11a148c941b6ec1aac3d87e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &412961100
 GameObject:
   m_ObjectHideFlags: 0
@@ -3740,6 +3751,8 @@ MonoBehaviour:
   - {fileID: 175852314}
   - {fileID: 715106678}
   - {fileID: 265728804}
+  - {fileID: 2015033807}
+  - {fileID: 403420364}
   PlayerHand: []
   DiscardPile: []
   AttackField: []
@@ -3894,6 +3907,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6703414335622520007, guid: dd6d30955bbfd594abe2f024bc3fe6a2, type: 3}
   m_PrefabInstance: {fileID: 882952732}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2015033807 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6703414335622520006, guid: dd6d30955bbfd594abe2f024bc3fe6a2, type: 3}
+  m_PrefabInstance: {fileID: 882952732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e92e0d11a148c941b6ec1aac3d87e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2066393387
 GameObject:
   m_ObjectHideFlags: 0
