@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: File Burn
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: '4 damage  6 Burn '
+  cardEffectDiscription: '4 damage 6 Burn '
   type: 0
   Class: 0
   attackBarCost: 10

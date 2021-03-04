@@ -15,6 +15,7 @@ public class PlayerActionManager : MonoBehaviour
     public List<CardFunction> PlayerHand;
     public List<CardFunction> DiscardPile;
     public List<CardFunction> AttackField;
+    public List<CardFunction> ExhaustPile;
 
     [SerializeField] private int playerHandMaxSize;
 
@@ -137,6 +138,13 @@ public class PlayerActionManager : MonoBehaviour
         DiscardPile.Add(card);
         StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
     }
+
+    public void AddToExhaustPile(CardFunction card)
+    {
+        ExhaustPile.Add(card);
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
+    }
+
     public void DrawPileRefillCard()
     {
         Shuffle(DiscardPile);

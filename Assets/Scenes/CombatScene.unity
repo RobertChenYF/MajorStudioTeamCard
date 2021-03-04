@@ -4826,6 +4826,7 @@ MonoBehaviour:
   PlayerHand: []
   DiscardPile: []
   AttackField: []
+  ExhaustPile: []
   playerHandMaxSize: 10
   discardPile: {fileID: 1328619946}
   drawDeck: {fileID: 306110942}
@@ -5489,6 +5490,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 295957712}
     m_Modifications:
+    - target: {fileID: 515345210415965563, guid: a60c6bb229a90e742946067bb0e58fa4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 515345210415965563, guid: a60c6bb229a90e742946067bb0e58fa4, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 515345211184589634, guid: a60c6bb229a90e742946067bb0e58fa4, type: 3}
       propertyPath: m_Name
       value: File Burn
@@ -5536,6 +5545,14 @@ PrefabInstance:
     - target: {fileID: 515345211184589644, guid: a60c6bb229a90e742946067bb0e58fa4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 515345211184589646, guid: a60c6bb229a90e742946067bb0e58fa4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 515345212199879732, guid: a60c6bb229a90e742946067bb0e58fa4, type: 3}
+      propertyPath: m_text
+      value: 4 Burn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a60c6bb229a90e742946067bb0e58fa4, type: 3}
