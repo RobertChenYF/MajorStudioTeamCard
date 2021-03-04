@@ -13,7 +13,7 @@ public class CardPlayRequirement : MonoBehaviour
     {
         if (checkCurrentCanPlay(card.GetComponent<CardFunction>()))
         {
-            if (PlayerActionManager.instance.PlayerHand.Count != 1)
+            if (Services.actionManager.PlayerHand.Count != 1)
             {
                 card.GetComponent<CardFunction>().canBePlayed = false;
             }

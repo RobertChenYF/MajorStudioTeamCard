@@ -5,12 +5,11 @@ using UnityEngine;
 public class CardEffect : MonoBehaviour
 {
 
-    public PlayerStatsManager statsManager;
 
     public void zz_Effect_AddAttack(int value)
-   {
-        statsManager = GameObject.Find("Player").GetComponent<PlayerStatsManager>();
-        statsManager.GainTempAttack(value);
+    {
+        
+        Services.statsManager.GainTempAttack(value);
     }
 
     public void zz_Effect_ConsumeDrawBar(int value)
@@ -22,9 +21,12 @@ public class CardEffect : MonoBehaviour
 
     public void zz_Effect_GainArmor(int value)
     {
-        statsManager = GameObject.Find("Player").GetComponent<PlayerStatsManager>();
-        statsManager.GainArmor(value);
+        
+        Services.statsManager.GainArmor(value);
     }
 
-
+    public void zz_Test_Power_Whenever_Get_Armor(PowerCardFunction card)
+    {
+        Services.eventManager.Register<PlayerStatsManager.GainArmorEvent>(card.TriggerEffect);
+    }
 }

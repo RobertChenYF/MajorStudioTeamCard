@@ -22,7 +22,7 @@ public class CardFunction : MonoBehaviour
     private SpriteRenderer backgroundRenderer;
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
-    protected PlayerActionManager playerActionManager;
+    
  
     [HideInInspector]public bool canBePlayed;
 
@@ -62,7 +62,7 @@ public class CardFunction : MonoBehaviour
         DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
         effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
         backgroundRenderer = transform.Find("cardBackground").GetComponent<SpriteRenderer>();
-        playerActionManager = GameObject.Find("Player").GetComponent<PlayerActionManager>();
+        
         splashArt.sprite = card.cardSplashArt;
         nameText.text = card.cardName;
         cardType = card.type;
@@ -84,7 +84,7 @@ public class CardFunction : MonoBehaviour
         playRequirement.Invoke();
         //Debug.Log(PlayerResourceManager.instance.CheckDrawBar(drawCost));
 
-        canBePlayed = (canBePlayed&& PlayerResourceManager.instance.CheckDrawBar(drawCost)&&PlayerResourceManager.instance.CheckAttackBar(attackCost));
+        canBePlayed = (canBePlayed&& Services.resourceManager.CheckDrawBar(drawCost)&&Services.resourceManager.CheckAttackBar(attackCost));
         return (canBePlayed);
     }
 
@@ -120,7 +120,7 @@ public class CardFunction : MonoBehaviour
         }
         else
         {
-            playerActionManager.AddToDiscardPile(this);
+            Services.actionManager.AddToDiscardPile(this);
             //add back to the discard pile
         }
     }
@@ -142,7 +142,7 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (playerActionManager.InHand(this))
+        if (Services.actionManager.InHand(this))
         {
         backgroundRenderer.material.color = mouseOverColor;
         }
@@ -156,7 +156,7 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (playerActionManager.InHand(this))
+        if (Services.actionManager.InHand(this))
         {
             PlayerActionManager.currentDragCard = this;
         }
@@ -170,7 +170,7 @@ public class CardFunction : MonoBehaviour
         {
             if (Draggedout())
             {
-                playerActionManager.PlayCard(this);
+                Services.actionManager.PlayCard(this);
             }
         PlayerActionManager.currentDragCard = null;
         }
@@ -179,7 +179,7 @@ public class CardFunction : MonoBehaviour
 
     private bool Draggedout()
     {
-        BoxCollider2D a = playerActionManager.handArea;
+        BoxCollider2D a = Services.actionManager.handArea;
         
         if (transform.position.x <= a.transform.position.x + a.bounds.size.x/2 && transform.position.x >= a.transform.position.x - a.bounds.size.x/2
             && transform.position.y <= a.transform.position.y + a.bounds.size.y/2 && transform.position.y >= a.transform.position.y - a.bounds.size.y/2)
