@@ -65,14 +65,15 @@ public class PlayerStatsManager : MonoBehaviour
         Services.eventManager.Fire(new PlayerTakeDamageEvent(damage));
         if (currentArmor < damage && currentArmor > 0)
         {
-            LoseArmor(currentArmor);
             LoseHp(damage - currentArmor);
+            LoseArmor(currentArmor);
+            
         }
         else if(currentArmor >= damage)
         {
             LoseArmor(damage);
         }
-        else if(currentArmor <= 0)
+        else if(currentArmor == 0)
         {
             LoseHp(damage);
         }

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Hide Process
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Gain Conceal, Exhaust  Randomly discard a card from your
-    hand
+  cardEffectDiscription: Gain Conceal, Exhaust  (Unfinished effect)
   type: 1
-  Class: 0
+  Class: 1
+  Company: 0
   attackBarCost: 10
   drawBarCost: 0

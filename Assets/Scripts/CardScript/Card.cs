@@ -10,7 +10,7 @@ public class Card : ScriptableObject
 
     public enum CardType {Attack, Instant, Power};
     public enum CardClass { testing , Evasion, Vanilla, Basic};
-    public enum CardCompany {NoCompany, CompanyA};
+    public enum CardCompany {BasicSoftware, CompanyA,QuietDefender};
     [Header("Type and Class")]
     public CardType type;
     public CardClass Class;

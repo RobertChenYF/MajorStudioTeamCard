@@ -118,7 +118,7 @@ public class CardFunction : MonoBehaviour
         {
             used.Invoke();
         }
-        else
+        else if(used.GetPersistentEventCount() == 0)
         {
             Services.actionManager.AddToDiscardPile(this);
             //add back to the discard pile
@@ -166,7 +166,7 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (PlayerActionManager.currentDragCard = this)
+        if (PlayerActionManager.currentDragCard == this && Services.actionManager.InHand(this))
         {
             if (Draggedout())
             {
