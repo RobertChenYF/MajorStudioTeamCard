@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: End Task
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Deal 6 Damage on attack
+  cardEffectDiscription: Deal 5 Damage on attack
   type: 0
   Class: 3
   Company: 0
-  attackBarCost: 5
+  attackBarCost: 15
   drawBarCost: 0

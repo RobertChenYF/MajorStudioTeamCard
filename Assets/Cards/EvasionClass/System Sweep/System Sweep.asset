@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: System Sweep
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Gain one instant and attack 0 cost cards that apply 3 burn
+  cardEffectDiscription: Gain one instant and attack 0 cost cards that apply 2 burn
   type: 1
   Class: 1
-  Company: 0
-  attackBarCost: 10
-  drawBarCost: 0
+  Company: 2
+  attackBarCost: 0
+  drawBarCost: 15

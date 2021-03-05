@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Backup Files
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Gain 6 Armor Instantly
+  cardEffectDiscription: Gain 8 Armor Instantly
   type: 1
   Class: 3
   Company: 0
-  attackBarCost: 5
-  drawBarCost: 0
+  attackBarCost: 0
+  drawBarCost: 15

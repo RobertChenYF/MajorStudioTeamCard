@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Zip Bomb
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 12 Burn, Exhaust
+  cardEffectDiscription: 5 Burn, Exhaust
   type: 0
-  Class: 2
-  Company: 0
-  attackBarCost: 10
+  Class: 1
+  Company: 2
+  attackBarCost: 20
   drawBarCost: 0

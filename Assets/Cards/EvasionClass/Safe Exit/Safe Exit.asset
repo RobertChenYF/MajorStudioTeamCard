@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Safe Exit
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Can be only played as the last card in hand, empty attack
-    field, Gain Conceal
+  cardEffectDiscription: Can be only played as the last card in hand with an empty
+    attack field, Gain Conceal
   type: 1
   Class: 1
-  Company: 0
-  attackBarCost: 10
-  drawBarCost: 0
+  Company: 2
+  attackBarCost: 0
+  drawBarCost: 1

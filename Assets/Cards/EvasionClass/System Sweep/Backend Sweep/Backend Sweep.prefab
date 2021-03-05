@@ -1,16 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &252798653039847707
+--- !u!1001 &8821714423716708090
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1166135421098041057, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_text
+      value: QuietDefender
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943618274232856789, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943618274412166112, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943618274412166112, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943618274727954024, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: card
       value: 
-      objectReference: {fileID: 11400000, guid: a048cee15db403a4faa84a46574c8b54, type: 2}
+      objectReference: {fileID: 11400000, guid: 84a0167616707f0499dba1dcfe34cdb7, type: 2}
     - target: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: used.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -58,14 +78,14 @@ PrefabInstance:
     - target: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: used.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1836062977833255704}
+      objectReference: {fileID: 6959213723601769721}
     - target: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CardEffect, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 12
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: used.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -77,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540228, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_Name
-      value: Zip Bomb
+      value: Backend Sweep
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540230, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_RootOrder
@@ -85,15 +105,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540230, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.67
+      value: -20.33199
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540230, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.761587
+      value: -3.6100435
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540230, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.4
+      value: -3.2152233
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540230, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_LocalRotation.w
@@ -123,12 +143,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1943618274824644235, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_text
+      value: Backend Sweep
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943618275033335825, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_text
+      value: 2 Burn and Exhaust
+      objectReference: {fileID: 0}
+    - target: {fileID: 8498384332395365238, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
---- !u!114 &1836062977833255704 stripped
+--- !u!114 &6959213723601769721 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
-  m_PrefabInstance: {fileID: 252798653039847707}
+  m_PrefabInstance: {fileID: 8821714423716708090}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

@@ -20,4 +20,15 @@ public class CardPlayRequirement : MonoBehaviour
         }
 
     }
+
+    public void zz_NoCardInAttackField(CardFunction card)
+    {
+        if (checkCurrentCanPlay(card.GetComponent<CardFunction>()))
+        {
+            if (Services.actionManager.AttackField.Count > 0)
+            {
+                card.GetComponent<CardFunction>().canBePlayed = false;
+            }
+        }
+    }
 }

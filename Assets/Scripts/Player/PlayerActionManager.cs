@@ -29,6 +29,10 @@ public class PlayerActionManager : MonoBehaviour
 
     [Header("UI button")]
     [SerializeField]private Button attackButton;
+
+    [Header("Basic action cost")]
+    [SerializeField] private float reDrawActionCost;
+    [SerializeField] private float attackActionCost;
     // Start is called before the first frame update
     void Start()
     {
@@ -114,9 +118,9 @@ public class PlayerActionManager : MonoBehaviour
 
     public void ReDraw()
     {
-        if (Services.resourceManager.CheckDrawBar(10))
+        if (Services.resourceManager.CheckDrawBar(reDrawActionCost))
         {
-            Services.resourceManager.ConsumeDrawBar(10);
+            Services.resourceManager.ConsumeDrawBar(reDrawActionCost);
             while (PlayerHand.Count > 0)
             {
                 MoveFromHandToDiscardPile(PlayerHand[0]);
@@ -241,9 +245,9 @@ public class PlayerActionManager : MonoBehaviour
     }
     public void StartAttack()
     {
-        if (Services.resourceManager.CheckAttackBar(20))
+        if (Services.resourceManager.CheckAttackBar(attackActionCost))
         {
-            Services.resourceManager.ConsumeAttackBar(20);
+            Services.resourceManager.ConsumeAttackBar(attackActionCost);
             Services.combatManager.PauseTimeCycle();
             attackButton.interactable = false;
             StartCoroutine(AttackCoroutine());
@@ -258,7 +262,6 @@ public class PlayerActionManager : MonoBehaviour
             CardFunction card = AttackField[0];
             card.TriggerEffect();
             AttackField.RemoveAt(0);
-            AddToDiscardPile(card);
             yield return new WaitForSeconds(1.0f);
         }
         
