@@ -15,6 +15,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private PlayerActionManager actionManager;
     [SerializeField] private PlayerStatsManager statsManager;
     [SerializeField] private PlayerResourceManager resourceManager;
+    [SerializeField] private PlayerBuffManager buffManager;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class CombatManager : MonoBehaviour
         Services.actionManager = actionManager;
         Services.resourceManager = resourceManager;
         Services.statsManager = statsManager;
+        Services.playerBuffManager = buffManager;
 
     }
 
@@ -77,4 +79,5 @@ public static class Services
     public static CombatManager combatManager;
     public static EventManager eventManager;
     public static PlayerActionManager actionManager;
+    public static PlayerBuffManager playerBuffManager;
 }

@@ -9,7 +9,7 @@ public class PlayerActionManager : MonoBehaviour
 {
     
     [SerializeField]private Enemy tempTestEnemy;
-
+    [HideInInspector]public Enemy currentTargetEnemy;
     public static CardFunction currentDragCard;
     public List<CardFunction> DrawDeck;
     public List<CardFunction> PlayerHand;
@@ -24,6 +24,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private Transform drawDeck;
     [SerializeField] private Transform hand;
     [SerializeField] private Transform attackField;
+    [SerializeField] private Transform generateCardPos;
     public BoxCollider2D handArea;
 
     [Header("UI button")]
@@ -35,9 +36,9 @@ public class PlayerActionManager : MonoBehaviour
         PlayerHand = new List<CardFunction>();
         DiscardPile = new List<CardFunction>();
         AttackField = new List<CardFunction>();
-        
+
         //DrawDeck = new List<CardFunction>();
-        
+        currentTargetEnemy = tempTestEnemy;
         TempStart();
         DrawMutipleCard(5);
     }
@@ -130,19 +131,19 @@ public class PlayerActionManager : MonoBehaviour
 
         PlayerHand.Remove(card);
         DiscardPile.Add(card);
-        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 50));
     }
 
     public void AddToDiscardPile(CardFunction card)
     {
         DiscardPile.Add(card);
-        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 50));
     }
 
     public void AddToExhaustPile(CardFunction card)
     {
         ExhaustPile.Add(card);
-        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 50));
     }
 
     public void DrawPileRefillCard()
@@ -163,6 +164,7 @@ public class PlayerActionManager : MonoBehaviour
             card.transform.position = drawDeck.position;
             card.gameObject.SetActive(true);
         }
+        Shuffle(DrawDeck);
     }
 
     public void UpdateCardInHandPos()
@@ -261,10 +263,33 @@ public class PlayerActionManager : MonoBehaviour
         }
         
         Debug.Log("end attack");
-        tempTestEnemy.TakeDamage(Services.statsManager.GetCurrentAttackDmg());
+        currentTargetEnemy.TakeDamage(Services.statsManager.GetCurrentAttackDmg());
         Services.combatManager.ContinueTimeCycle();
         Services.statsManager.LoseAllTempAttack();
         attackButton.interactable = true;
         yield return null;
+    }
+
+    public void AddToHand(CardFunction card)
+    {
+        if (PlayerHand.Count <= playerHandMaxSize - 1)
+        {
+            PlayerHand.Add(card);
+        }
+        else
+        {
+            AddToDiscardPile(card);
+        }
+    }
+
+    public void GenerateCardAddToHand(GameObject card)
+    {
+        GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
+        AddToHand(newCard.GetComponent<CardFunction>());
+    }
+    public void GenerateCardAddToDiscardPile(GameObject card)
+    {
+        GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
+        AddToDiscardPile(newCard.GetComponent<CardFunction>());
     }
 }

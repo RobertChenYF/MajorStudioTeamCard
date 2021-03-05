@@ -16,6 +16,7 @@ public class CardDisplayManager : MonoBehaviour
     private TextMeshPro AttackCostText;
     private TextMeshPro DrawCostText;
     private TextMeshPro effectDiscriptionText;
+    private TextMeshPro CompanyNameText;
 
     // Start is called before the first frame update
     void Awake()
@@ -28,6 +29,7 @@ public class CardDisplayManager : MonoBehaviour
         AttackCostText = transform.Find("AttackCost").GetComponent<TextMeshPro>();
         DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
         effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
+        CompanyNameText = transform.Find("CardCompanyDisplay").GetComponent<TextMeshPro>();
     }
 
     void Start()
@@ -52,5 +54,6 @@ public class CardDisplayManager : MonoBehaviour
         AttackCostText.text = attackCost.ToString();
         DrawCostText.text = drawCost.ToString();
         effectDiscriptionText.text = card.cardEffectDiscription;
+        CompanyNameText.text = card.Company.ToString();
     }
 }
