@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class PlayerStatsManager : MonoBehaviour
 {
-    
-    [SerializeField]private float maxHp;
-    private float currentHp;
-    [SerializeField]private float startAttackDmg;
-    [SerializeField]private float defaultArmorDepletion;
 
+    [SerializeField] private float maxHp;
+    private float currentHp;
+    [SerializeField] private float startAttackDmg;
+    [SerializeField] private float defaultArmorDepletion;
+    [HideInInspector] public UnityEvent TakeDamageEvent;
+    [HideInInspector] public float currentDamageAmount;
     private float currentAttackDmg;
     private float buffedAttackDmg;
     private float currentArmor;
+    
     [SerializeField] private TextMeshPro playerStatsText;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
         currentHp = maxHp;
         currentAttackDmg = startAttackDmg;
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(LoseArmorAtCycleEnd);
@@ -30,7 +33,7 @@ public class PlayerStatsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void LoseArmorAtCycleEnd(AGPEvent e)
@@ -42,11 +45,24 @@ public class PlayerStatsManager : MonoBehaviour
     void TempUpdateDisplayStat()
     {
         //temporary will replace with visual UI
-        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nArmor: " + currentArmor.ToString() + "\nAttack: " + currentAttackDmg.ToString(); 
+        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nArmor: " + currentArmor.ToString() + "\nAttack: " + currentAttackDmg.ToString();
+    }
+
+    public class PlayerTakeDamageEvent: AGPEvent{
+
+        public PlayerTakeDamageEvent(float amount1)
+        {
+
+        }
     }
 
     public void TakeDamage(float damage)
     {
+        currentDamageAmount = damage;
+        TakeDamageEvent.Invoke();
+        if (currentDamageAmount > 0)
+        {
+        Services.eventManager.Fire(new PlayerTakeDamageEvent(damage));
         if (currentArmor < damage && currentArmor > 0)
         {
             LoseArmor(currentArmor);
@@ -61,6 +77,9 @@ public class PlayerStatsManager : MonoBehaviour
             LoseHp(damage);
         }
         TempUpdateDisplayStat();
+        }
+
+
         
     }
     public class GainArmorEvent : AGPEvent
@@ -75,9 +94,10 @@ public class PlayerStatsManager : MonoBehaviour
     {
         if (value > 0)
         {
+        
+        Services.eventManager.Fire(new GainArmorEvent(value));
         currentArmor += value;
         TempUpdateDisplayStat();
-            Services.eventManager.Fire(new GainArmorEvent(value));
         }
         
     }

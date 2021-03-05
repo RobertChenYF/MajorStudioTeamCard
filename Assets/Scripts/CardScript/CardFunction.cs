@@ -37,12 +37,12 @@ public class CardFunction : MonoBehaviour
 
     [Header ("what happen to the card after it is used, leave it empty as default")]
     [SerializeField] protected UnityEvent used;
-    
 
+    [HideInInspector]public GameObject linkedCardPrefab;
     // Start is called before the first frame update
     void Start()
     {
-
+        linkedCardPrefab = gameObject;
         MakeCard();
         UpdateCostDisplay();
         instanceId = GetInstanceID();
