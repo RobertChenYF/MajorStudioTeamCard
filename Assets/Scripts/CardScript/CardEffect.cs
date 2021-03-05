@@ -39,7 +39,7 @@ public class CardEffect : MonoBehaviour
         Services.actionManager.DrawMutipleCard(amount);
     }
 
-    public void zz_Take_Damege(float amount)
+    public void zz_Take_Damage(float amount)
     {
         Services.statsManager.TakeDamage(amount);
     }
