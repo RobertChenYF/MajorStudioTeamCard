@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
-  m_Name: Safe Exit
+  m_Name: System Sweep
   m_EditorClassIdentifier: 
-  cardName: Safe Exit
+  cardName: System Sweep
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Can be only played as the last card in hand, empty attack
-    field, Gain Conceal
+  cardEffectDiscription: Gain one instant and attack 0 cost cards that apply 3 burn
   type: 1
   Class: 1
   Company: 0
