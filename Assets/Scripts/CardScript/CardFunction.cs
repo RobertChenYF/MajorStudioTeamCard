@@ -22,10 +22,12 @@ public class CardFunction : MonoBehaviour
     private SpriteRenderer backgroundRenderer;
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
-    protected PlayerActionManager playerActionManager;
-    private float distance;
-    private bool dragging = false;
+    
+ 
+    [HideInInspector]public bool canBePlayed;
 
+    [Header("requirement fot the card to get played")]
+    [SerializeField] protected UnityEvent playRequirement;
 
     [Header("effects happen when card play, leave it empty as default")]
     [SerializeField] protected UnityEvent played;
@@ -35,12 +37,12 @@ public class CardFunction : MonoBehaviour
 
     [Header ("what happen to the card after it is used, leave it empty as default")]
     [SerializeField] protected UnityEvent used;
-    
 
+    [HideInInspector]public GameObject linkedCardPrefab;
     // Start is called before the first frame update
     void Start()
     {
-
+        linkedCardPrefab = gameObject;
         MakeCard();
         UpdateCostDisplay();
         instanceId = GetInstanceID();
@@ -60,7 +62,7 @@ public class CardFunction : MonoBehaviour
         DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
         effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
         backgroundRenderer = transform.Find("cardBackground").GetComponent<SpriteRenderer>();
-        playerActionManager = GameObject.Find("Player").GetComponent<PlayerActionManager>();
+        
         splashArt.sprite = card.cardSplashArt;
         nameText.text = card.cardName;
         cardType = card.type;
@@ -74,6 +76,16 @@ public class CardFunction : MonoBehaviour
     {
         AttackCostText.text = attackCost.ToString();
         DrawCostText.text = drawCost.ToString();
+    }
+
+    public virtual bool CanPlay()
+    {
+        canBePlayed = true;
+        playRequirement.Invoke();
+        //Debug.Log(PlayerResourceManager.instance.CheckDrawBar(drawCost));
+
+        canBePlayed = (canBePlayed&& Services.resourceManager.CheckDrawBar(drawCost)&&Services.resourceManager.CheckAttackBar(attackCost));
+        return (canBePlayed);
     }
 
     public virtual void Played()
@@ -106,9 +118,9 @@ public class CardFunction : MonoBehaviour
         {
             used.Invoke();
         }
-        else
+        else if(used.GetPersistentEventCount() == 0)
         {
-            playerActionManager.AddToDiscardPile(this);
+            Services.actionManager.AddToDiscardPile(this);
             //add back to the discard pile
         }
     }
@@ -130,7 +142,7 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (playerActionManager.InHand(this))
+        if (Services.actionManager.InHand(this))
         {
         backgroundRenderer.material.color = mouseOverColor;
         }
@@ -144,7 +156,7 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (playerActionManager.InHand(this))
+        if (Services.actionManager.InHand(this))
         {
             PlayerActionManager.currentDragCard = this;
         }
@@ -154,11 +166,11 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (PlayerActionManager.currentDragCard = this)
+        if (PlayerActionManager.currentDragCard == this && Services.actionManager.InHand(this))
         {
             if (Draggedout())
             {
-                playerActionManager.PlayCard(this);
+                Services.actionManager.PlayCard(this);
             }
         PlayerActionManager.currentDragCard = null;
         }
@@ -167,12 +179,13 @@ public class CardFunction : MonoBehaviour
 
     private bool Draggedout()
     {
-        BoxCollider2D a = playerActionManager.handArea;
+        BoxCollider2D a = Services.actionManager.handArea;
         
-        if (!a.bounds.Contains(transform.position))
+        if (transform.position.x <= a.transform.position.x + a.bounds.size.x/2 && transform.position.x >= a.transform.position.x - a.bounds.size.x/2
+            && transform.position.y <= a.transform.position.y + a.bounds.size.y/2 && transform.position.y >= a.transform.position.y - a.bounds.size.y/2)
         {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

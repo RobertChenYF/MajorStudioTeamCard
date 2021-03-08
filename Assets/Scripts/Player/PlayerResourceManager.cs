@@ -6,8 +6,10 @@ using TMPro;
 
 public class PlayerResourceManager : MonoBehaviour
 {
+    
     [SerializeField] private float defaultMaxBar;
     [SerializeField] private float defaultStartBarValue;
+    
     private float attackBarMaxIncrement;
     private float drawBarMaxIncrement;
     private float currentAttackBarValue;
@@ -28,11 +30,14 @@ public class PlayerResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         currentAttackBarFillAmount = defaultAttackBarFillAmount + attackBarFillAmountIncrement;
         currentDrawBarFillAmount = defaultDrawBarFillAmount + drawBarFillAmountIncrement;
 
         currentAttackBarValue = defaultStartBarValue;
         currentDrawBarValue = defaultStartBarValue;
+
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(TimeCycleEndRefillResourceBar);
     }
 
     // Update is called once per frame
@@ -41,7 +46,9 @@ public class PlayerResourceManager : MonoBehaviour
         UpdateResourceBarDisplay();
     }
 
-    public void TimeCycleEnd()
+
+
+    public void TimeCycleEndRefillResourceBar(AGPEvent e)
     {
         currentAttackBarValue += currentAttackBarFillAmount;
         currentAttackBarValue = Mathf.Min(defaultMaxBar + attackBarMaxIncrement, currentAttackBarValue);

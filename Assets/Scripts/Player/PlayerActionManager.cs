@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class PlayerActionManager : MonoBehaviour
 {
-
-    private PlayerResourceManager resourceManager;
+    
+    [SerializeField]private Enemy tempTestEnemy;
+    [HideInInspector]public Enemy currentTargetEnemy;
     public static CardFunction currentDragCard;
     public List<CardFunction> DrawDeck;
     public List<CardFunction> PlayerHand;
     public List<CardFunction> DiscardPile;
     public List<CardFunction> AttackField;
+    public List<CardFunction> ExhaustPile;
 
     [SerializeField] private int playerHandMaxSize;
 
@@ -21,15 +24,25 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private Transform drawDeck;
     [SerializeField] private Transform hand;
     [SerializeField] private Transform attackField;
+    [SerializeField] private Transform generateCardPos;
     public BoxCollider2D handArea;
+
+    [Header("UI button")]
+    [SerializeField]private Button attackButton;
+
+    [Header("Basic action cost")]
+    [SerializeField] private float reDrawActionCost;
+    [SerializeField] private float attackActionCost;
     // Start is called before the first frame update
     void Start()
     {
-        resourceManager = GetComponent<PlayerResourceManager>();
-        //DrawDeck = new List<CardFunction>();
+       
         PlayerHand = new List<CardFunction>();
         DiscardPile = new List<CardFunction>();
         AttackField = new List<CardFunction>();
+
+        //DrawDeck = new List<CardFunction>();
+        currentTargetEnemy = tempTestEnemy;
         TempStart();
         DrawMutipleCard(5);
     }
@@ -45,10 +58,10 @@ public class PlayerActionManager : MonoBehaviour
 
     public void PlayCard(CardFunction card)
     {
-        if (resourceManager.CheckAttackBar(card.GetAttackCost()) && resourceManager.CheckDrawBar(card.GetDrawCost()))
+        if (card.CanPlay())
         {
-            resourceManager.ConsumeDrawBar(card.GetDrawCost());
-            resourceManager.ConsumeAttackBar(card.GetAttackCost());
+            Services.resourceManager.ConsumeDrawBar(card.GetDrawCost());
+            Services.resourceManager.ConsumeAttackBar(card.GetAttackCost());
             card.Played();
             PlayerHand.Remove(card);
         }
@@ -92,7 +105,7 @@ public class PlayerActionManager : MonoBehaviour
     IEnumerator DrawOneCoroutine(int times)
     {
         DrawCard();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.0f);
 
         if (times > 1)
         {
@@ -105,9 +118,9 @@ public class PlayerActionManager : MonoBehaviour
 
     public void ReDraw()
     {
-        if (resourceManager.CheckDrawBar(10))
+        if (Services.resourceManager.CheckDrawBar(reDrawActionCost))
         {
-            resourceManager.ConsumeDrawBar(10);
+            Services.resourceManager.ConsumeDrawBar(reDrawActionCost);
             while (PlayerHand.Count > 0)
             {
                 MoveFromHandToDiscardPile(PlayerHand[0]);
@@ -122,14 +135,21 @@ public class PlayerActionManager : MonoBehaviour
 
         PlayerHand.Remove(card);
         DiscardPile.Add(card);
-        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 50));
     }
 
     public void AddToDiscardPile(CardFunction card)
     {
         DiscardPile.Add(card);
-        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 30));
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 50));
     }
+
+    public void AddToExhaustPile(CardFunction card)
+    {
+        ExhaustPile.Add(card);
+        StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 50));
+    }
+
     public void DrawPileRefillCard()
     {
         Shuffle(DiscardPile);
@@ -148,6 +168,7 @@ public class PlayerActionManager : MonoBehaviour
             card.transform.position = drawDeck.position;
             card.gameObject.SetActive(true);
         }
+        Shuffle(DrawDeck);
     }
 
     public void UpdateCardInHandPos()
@@ -221,5 +242,57 @@ public class PlayerActionManager : MonoBehaviour
     public bool InHand(CardFunction card)
     {
         return PlayerHand.Contains(card);
+    }
+    public void StartAttack()
+    {
+        if (Services.resourceManager.CheckAttackBar(attackActionCost))
+        {
+            Services.resourceManager.ConsumeAttackBar(attackActionCost);
+            Services.combatManager.PauseTimeCycle();
+            attackButton.interactable = false;
+            StartCoroutine(AttackCoroutine());
+            
+        }
+        Debug.Log("attack");
+    }
+    IEnumerator AttackCoroutine()
+    {
+        while (AttackField.Count != 0)
+        {
+            CardFunction card = AttackField[0];
+            card.TriggerEffect();
+            AttackField.RemoveAt(0);
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        Debug.Log("end attack");
+        currentTargetEnemy.TakeDamage(Services.statsManager.GetCurrentAttackDmg());
+        Services.combatManager.ContinueTimeCycle();
+        Services.statsManager.LoseAllTempAttack();
+        attackButton.interactable = true;
+        yield return null;
+    }
+
+    public void AddToHand(CardFunction card)
+    {
+        if (PlayerHand.Count <= playerHandMaxSize - 1)
+        {
+            PlayerHand.Add(card);
+        }
+        else
+        {
+            AddToDiscardPile(card);
+        }
+    }
+
+    public void GenerateCardAddToHand(GameObject card)
+    {
+        GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
+        AddToHand(newCard.GetComponent<CardFunction>());
+    }
+    public void GenerateCardAddToDiscardPile(GameObject card)
+    {
+        GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
+        AddToDiscardPile(newCard.GetComponent<CardFunction>());
     }
 }

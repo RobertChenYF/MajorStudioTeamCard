@@ -6,6 +6,6 @@ public class AttackCardFunction : CardFunction
 {
     public override void AfterPlayed()
     {
-        playerActionManager.AddToAttackField(this);
+        Services.actionManager.AddToAttackField(this);
     }
 }
