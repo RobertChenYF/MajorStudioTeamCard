@@ -9,8 +9,8 @@ public class Card : ScriptableObject
     public string cardEffectDiscription;
 
     public enum CardType {Attack, Instant, Power};
-    public enum CardClass { testing , Evasion, Vanilla, Basic};
-    public enum CardCompany {BasicSoftware, CompanyA,QuietDefender};
+    public enum CardClass { testing , Evasion, Vanilla, Basic, Support};
+    public enum CardCompany {BasicSoftware, CompanyA,QuietDefender,Snorton};
     [Header("Type and Class")]
     public CardType type;
     public CardClass Class;

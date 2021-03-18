@@ -144,6 +144,12 @@ public class PlayerActionManager : MonoBehaviour
         StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 50));
     }
 
+    public void AddToDrawPile(CardFunction card)
+    {
+        DiscardPile.Add(card);
+        //StartCoroutine(MoveFromTo(card.transform, card.transform.position, drawPile.position, 50)); should cards move towards the draw position or just instantly be there?
+    }
+
     public void AddToExhaustPile(CardFunction card)
     {
         ExhaustPile.Add(card);
@@ -294,5 +300,11 @@ public class PlayerActionManager : MonoBehaviour
     {
         GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
         AddToDiscardPile(newCard.GetComponent<CardFunction>());
+    }
+
+    public void GenerateCardAddToDrawPile(GameObject card)
+    {
+        GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
+        AddToDrawPile(newCard.GetComponent<CardFunction>());
     }
 }
