@@ -31,4 +31,26 @@ public class CardPlayRequirement : MonoBehaviour
             }
         }
     }
+
+    public void zz_TechnicianCost(int cost)
+    {
+        //if (checkCurrentCanPlay(card.GetComponent<CardFunction>()))
+        //{
+        //    if (count of technician buff < 0)
+        //    {
+        //        card.GetComponent<CardFunction>().canBePlayed = false;
+        //    }
+        //}
+    }
+
+    public void zz_ManagerCost(int cost)
+    {
+        //if (checkCurrentCanPlay(card.GetComponent<CardFunction>()))
+        //{
+        //    if (count of manager buff < 0)
+        //    {
+        //        card.GetComponent<CardFunction>().canBePlayed = false;
+        //    }
+        //}
+    }
 }
