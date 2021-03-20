@@ -84,7 +84,11 @@ public class Enemy: MonoBehaviour
     
     public virtual void Die()
     {
-
+        if (Services.actionManager.currentTargetEnemy == this)
+        {
+            Services.actionManager.currentTargetEnemy = null;
+        }
+        Destroy(gameObject);
     }
 
     public void GainNewBuff(EnemyBuff newBuff, int stack)
@@ -196,6 +200,16 @@ public class Enemy: MonoBehaviour
     protected void UpdateCycleDisplay()
     {
         enemyNextMoveDisplay.text = "after " + currentChargeCycleTimer + " cycle\n" + nextMoveString;
+    }
+
+    public void OnMouseDown()
+    {
+        if (!Services.actionManager.attacking)
+        {
+        Services.actionManager.currentTargetEnemy = this;
+        Debug.Log("change target enemy to" + name);
+        }
+        
     }
 }
 

@@ -18,6 +18,21 @@ public class EnemyBuff : Buff
         thisEnemy.UpdateBuffDisplay();
     }
 }
+
+public class BodyPart : EnemyBuff
+{
+    public BodyPart()
+    {
+        buffDescription = "when this die deal 20 damage to the main body";
+
+    }
+
+    public override void ActivateBuff()
+    {
+        base.ActivateBuff();
+        //Services.eventManager.Register<>
+    }
+}
 public class Burn : EnemyBuff
 {
     

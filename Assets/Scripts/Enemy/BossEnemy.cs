@@ -12,7 +12,8 @@ public class BossEnemy : Enemy
     }
     public override void Die()
     {
-        base.Die();
         //end current battle
+        base.Die();
+        
     }
 }

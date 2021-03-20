@@ -15,7 +15,11 @@ public class CardEffect : MonoBehaviour
 
     public void zz_Deal_Damage(int amount)
     {
-        Services.actionManager.currentTargetEnemy.TakeDamage(amount);
+        if (Services.actionManager.currentTargetEnemy != null)
+        {
+            Services.actionManager.currentTargetEnemy.TakeDamage(amount);
+        }
+        
     }
 
     public void zz_Effect_GainArmor(int value)
@@ -56,12 +60,17 @@ public class CardEffect : MonoBehaviour
 
     public void zz_Gain_Evasion(int stack)
     {
+        
         Services.playerBuffManager.GainNewBuff(new Evasion(),stack);
     }
 
     public void zz_Give_Enemy_Burn(int stack)
     {
-        Services.actionManager.currentTargetEnemy.GainNewBuff(new Burn(), stack);
+        if (Services.actionManager.currentTargetEnemy != null)
+        {
+            Services.actionManager.currentTargetEnemy.GainNewBuff(new Burn(), stack);
+        }
+        
     }
 
     public void zz_Gain_Technician(int stack)

@@ -35,6 +35,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private float attackActionCost;
 
     private bool canPlayCard;
+    [HideInInspector]public bool attacking;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +48,7 @@ public class PlayerActionManager : MonoBehaviour
         currentTargetEnemy = tempTestEnemy;
         TempStart();
         DrawMutipleCard(5);
+        attacking = false;
     }
 
     // Update is called once per frame
@@ -260,9 +262,11 @@ public class PlayerActionManager : MonoBehaviour
     {
         if (Services.resourceManager.CheckAttackBar(attackActionCost))
         {
+
             Services.resourceManager.ConsumeAttackBar(attackActionCost);
             Services.combatManager.PauseTimeCycle();
             attackButton.interactable = false;
+            attacking = true;
             StartCoroutine(AttackCoroutine());
             
         }
@@ -282,8 +286,10 @@ public class PlayerActionManager : MonoBehaviour
         Debug.Log("end attack");
         //currentTargetEnemy.TakeDamage(Services.statsManager.GetCurrentAttackDmg());
         Services.combatManager.ContinueTimeCycle();
+        attacking = false;
         //Services.statsManager.LoseAllTempAttack();
         attackButton.interactable = true;
+        UpdateCardCanPlay();
         yield return null;
     }
 
