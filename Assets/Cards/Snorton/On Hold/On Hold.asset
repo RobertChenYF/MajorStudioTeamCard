@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
   m_Name: On Hold
   m_EditorClassIdentifier: 
-  cardName: 
+  cardName: On Hold
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 
-  type: 0
-  Class: 0
-  Company: 0
+  cardEffectDiscription: Spend 1 Technician to gain 7 Armor, the "On Hold" buff and
+    a hang up card.
+  type: 1
+  Class: 4
+  Company: 3
   attackBarCost: 0
   drawBarCost: 0
