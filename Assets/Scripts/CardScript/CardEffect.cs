@@ -5,13 +5,18 @@ using UnityEngine;
 public class CardEffect : MonoBehaviour
 {
 
-
+    /*
     public void zz_Effect_AddAttack(int value)
     {
         
         Services.statsManager.GainTempAttack(value);
     }
+    */
 
+    public void zz_Deal_Damage(int amount)
+    {
+        Services.actionManager.currentTargetEnemy.TakeDamage(amount);
+    }
 
     public void zz_Effect_GainArmor(int value)
     {

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2550338652985386161
+--- !u!1001 &7087067674747684334
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,42 +10,62 @@ PrefabInstance:
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: card
       value: 
-      objectReference: {fileID: 11400000, guid: d1ec80b97e9b2594f8691251fdf2f8b0, type: 2}
+      objectReference: {fileID: 11400000, guid: 22fade66cc58da940890ab838385b878, type: 2}
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
-      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.size
+      propertyPath: playRequirement.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
-      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      propertyPath: playRequirement.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: playRequirement.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1529838691095955485, guid: 156935c9e08d74f4ab38106a9b06ef44, type: 3}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: playRequirement.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
-      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: playRequirement.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: zz_ManagerCost
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: playRequirement.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardPlayRequirement, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: playRequirement.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: playRequirement.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923554005924728535, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930978997696065, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1673668038964395508, guid: e526880eed29123439d52c41a1049003, type: 3}
-    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
-      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
-      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: zz_Generate_Card_To_DrawPile
+    - target: {fileID: 5159930978997696065, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
-      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CardEffect, Assembly-CSharp
+    - target: {fileID: 5159930979244113268, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
-      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 3895233133546127434, guid: 379241ad376d0264a92b4c6c6662be17, type: 3}
-    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
-      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+    - target: {fileID: 5159930979390516010, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: Defensive Uplink
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144293, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_Name
-      value: Email Technician's Friend
+      value: Defensive Uplink
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_RootOrder
@@ -53,15 +73,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.064892
+      value: -10.157151
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.798719
+      value: -9.001125
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.010023
+      value: -2.833456
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalRotation.w
@@ -90,6 +110,19 @@ PrefabInstance:
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979517351344, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: Use a manager. Any damage you take this cycle is delayed to 4 cycles
+        away.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979756116937, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8460891544835006450, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: BasicSoftware
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}

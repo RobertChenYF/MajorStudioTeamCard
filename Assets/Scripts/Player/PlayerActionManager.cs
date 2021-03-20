@@ -33,6 +33,8 @@ public class PlayerActionManager : MonoBehaviour
     [Header("Basic action cost")]
     [SerializeField] private float reDrawActionCost;
     [SerializeField] private float attackActionCost;
+
+    private bool canPlayCard;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +66,7 @@ public class PlayerActionManager : MonoBehaviour
             Services.resourceManager.ConsumeAttackBar(card.GetAttackCost());
             card.Played();
             PlayerHand.Remove(card);
+            UpdateCardCanPlay();
         }
 
     }
@@ -85,10 +88,13 @@ public class PlayerActionManager : MonoBehaviour
         {
             DrawDeck[0].transform.position = drawDeck.position;
             PlayerHand.Add(DrawDeck[0]);
+            DrawDeck[0].gameObject.GetComponent<SortingGroup>().sortingOrder = PlayerHand.IndexOf(DrawDeck[0]);
             //DrawDeck[0].TriggerEffect();
             DrawDeck.RemoveAt(0);
             //trigger add to hand animation;
             Debug.Log("draw a card");
+
+            Services.actionManager.UpdateCardCanPlay();
             return true;
         }
         else
@@ -184,7 +190,7 @@ public class PlayerActionManager : MonoBehaviour
             if (currentDragCard != card)
             {
                 Vector3 target = hand.position + PlayerHand.IndexOf(card) * new Vector3(1, 0, 0);
-                card.gameObject.GetComponent<SortingGroup>().sortingOrder = PlayerHand.IndexOf(card);
+                
                 card.transform.position = Vector3.MoveTowards(card.transform.position, target, Time.deltaTime * Mathf.Max(Vector3.Distance(card.transform.position, target) * 2, 5));
             }
 
@@ -205,6 +211,7 @@ public class PlayerActionManager : MonoBehaviour
     {
         if (currentDragCard != null)
         {
+            currentDragCard.BringUpOrderInLayer();
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 rayPoint = ray.GetPoint(Vector3.Distance(currentDragCard.gameObject.transform.position, Camera.main.transform.position));
             currentDragCard.gameObject.transform.position = rayPoint;
@@ -245,9 +252,9 @@ public class PlayerActionManager : MonoBehaviour
         AttackField.Add(card);
     }
 
-    public bool InHand(CardFunction card)
+    public int InHand(CardFunction card)
     {
-        return PlayerHand.Contains(card);
+        return PlayerHand.IndexOf(card);
     }
     public void StartAttack()
     {
@@ -259,6 +266,7 @@ public class PlayerActionManager : MonoBehaviour
             StartCoroutine(AttackCoroutine());
             
         }
+        UpdateCardCanPlay();
         Debug.Log("attack");
     }
     IEnumerator AttackCoroutine()
@@ -272,9 +280,9 @@ public class PlayerActionManager : MonoBehaviour
         }
         
         Debug.Log("end attack");
-        currentTargetEnemy.TakeDamage(Services.statsManager.GetCurrentAttackDmg());
+        //currentTargetEnemy.TakeDamage(Services.statsManager.GetCurrentAttackDmg());
         Services.combatManager.ContinueTimeCycle();
-        Services.statsManager.LoseAllTempAttack();
+        //Services.statsManager.LoseAllTempAttack();
         attackButton.interactable = true;
         yield return null;
     }
@@ -284,6 +292,7 @@ public class PlayerActionManager : MonoBehaviour
         if (PlayerHand.Count <= playerHandMaxSize - 1)
         {
             PlayerHand.Add(card);
+            card.gameObject.GetComponent<SortingGroup>().sortingOrder = PlayerHand.IndexOf(card);
         }
         else
         {
@@ -306,5 +315,13 @@ public class PlayerActionManager : MonoBehaviour
     {
         GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
         AddToDrawPile(newCard.GetComponent<CardFunction>());
+    }
+
+   public void UpdateCardCanPlay()
+    {
+        foreach (CardFunction card in PlayerHand)
+        {
+            card.CanPlay();
+        }
     }
 }

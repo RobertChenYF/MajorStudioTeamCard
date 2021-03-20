@@ -2,18 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using System;
 
 public class Enemy: MonoBehaviour
 {
-    protected float maxHp;
+    [SerializeField]protected float maxHp;
+    [SerializeField]protected Image healthBarFill;
+    [SerializeField] protected GameObject armorIconDisplay;
+    [SerializeField] protected TextMeshPro armorAmountDisplay;
+    [SerializeField] private GameObject buffDisplayPrefab;
     protected float currentHp;
     protected float currentArmor;
     [SerializeField]protected TextMeshPro enemyHpText;
-    public TextMeshPro enemyBuffText;
+    public Transform enemyBuffPos;
     [SerializeField] private TextMeshPro enemyNextMoveDisplay;
     private string nextMoveString;
     public List<EnemyBuff> enemyBuffList;
+    public List<BuffHoverDisplay> BuffDisplayList;
     public List<EnemyMoveset> moveSet;
 
     private EnemyMoveset currentChargeMove;
@@ -21,41 +27,65 @@ public class Enemy: MonoBehaviour
     public virtual void Start()
     {
         enemyBuffList = new List<EnemyBuff>();
-        TempUpdateDisplayStat();
+        BuffDisplayList = new List<BuffHoverDisplay>();
+        currentHp = maxHp;
+        UpdateDisplayStat();
         StartAmove();
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(CycleChargeReduce);
         // currentHp = maxHp;
     }
     public virtual void Update()
     {
+        /*
         enemyBuffText.text = "";
         foreach (EnemyBuff a in enemyBuffList)
         {
             enemyBuffText.text += a.tempString();
         }
+        */
     }
-
+    public void UpdateBuffDisplay()
+    {
+        foreach (BuffHoverDisplay display in BuffDisplayList)
+        {
+            Destroy(display.gameObject);
+        }
+        BuffDisplayList.Clear();
+        foreach (EnemyBuff a in enemyBuffList)
+        {
+            GameObject newBuff = Instantiate(buffDisplayPrefab,enemyBuffPos.transform.position,Quaternion.identity,enemyBuffPos);
+            newBuff.GetComponent<BuffHoverDisplay>().thisBuff = a;
+            newBuff.GetComponent<BuffHoverDisplay>().MakeBuff();
+            newBuff.GetComponent<BuffHoverDisplay>().UpdateCount(a.getStack());
+            BuffDisplayList.Add(newBuff.GetComponent<BuffHoverDisplay>());
+        }
+    }
 
     public void TakeDamage(float damage)
     {
         if (currentArmor >= damage)
         {
-            currentArmor -= damage;
+            LoseArmor(damage);
         }
         else
         {
             int a = (int)currentArmor - Mathf.FloorToInt(damage);
-            currentArmor = 0;
+            LoseArmor(damage);
             currentHp += a;
         }
 
-        TempUpdateDisplayStat();
+        UpdateDisplayStat();
         if (currentHp <= 0)
         {
+            Die();
             Debug.Log("enemy died");
         }
     }
     
+    public virtual void Die()
+    {
+
+    }
 
     public void GainNewBuff(EnemyBuff newBuff, int stack)
     {
@@ -65,11 +95,13 @@ public class Enemy: MonoBehaviour
             enemyBuffList.Add(newBuff);
             newBuff.GainStack(stack - 1);
             newBuff.ActivateBuff();
+            UpdateBuffDisplay();
             
         }
         else
         {
             enemyBuffList[CheckBuff(newBuff)].GainStack(stack);
+            UpdateBuffDisplay();
         }
 
     }
@@ -77,6 +109,7 @@ public class Enemy: MonoBehaviour
     {
         enemyBuffList.Remove(buff);
         buff.DeactivateBuff();
+        UpdateBuffDisplay();
     }
 
     public int CheckBuff(EnemyBuff a)
@@ -96,15 +129,25 @@ public class Enemy: MonoBehaviour
         {
 
             currentArmor += value;
-            TempUpdateDisplayStat();
+            UpdateDisplayStat();
         }
 
     }
 
-    private void TempUpdateDisplayStat()
+    private void UpdateDisplayStat()
     {
-        enemyHpText.text = "Enemy Hp: " + currentHp.ToString();
-        enemyHpText.text += currentArmor > 0 ? "\nArmor: " + currentArmor : "";
+        enemyHpText.text =  currentHp.ToString()+"/" + maxHp.ToString();
+        healthBarFill.fillAmount = currentHp / maxHp;
+        if (currentArmor>0)
+        {
+            armorIconDisplay.SetActive(true);
+            armorAmountDisplay.text = currentArmor.ToString();
+        }
+        else
+        {
+            armorIconDisplay.SetActive(false);
+        }
+        //enemyHpText.text += currentArmor > 0 ? "\nArmor: " + currentArmor : "";
     }
 
     private void CycleChargeReduce(AGPEvent e)
@@ -117,6 +160,7 @@ public class Enemy: MonoBehaviour
             NextMove();
         }
         UpdateCycleDisplay();
+        
     }
 
     protected void StartAmove()
@@ -134,7 +178,7 @@ public class Enemy: MonoBehaviour
     {
         currentArmor -= dmg;
         currentArmor = Mathf.Max(0, currentArmor);
-        TempUpdateDisplayStat();
+        UpdateDisplayStat();
     }
     protected void NextMove()
     {
@@ -155,37 +199,4 @@ public class Enemy: MonoBehaviour
     }
 }
 
-public class EnemyBuff : Buff
-{
-    public Enemy thisEnemy;
-    public override void TriggerEffect()
-    {
-        base.TriggerEffect();
-        if (stack == 0)
-        {
-            this.DeactivateBuff();
-            thisEnemy.enemyBuffList.Remove(this);
-        }
-    }
-}
 
-public class Burn : EnemyBuff
-{
-    public override void ActivateBuff()
-    {
-
-        Services.eventManager.Register<CombatManager.TimeCycleEnd>(TriggerEffect);
-    }
-
-    public void TriggerEffect(AGPEvent e)
-    {
-        thisEnemy.TakeDamage(stack);
-        stack--;
-        base.TriggerEffect();
-    }
-
-    public override void DeactivateBuff()
-    {
-        Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(TriggerEffect);
-    }
-}
