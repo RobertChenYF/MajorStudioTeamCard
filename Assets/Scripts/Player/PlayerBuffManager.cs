@@ -171,5 +171,49 @@ public class Evasion : PlayerBuff
     {
         Services.statsManager.TakeDamageEvent.RemoveListener(TriggerEffect);
     }
+
+
+}
+
+public class Technician : PlayerBuff
+{
+    public void TriggerEffect(AGPEvent e)
+    {
+        Services.statsManager.GainArmor(2 * stack);
+        base.TriggerEffect();
+    }
+
+    public override void ActivateBuff()
+    {
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(TriggerEffect);
+        base.ActivateBuff();
+    }
+
+    public void DeactivateBuff(AGPEvent e)
+    {
+        Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(TriggerEffect);
+        base.DeactivateBuff();
+    }
+}
+
+public class Manager : PlayerBuff
+{
+    public void TriggerEffect(AGPEvent e)
+    {
+        //Services.statsManager.GainArmor(2 * stack);
+        base.TriggerEffect();
+    }
+
+    public override void ActivateBuff()
+    {
+        //Services.eventManager.Register<CombatManager.TimeCycleEnd>(TriggerEffect);
+        base.ActivateBuff();
+    }
+
+    public void DeactivateBuff(AGPEvent e)
+    {
+        //Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(TriggerEffect);
+        base.DeactivateBuff();
+    }
 }
 

@@ -75,12 +75,12 @@ public class CardEffect : MonoBehaviour
 
     public void zz_Gain_Technician(int stack)
     {
-        //Services.playerBuffManager.GainNewBuff(new Technician(), stack);
+        Services.playerBuffManager.GainNewBuff(new Technician(), stack);
     }
 
     public void zz_Gain_Manager(int stack)
     {
-        //Services.playerBuffManager.GainNewBuff(new Technician(), stack);
+        Services.playerBuffManager.GainNewBuff(new Manager(), stack);
     }
 
     public void zz_On_Hold_Scenario(int stack)
