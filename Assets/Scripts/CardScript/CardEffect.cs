@@ -5,13 +5,22 @@ using UnityEngine;
 public class CardEffect : MonoBehaviour
 {
 
-
+    /*
     public void zz_Effect_AddAttack(int value)
     {
         
         Services.statsManager.GainTempAttack(value);
     }
+    */
 
+    public void zz_Deal_Damage(int amount)
+    {
+        if (Services.actionManager.currentTargetEnemy != null)
+        {
+            Services.actionManager.currentTargetEnemy.TakeDamage(amount);
+        }
+        
+    }
 
     public void zz_Effect_GainArmor(int value)
     {
@@ -34,6 +43,11 @@ public class CardEffect : MonoBehaviour
         Services.actionManager.GenerateCardAddToDiscardPile(card);
     }
 
+    public void zz_Generate_Card_To_DrawPile(GameObject card)
+    {
+        Services.actionManager.GenerateCardAddToDrawPile(card);
+    }
+
     public void zz_Draw_Cards(int amount)
     {
         Services.actionManager.DrawMutipleCard(amount);
@@ -46,11 +60,31 @@ public class CardEffect : MonoBehaviour
 
     public void zz_Gain_Evasion(int stack)
     {
+        
         Services.playerBuffManager.GainNewBuff(new Evasion(),stack);
     }
 
     public void zz_Give_Enemy_Burn(int stack)
     {
-        Services.actionManager.currentTargetEnemy.GainNewBuff(new Burn(), stack);
+        if (Services.actionManager.currentTargetEnemy != null)
+        {
+            Services.actionManager.currentTargetEnemy.GainNewBuff(new Burn(), stack);
+        }
+        
+    }
+
+    public void zz_Gain_Technician(int stack)
+    {
+        Services.playerBuffManager.GainNewBuff(new Technician(), stack);
+    }
+
+    public void zz_Gain_Manager(int stack)
+    {
+        Services.playerBuffManager.GainNewBuff(new Manager(), stack);
+    }
+
+    public void zz_On_Hold_Scenario(int stack)
+    {
+        //Services.playerBuffManager.GainNewBuff(new Hold_Scenario(), stack);
     }
 }

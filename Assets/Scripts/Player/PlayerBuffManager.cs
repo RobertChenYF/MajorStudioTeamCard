@@ -6,21 +6,28 @@ using TMPro;
 public class PlayerBuffManager : MonoBehaviour
 {
     public List<PlayerBuff> currentPlayerBuff;
-    public TextMeshPro playerBuffTextDisplay;
+    public List<BuffHoverDisplay> buffDisplay;
+    [SerializeField]private GameObject buffDisplayPrefab;
+    public Transform playerBuffDisplay;
+    public Sprite EvasionBuffIcon;
+    public Sprite BurnBuffIcon;
+    public Sprite PlaceHolderBuffIcon;
+    
     // Start is called before the first frame update
     void Start()
     {
         currentPlayerBuff = new List<PlayerBuff>();
+        buffDisplay = new List<BuffHoverDisplay>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentPlayerBuff.Count);
-        playerBuffTextDisplay.text = "";
+        
+        //playerBuffTextDisplay.text = "";
         foreach (PlayerBuff a in currentPlayerBuff)
         {
-            playerBuffTextDisplay.text += a.tempString();
+           // playerBuffTextDisplay.text += a.tempString();
         }
     }
 
@@ -31,10 +38,12 @@ public class PlayerBuffManager : MonoBehaviour
         currentPlayerBuff.Add(newBuff);
         newBuff.ActivateBuff();
         newBuff.GainStack(stack - 1);
+            UpdateBuffDisplay();
         }
         else
         {
             currentPlayerBuff[CheckBuff(newBuff)].GainStack(stack);
+            UpdateBuffDisplay();
         }
         
     }
@@ -42,6 +51,7 @@ public class PlayerBuffManager : MonoBehaviour
     {
         currentPlayerBuff.Remove(buff);
         buff.DeactivateBuff();
+        UpdateBuffDisplay();
     }
 
     public int CheckBuff(PlayerBuff a)
@@ -55,13 +65,43 @@ public class PlayerBuffManager : MonoBehaviour
         }
         return -1;
     }
+
+    public void UpdateBuffDisplay()
+    {
+        foreach (BuffHoverDisplay display in buffDisplay)
+        {
+            Destroy(display.gameObject);
+        }
+        buffDisplay.Clear();
+        foreach (PlayerBuff a in currentPlayerBuff)
+        {
+            GameObject newBuff = Instantiate(buffDisplayPrefab,playerBuffDisplay.transform.position,Quaternion.identity,playerBuffDisplay);
+            newBuff.GetComponent<BuffHoverDisplay>().thisBuff = a;
+            newBuff.GetComponent<BuffHoverDisplay>().MakeBuff();
+            newBuff.GetComponent<BuffHoverDisplay>().UpdateCount(a.getStack());
+            buffDisplay.Add(newBuff.GetComponent<BuffHoverDisplay>());
+        }
+    }
 }
 
-abstract public class Buff{
+ public class Buff{
 
-    protected Sprite buffIcon;
+    protected Sprite buffIcon = Services.playerBuffManager.PlaceHolderBuffIcon;
+    public Sprite getBuffIcon()
+    {
+        return buffIcon;
+    }
     protected int stack = 1;
+    public int getStack()
+    {
+        return stack;
+    }
     protected string buffName;
+    [SerializeField]protected string buffDescription;
+    public string getBuffDescription()
+    {
+        return buffDescription;
+    }
     public string tempString()
     {
         return this.ToString() + " stack: " + stack.ToString() + "\n";
@@ -106,7 +146,13 @@ public class GainAttackWhenGainArmor : PlayerBuff
 
 public class Evasion : PlayerBuff
 {
-    
+   
+    public Evasion(){
+
+        buffIcon = Services.playerBuffManager.EvasionBuffIcon;
+        buffDescription = "the next time you take damage take 0 damage and lose a stack of this";
+
+    }
     public override void ActivateBuff()
     {
         Services.statsManager.TakeDamageEvent.AddListener(TriggerEffect);
@@ -124,6 +170,50 @@ public class Evasion : PlayerBuff
     public override void DeactivateBuff()
     {
         Services.statsManager.TakeDamageEvent.RemoveListener(TriggerEffect);
+    }
+
+
+}
+
+public class Technician : PlayerBuff
+{
+    public void TriggerEffect(AGPEvent e)
+    {
+        Services.statsManager.GainArmor(2 * stack);
+        base.TriggerEffect();
+    }
+
+    public override void ActivateBuff()
+    {
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(TriggerEffect);
+        base.ActivateBuff();
+    }
+
+    public void DeactivateBuff(AGPEvent e)
+    {
+        Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(TriggerEffect);
+        base.DeactivateBuff();
+    }
+}
+
+public class Manager : PlayerBuff
+{
+    public void TriggerEffect(AGPEvent e)
+    {
+        //Services.statsManager.GainArmor(2 * stack);
+        base.TriggerEffect();
+    }
+
+    public override void ActivateBuff()
+    {
+        //Services.eventManager.Register<CombatManager.TimeCycleEnd>(TriggerEffect);
+        base.ActivateBuff();
+    }
+
+    public void DeactivateBuff(AGPEvent e)
+    {
+        //Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(TriggerEffect);
+        base.DeactivateBuff();
     }
 }
 

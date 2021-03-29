@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 9e1d816f99c54f449bc475d5cfc505c6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - burnIcon: {fileID: -3793983075282649097, guid: 74f10a4c43580b64fadc4ebe4a7f91d0, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
