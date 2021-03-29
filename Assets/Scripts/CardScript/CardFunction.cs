@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class CardFunction : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class CardFunction : MonoBehaviour
     private TextMeshPro AttackCostText;
     private TextMeshPro DrawCostText;
     private TextMeshPro effectDiscriptionText;
+    private Material mainCardMat;
     private SpriteRenderer backgroundRenderer;
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
@@ -40,6 +42,7 @@ public class CardFunction : MonoBehaviour
 
     [HideInInspector]public GameObject linkedCardPrefab;
     // Start is called before the first frame update
+
     void Start()
     {
         linkedCardPrefab = gameObject;
@@ -62,8 +65,18 @@ public class CardFunction : MonoBehaviour
         DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
         effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
         backgroundRenderer = transform.Find("cardBackground").GetComponent<SpriteRenderer>();
+        mainCardMat = backgroundRenderer.material;
+
+        if (card.cardSplashArt != null)
+        {
+            splashArt.sprite = card.cardSplashArt;
+
+        }
+        else
+        {
+            splashArt.sprite = null;
+        }
         
-        splashArt.sprite = card.cardSplashArt;
         nameText.text = card.cardName;
         cardType = card.type;
         gameObject.name = card.cardName;
@@ -84,7 +97,14 @@ public class CardFunction : MonoBehaviour
         playRequirement.Invoke();
         //Debug.Log(PlayerResourceManager.instance.CheckDrawBar(drawCost));
 
-        canBePlayed = (canBePlayed&& Services.resourceManager.CheckDrawBar(drawCost)&&Services.resourceManager.CheckAttackBar(attackCost));
+        canBePlayed = (canBePlayed&&Services.actionManager.PlayerHand.Contains(this)&& Services.resourceManager.CheckDrawBar(drawCost)&&Services.resourceManager.CheckAttackBar(attackCost));
+
+
+        if (mainCardMat!=null)
+        {
+            mainCardMat.SetFloat("_OutlineEnabled", canBePlayed ? 1 : 0);
+        }
+        
         return (canBePlayed);
     }
 
@@ -142,22 +162,26 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (Services.actionManager.InHand(this))
+        if (Services.actionManager.InHand(this) != -1)
         {
-        backgroundRenderer.material.color = mouseOverColor;
+            
+            BringUpOrderInLayer();
         }
         
     }
 
     void OnMouseExit()
     {
-        backgroundRenderer.material.color = originalColor;
+        //backgroundRenderer.material.color = originalColor;
+        UpdateInHandLayerOrder();
     }
 
     void OnMouseDown()
     {
-        if (Services.actionManager.InHand(this))
+        if (Services.actionManager.InHand(this) != -1)
         {
+            backgroundRenderer.material.color = mouseOverColor;
+            BringUpOrderInLayer();
             PlayerActionManager.currentDragCard = this;
         }
         
@@ -166,17 +190,32 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (PlayerActionManager.currentDragCard == this && Services.actionManager.InHand(this))
+        backgroundRenderer.material.color = originalColor;
+        if (PlayerActionManager.currentDragCard == this && Services.actionManager.InHand(this) != -1)
         {
             if (Draggedout())
             {
+                
                 Services.actionManager.PlayCard(this);
+                CanPlay();
             }
+
+            UpdateInHandLayerOrder();
         PlayerActionManager.currentDragCard = null;
         }
         
     }
+    public void UpdateInHandLayerOrder()
+    {
+        GetComponent<SortingGroup>().sortingOrder = Services.actionManager.PlayerHand.IndexOf(this);
+        transform.localScale = new Vector3(1,1,1);
+    }
 
+    public void BringUpOrderInLayer()
+    {
+        GetComponent<SortingGroup>().sortingOrder = 11;
+        transform.localScale = new Vector3(1.1f, 1.1f, 1);
+    }
     private bool Draggedout()
     {
         BoxCollider2D a = Services.actionManager.handArea;

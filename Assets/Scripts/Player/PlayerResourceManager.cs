@@ -6,15 +6,15 @@ using TMPro;
 
 public class PlayerResourceManager : MonoBehaviour
 {
-    
+
     [SerializeField] private float defaultMaxBar;
     [SerializeField] private float defaultStartBarValue;
-    
+
     private float attackBarMaxIncrement;
     private float drawBarMaxIncrement;
     private float currentAttackBarValue;
     private float currentDrawBarValue;
-    [SerializeField]private float defaultAttackBarFillAmount;
+    [SerializeField] private float defaultAttackBarFillAmount;
     [SerializeField] private float defaultDrawBarFillAmount;
     private float attackBarFillAmountIncrement = 0;
     private float drawBarFillAmountIncrement = 0;
@@ -30,7 +30,7 @@ public class PlayerResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         currentAttackBarFillAmount = defaultAttackBarFillAmount + attackBarFillAmountIncrement;
         currentDrawBarFillAmount = defaultDrawBarFillAmount + drawBarFillAmountIncrement;
 
@@ -50,10 +50,22 @@ public class PlayerResourceManager : MonoBehaviour
 
     public void TimeCycleEndRefillResourceBar(AGPEvent e)
     {
-        currentAttackBarValue += currentAttackBarFillAmount;
+        GainAttackBar(currentAttackBarFillAmount);
+        GainDrawBar(currentDrawBarFillAmount);
+    }
+
+    public void GainAttackBar(float amount)
+    {
+        currentAttackBarValue += amount;
         currentAttackBarValue = Mathf.Min(defaultMaxBar + attackBarMaxIncrement, currentAttackBarValue);
-        currentDrawBarValue += currentDrawBarFillAmount;
+        Services.actionManager.UpdateCardCanPlay();
+    }
+
+    public void GainDrawBar(float amount)
+    {
+        currentDrawBarValue += amount;
         currentDrawBarValue = Mathf.Min(defaultMaxBar + drawBarMaxIncrement, currentDrawBarValue);
+        Services.actionManager.UpdateCardCanPlay();
     }
 
     public void UpdateResourceBarDisplay()
@@ -85,9 +97,11 @@ public class PlayerResourceManager : MonoBehaviour
     public void ConsumeDrawBar(float value)
     {
         currentDrawBarValue -= value;
+        Services.actionManager.UpdateCardCanPlay();
     }
     public void ConsumeAttackBar(float value)
     {
         currentAttackBarValue -= value;
+        Services.actionManager.UpdateCardCanPlay();
     }
 }
