@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public enum StateType
+    private enum StateType
     {
         MAINMENU,      //Main menu state
         STAGING,      //When the player is in the staging area between encounters. Here is where the player picks their deck or picks the next encounter.
@@ -13,14 +13,18 @@ public class GameManager : MonoBehaviour
         UNKNOWN,      //A catch all state
     }
 
+    public float PlayerHealth;
+    public int gameScore;
+    public List<int> PlayerDeck;
+
     StateType currentState;
 
-    bool playGame = false;
 
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
         currentState = StateType.MAINMENU;
+        PlayerHealth = 100;
     }
 
     void Update()
