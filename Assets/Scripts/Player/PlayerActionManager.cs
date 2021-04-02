@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerActionManager : MonoBehaviour
 {
-    
+    private GameObject Manager;
     [SerializeField]private Enemy tempTestEnemy;
     [HideInInspector]public Enemy currentTargetEnemy;
     public static CardFunction currentDragCard;
@@ -39,7 +39,8 @@ public class PlayerActionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        Manager = GameObject.FindWithTag("GameManager");
+        DrawDeck = Manager.GetComponent<GameManager>().GlobalPlayerHand;
         PlayerHand = new List<CardFunction>();
         DiscardPile = new List<CardFunction>();
         AttackField = new List<CardFunction>();
