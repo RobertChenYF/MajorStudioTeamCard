@@ -8,7 +8,7 @@ public class CombatManager : MonoBehaviour
     [Header("Time Circle")]
     [SerializeField] private Image timeCycleDisplay;
     [SerializeField] private float timeCircleDuration;
-    private float CycleSpeed = 1;
+    private float CycleSpeed = .5f;
     private float CycleTimer = 0;
 
     [Header("Manager Script")]
