@@ -3703,11 +3703,11 @@ PrefabInstance:
       objectReference: {fileID: 1460574320}
     - target: {fileID: 846327452558398876, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: defaultDrawBarFillAmount
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 846327452558398876, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: defaultAttackBarFillAmount
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 846327452558398877, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: m_Name
@@ -6640,7 +6640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8148955265708025541, guid: ae0d866e01758b047a6e5b63292d3b07, type: 3}
       propertyPath: m_Name
-      value: Scan and Burn
+      value: Scan and Ban
       objectReference: {fileID: 0}
     - target: {fileID: 8148955265708025543, guid: ae0d866e01758b047a6e5b63292d3b07, type: 3}
       propertyPath: m_RootOrder
@@ -6812,6 +6812,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4645767902076701899, guid: d8fbcce1a465ef74092d66648e23bb0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4657978304084568595, guid: d8fbcce1a465ef74092d66648e23bb0a, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -6886,6 +6890,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4341621735643065458, guid: f93954a2bead6bf49b62cc22b71f52d7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6001544534589768960, guid: f93954a2bead6bf49b62cc22b71f52d7, type: 3}
       propertyPath: m_Name
       value: Spam Clicker
@@ -7451,6 +7459,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 295957712}
     m_Modifications:
+    - target: {fileID: 633824299764322292, guid: 0bb5354138f0ed248b11463e2a540db2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7476686578568472196, guid: 0bb5354138f0ed248b11463e2a540db2, type: 3}
       propertyPath: m_RootOrder
       value: 10

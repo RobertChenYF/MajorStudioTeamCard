@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_Name
-      value: Overclocker
+      value: Overclocker Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_IsActive

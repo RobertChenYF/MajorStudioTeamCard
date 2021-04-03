@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_text
       value: give the target 6 <b>burn</b>
       objectReference: {fileID: 0}
+    - target: {fileID: 4964918464951362413, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8498384332395365238, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_Enabled
       value: 1
