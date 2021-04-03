@@ -22,6 +22,8 @@ public class CardFunction : MonoBehaviour
     private TextMeshPro effectDiscriptionText;
     private Material mainCardMat;
     private SpriteRenderer backgroundRenderer;
+    private SpriteRenderer highlightborder;
+    private SpriteRenderer clickhighlightborder;
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
     
@@ -49,6 +51,7 @@ public class CardFunction : MonoBehaviour
         MakeCard();
         UpdateCostDisplay();
         instanceId = GetInstanceID();
+        clickhighlightborder.enabled = false;
     }
 
     // Update is called once per frame
@@ -66,6 +69,8 @@ public class CardFunction : MonoBehaviour
         effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
         backgroundRenderer = transform.Find("cardBackground").GetComponent<SpriteRenderer>();
         mainCardMat = backgroundRenderer.material;
+        highlightborder = transform.Find("highlight").GetComponent<SpriteRenderer>();
+        clickhighlightborder = transform.Find("click highlight").GetComponent<SpriteRenderer>();
 
         if (card.cardSplashArt != null)
         {
@@ -100,9 +105,10 @@ public class CardFunction : MonoBehaviour
         canBePlayed = (canBePlayed&&Services.actionManager.PlayerHand.Contains(this)&& Services.resourceManager.CheckDrawBar(drawCost)&&Services.resourceManager.CheckAttackBar(attackCost));
 
 
-        if (mainCardMat!=null)
+        if (highlightborder != null)
         {
-            mainCardMat.SetFloat("_OutlineEnabled", canBePlayed ? 1 : 0);
+            highlightborder.enabled = canBePlayed;
+           // mainCardMat.SetFloat("_OutlineEnabled", canBePlayed ? 1 : 0);
         }
         
         return (canBePlayed);
@@ -180,7 +186,8 @@ public class CardFunction : MonoBehaviour
     {
         if (Services.actionManager.InHand(this) != -1)
         {
-            backgroundRenderer.material.color = mouseOverColor;
+            clickhighlightborder.enabled = true;
+            //backgroundRenderer.material.color = mouseOverColor;
             BringUpOrderInLayer();
             PlayerActionManager.currentDragCard = this;
         }
@@ -190,7 +197,8 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseUp()
     {
-        backgroundRenderer.material.color = originalColor;
+        //backgroundRenderer.material.color = originalColor;
+        clickhighlightborder.enabled = false;
         if (PlayerActionManager.currentDragCard == this && Services.actionManager.InHand(this) != -1)
         {
             if (Draggedout())
