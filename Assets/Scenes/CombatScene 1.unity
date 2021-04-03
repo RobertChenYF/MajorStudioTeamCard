@@ -435,6 +435,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7813298946179961591, guid: c76af1e5c372b4c44a9a82f4d25371ea, type: 3}
+      propertyPath: CycleBeforeMove
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7813298947167944857, guid: c76af1e5c372b4c44a9a82f4d25371ea, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 1.983
@@ -559,8 +563,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.674, y: 2.0132}
-  m_SizeDelta: {x: -33.5432, y: -122.4659}
+  m_AnchoredPosition: {x: 0, y: 2.0132}
+  m_SizeDelta: {x: 0, y: -122.4659}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &190751234
 MonoBehaviour:
@@ -3686,6 +3690,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1204481415}
     - target: {fileID: 846327452558398876, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: defaultMaxBar
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 846327452558398876, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: drawBarDisplay
       value: 
       objectReference: {fileID: 1944730908}
@@ -6285,8 +6293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
-  CycleBeforeMove: 99999
-  damageAmount: 9
+  CycleBeforeMove: 5
+  damageAmount: 5
   armorAmount: 0
   specialMoveExplain: 
   moves: 00000000
