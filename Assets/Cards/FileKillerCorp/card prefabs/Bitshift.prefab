@@ -54,6 +54,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3414698555899741327, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: '<b>burn</b>: apply burn stack to the target, deal damage equal to the
+        total stack of burn on the target, target loses a stack every time cycle/n'
+      objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144293, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_Name
       value: Bitshift

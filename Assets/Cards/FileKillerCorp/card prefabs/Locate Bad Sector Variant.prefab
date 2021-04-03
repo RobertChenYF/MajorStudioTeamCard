@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540228, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_Name
-      value: Locate Bad Sector
+      value: Locate Bad Sector Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540228, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_IsActive

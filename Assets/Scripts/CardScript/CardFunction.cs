@@ -29,6 +29,7 @@ public class CardFunction : MonoBehaviour
     private SpriteRenderer backgroundRenderer;
     private SpriteRenderer highlightborder;
     private SpriteRenderer clickhighlightborder;
+    [HideInInspector]public GameObject keywordTextBox;
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
     private List<Card.Keywords> containedKeywords;
@@ -63,6 +64,8 @@ public class CardFunction : MonoBehaviour
         UpdateCostDisplay();
         instanceId = GetInstanceID();
         clickhighlightborder.enabled = false;
+        keywordTextBox.SetActive(false);
+        GetComponent<CardDisplayManager>().UpdateVisual();
     }
 
     // Update is called once per frame
@@ -82,6 +85,7 @@ public class CardFunction : MonoBehaviour
         mainCardMat = backgroundRenderer.material;
         highlightborder = transform.Find("highlight").GetComponent<SpriteRenderer>();
         clickhighlightborder = transform.Find("click highlight").GetComponent<SpriteRenderer>();
+        keywordTextBox = transform.Find("keywordText").gameObject;
 
         if (card.cardSplashArt != null)
         {
@@ -199,13 +203,20 @@ public class CardFunction : MonoBehaviour
             
             BringUpOrderInLayer();
         }
-        
+        if (containedKeywords.Count > 0)
+        {
+            keywordTextBox.SetActive(true);
+        }
     }
 
     void OnMouseExit()
     {
         //backgroundRenderer.material.color = originalColor;
         UpdateInHandLayerOrder();
+        if (containedKeywords.Count > 0)
+        {
+            keywordTextBox.SetActive(false);
+        }
     }
 
     void OnMouseDown()
