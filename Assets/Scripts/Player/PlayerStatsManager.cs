@@ -9,12 +9,12 @@ public class PlayerStatsManager : MonoBehaviour
 
     [SerializeField] private float maxHp;
     private float currentHp;
-    [SerializeField] private float startAttackDmg;
+    //[SerializeField] private float startAttackDmg;
     [SerializeField] private float defaultArmorDepletion;
     [HideInInspector] public UnityEvent TakeDamageEvent;
     [HideInInspector] public float currentDamageAmount;
-    private float currentAttackDmg;
-    private float buffedAttackDmg;
+    //private float currentAttackDmg;
+    //private float buffedAttackDmg;
     private float currentArmor;
     
     [SerializeField] private TextMeshPro playerStatsText;
@@ -25,7 +25,7 @@ public class PlayerStatsManager : MonoBehaviour
     {
 
         currentHp = maxHp;
-        currentAttackDmg = startAttackDmg;
+        //currentAttackDmg = startAttackDmg;
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(LoseArmorAtCycleEnd);
         TempUpdateDisplayStat();
     }
@@ -45,7 +45,7 @@ public class PlayerStatsManager : MonoBehaviour
     void TempUpdateDisplayStat()
     {
         //temporary will replace with visual UI
-        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nArmor: " + currentArmor.ToString() + "\nAttack: " + currentAttackDmg.ToString();
+        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nArmor: " + currentArmor.ToString();
     }
 
     public class PlayerTakeDamageEvent: AGPEvent{
@@ -124,7 +124,7 @@ public class PlayerStatsManager : MonoBehaviour
         currentHp += value;
         currentHp = Mathf.Min(maxHp,currentHp);
     }
-
+    /*
     public void GainTempAttack(float value)
     {
         buffedAttackDmg += value;
@@ -141,4 +141,5 @@ public class PlayerStatsManager : MonoBehaviour
     {
         return currentAttackDmg;
     }
+    */
 }
