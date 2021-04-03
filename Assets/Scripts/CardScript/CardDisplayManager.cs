@@ -17,6 +17,7 @@ public class CardDisplayManager : MonoBehaviour
     private TextMeshPro DrawCostText;
     private TextMeshPro effectDiscriptionText;
     private TextMeshPro CompanyNameText;
+    public static string[] companyFullName = {"Basic Software","","File Killer Corp.","","" };
 
     // Start is called before the first frame update
     void Awake()
@@ -54,6 +55,6 @@ public class CardDisplayManager : MonoBehaviour
         AttackCostText.text = attackCost.ToString();
         DrawCostText.text = drawCost.ToString();
         effectDiscriptionText.text = card.cardEffectDiscription;
-        CompanyNameText.text = card.Company.ToString();
+        CompanyNameText.text = companyFullName[(int)card.Company];
     }
 }

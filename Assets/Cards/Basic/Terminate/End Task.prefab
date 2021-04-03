@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1166135421098041057, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_text
-      value: BasicSoftware
+      value: Basic Software
       objectReference: {fileID: 0}
     - target: {fileID: 1943618273373081903, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -121,7 +121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1943618275033335825, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_text
-      value: Deal 5 Damage on attack
+      value: Deal 5 Damage
       objectReference: {fileID: 0}
     - target: {fileID: 8498384332395365238, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_Enabled

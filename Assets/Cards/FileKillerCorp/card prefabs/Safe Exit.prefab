@@ -7,6 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 551059670771092851, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: Can be only played as the last card in hand with an empty attack field,
+        Gain <b>harden</b>
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840536552134388129, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: File Killer Corp.
+      objectReference: {fileID: 0}
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: card
       value: 
@@ -180,9 +189,21 @@ PrefabInstance:
       propertyPath: m_text
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8002813558547356247, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8460891544835006450, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_text
       value: QuietDefender
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948571846180533411, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: Safe Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154191173799545038, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}

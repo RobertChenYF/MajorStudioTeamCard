@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerActionManager : MonoBehaviour
 {
@@ -11,11 +12,13 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField]private Enemy tempTestEnemy;
     [HideInInspector]public Enemy currentTargetEnemy;
     public static CardFunction currentDragCard;
+    public List<CardFunction> TempRunDeck;
     public List<CardFunction> DrawDeck;
+    public List<CardFunction> PriorityDeck;
     public List<CardFunction> PlayerHand;
     public List<CardFunction> DiscardPile;
     public List<CardFunction> AttackField;
-    public List<CardFunction> ExhaustPile;
+    public List<CardFunction> DeletePile;
 
     [SerializeField] private int playerHandMaxSize;
 
@@ -33,22 +36,35 @@ public class PlayerActionManager : MonoBehaviour
     [Header("Basic action cost")]
     [SerializeField] private float reDrawActionCost;
     [SerializeField] private float attackActionCost;
-
+    [SerializeField] private TextMeshProUGUI redrawButtonText;
+    [SerializeField] private TextMeshProUGUI attackButtonText;
+    private float currentRedrawCost;
+    private float currentAttackCost;
     private bool canPlayCard;
     [HideInInspector]public bool attacking;
     // Start is called before the first frame update
     void Start()
     {
-       
+        DrawDeck = new List<CardFunction>();
+        PriorityDeck = new List<CardFunction>();
         PlayerHand = new List<CardFunction>();
         DiscardPile = new List<CardFunction>();
         AttackField = new List<CardFunction>();
-
+        DeletePile = new List<CardFunction>();
         //DrawDeck = new List<CardFunction>();
         currentTargetEnemy = tempTestEnemy;
         TempStart();
+        //add all cards from the run deck to draw deck
+        foreach (CardFunction card in TempRunDeck)
+        {
+            AddToDrawPile(card);
+        }
         DrawMutipleCard(5);
         attacking = false;
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(UpdateBasicActionCost);
+        currentRedrawCost = reDrawActionCost;
+        currentAttackCost = attackActionCost;
+        UpdateBasicActionCostDisplay();
     }
 
     // Update is called once per frame
@@ -60,6 +76,20 @@ public class PlayerActionManager : MonoBehaviour
     }
 
 
+    private void UpdateBasicActionCost(AGPEvent e)
+    {
+        currentAttackCost -= 5;
+        currentRedrawCost -= 5;
+        currentRedrawCost = Mathf.Max(currentRedrawCost,0);
+        currentAttackCost = Mathf.Max(currentAttackCost, 0);
+        //update visual
+        UpdateBasicActionCostDisplay();
+    }
+    private void UpdateBasicActionCostDisplay()
+    {
+        attackButtonText.text = "Decompress cost " + currentAttackCost.ToString();
+        redrawButtonText.text = "Redraw cost " + currentRedrawCost.ToString();
+    }
     public void PlayCard(CardFunction card)
     {
         if (card.CanPlay())
@@ -68,12 +98,20 @@ public class PlayerActionManager : MonoBehaviour
             Services.resourceManager.ConsumeAttackBar(card.GetAttackCost());
             card.Played();
             PlayerHand.Remove(card);
+            Services.eventManager.Fire(new PlayerPlayCardEvent(card));
             UpdateCardCanPlay();
         }
 
     }
-
-    public bool DrawCard()
+    public class PlayerPlayCardEvent : AGPEvent
+    {
+        public CardFunction thisCard;
+        public PlayerPlayCardEvent(CardFunction card)
+        {
+            thisCard = card;
+        }
+    }
+    public CardFunction DrawCard()
     {
         if (DrawDeck.Count == 0 && DiscardPile.Count > 0)
         {
@@ -83,26 +121,33 @@ public class PlayerActionManager : MonoBehaviour
         {
             //no more card in the draw deck no more card in the discard pile
             Debug.Log("no more card in the draw deck no more card in the discard pile");
-            return false;
+            return null;
         }
 
         if (PlayerHand.Count <= playerHandMaxSize - 1)
         {
-            DrawDeck[0].transform.position = drawDeck.position;
-            PlayerHand.Add(DrawDeck[0]);
-            DrawDeck[0].gameObject.GetComponent<SortingGroup>().sortingOrder = PlayerHand.IndexOf(DrawDeck[0]);
+            int index = 0;
+            if (PriorityDeck.Count > 0)
+            {
+                index = DrawDeck.IndexOf(PriorityDeck[0]);
+                PriorityDeck.RemoveAt(0);
+            }
+            CardFunction temp = DrawDeck[index];
+            DrawDeck[index].transform.position = drawDeck.position;
+            PlayerHand.Add(DrawDeck[index]);
+            DrawDeck[index].gameObject.GetComponent<SortingGroup>().sortingOrder = PlayerHand.IndexOf(DrawDeck[index]);
             //DrawDeck[0].TriggerEffect();
-            DrawDeck.RemoveAt(0);
+            DrawDeck.RemoveAt(index);
             //trigger add to hand animation;
             Debug.Log("draw a card");
 
             Services.actionManager.UpdateCardCanPlay();
-            return true;
+            return temp;
         }
         else
         {
             Debug.Log("hand is full");
-            return false;
+            return null;
         }
     }
     public void DrawMutipleCard(int times)
@@ -133,10 +178,21 @@ public class PlayerActionManager : MonoBehaviour
             {
                 MoveFromHandToDiscardPile(PlayerHand[0]);
             }
+
             DrawMutipleCard(5);
+            Services.eventManager.Fire(new RedrawEvent());
         }
 
+        currentRedrawCost = reDrawActionCost;
+        UpdateBasicActionCostDisplay();
+    }
 
+    public class RedrawEvent : AGPEvent
+    {
+        public RedrawEvent()
+        {
+
+        }
     }
     public void MoveFromHandToDiscardPile(CardFunction card)
     {
@@ -154,13 +210,18 @@ public class PlayerActionManager : MonoBehaviour
 
     public void AddToDrawPile(CardFunction card)
     {
-        DiscardPile.Add(card);
+        if (card.getKeywords() != null && card.getKeywords().Contains(Card.Keywords.priority))
+        {
+            PriorityDeck.Add(card);
+        }
+        DrawDeck.Add(card);
+        card.gameObject.transform.position = drawDeck.position;
         //StartCoroutine(MoveFromTo(card.transform, card.transform.position, drawPile.position, 50)); should cards move towards the draw position or just instantly be there?
     }
 
     public void AddToExhaustPile(CardFunction card)
     {
-        ExhaustPile.Add(card);
+        DeletePile.Add(card);
         StartCoroutine(MoveFromTo(card.transform, card.transform.position, discardPile.position, 50));
     }
 
@@ -170,7 +231,7 @@ public class PlayerActionManager : MonoBehaviour
         foreach (CardFunction card in DiscardPile)
         {
             card.transform.position = drawDeck.position;
-            DrawDeck.Add(card);
+            AddToDrawPile(card);
         }
         DiscardPile.Clear();
     }
@@ -288,7 +349,10 @@ public class PlayerActionManager : MonoBehaviour
         Services.combatManager.ContinueTimeCycle();
         attacking = false;
         //Services.statsManager.LoseAllTempAttack();
+        currentAttackCost = attackActionCost;
+        UpdateBasicActionCostDisplay();
         attackButton.interactable = true;
+
         UpdateCardCanPlay();
         yield return null;
     }
@@ -321,6 +385,7 @@ public class PlayerActionManager : MonoBehaviour
     {
         GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
         AddToDrawPile(newCard.GetComponent<CardFunction>());
+        Shuffle(DrawDeck);
     }
 
    public void UpdateCardCanPlay()

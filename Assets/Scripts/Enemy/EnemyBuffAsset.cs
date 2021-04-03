@@ -38,7 +38,7 @@ public class Burn : EnemyBuff
     
     public Burn()
     {
-        buffDescription = "At the end of cycle, the target loses "+ "X" + " HP and 1 stack of burn.";
+        buffDescription = "Everytime new burn apply, take damage equal to the total stack of burn, lose a stack every time cycle";
         buffIcon = Services.playerBuffManager.BurnBuffIcon;
     }
     public override void ActivateBuff()
@@ -46,10 +46,13 @@ public class Burn : EnemyBuff
 
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(TriggerEffect);
     }
-
-    public void TriggerEffect(AGPEvent e)
+    public void TakeDamage()
     {
         thisEnemy.TakeDamage(stack);
+    }
+    public void TriggerEffect(AGPEvent e)
+    {
+        
         stack--;
         base.TriggerEffect();
     }

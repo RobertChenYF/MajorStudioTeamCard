@@ -14,6 +14,11 @@ public class CardFunction : MonoBehaviour
     public Card card;
     private float attackCost;
     private float drawCost;
+    private Card.CardCompany company;
+    public Card.CardCompany getCompany()
+    {
+        return company;
+    }
     private Card.CardType cardType;
     private SpriteRenderer splashArt;
     private TextMeshPro nameText;
@@ -26,8 +31,14 @@ public class CardFunction : MonoBehaviour
     private SpriteRenderer clickhighlightborder;
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
-    
- 
+    private List<Card.Keywords> containedKeywords;
+
+    public List<Card.Keywords> getKeywords()
+    {
+        return containedKeywords;
+        
+    }
+
     [HideInInspector]public bool canBePlayed;
 
     [Header("requirement fot the card to get played")]
@@ -81,13 +92,15 @@ public class CardFunction : MonoBehaviour
         {
             splashArt.sprite = null;
         }
-        
+        containedKeywords = new List<Card.Keywords>();
         nameText.text = card.cardName;
         cardType = card.type;
         gameObject.name = card.cardName;
         attackCost = card.attackBarCost;
         drawCost = card.drawBarCost;
+        company = card.Company;
         effectDiscriptionText.text = card.cardEffectDiscription;
+        containedKeywords = card.containedKeywords;
     }
 
     private void UpdateCostDisplay()
@@ -135,9 +148,22 @@ public class CardFunction : MonoBehaviour
     public virtual void TriggerEffect()
     {
         triggered.Invoke();
+        Services.eventManager.Fire(new CardTriggerEvent(this));
         AfterTriggered();
     }
 
+    public virtual void JustTriggerEffect()
+    {
+        triggered.Invoke();
+    }
+    public class CardTriggerEvent : AGPEvent
+    {
+        public CardFunction thisCard;
+        public CardTriggerEvent(CardFunction card)
+        {
+            thisCard = card;
+        }
+    }
     public virtual void AfterTriggered()
     {
         if (used.GetPersistentEventCount() > 0)

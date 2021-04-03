@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
-  m_Name: System Sweep
+  m_Name: Spam Clicker
   m_EditorClassIdentifier: 
-  cardName: System Sweep
+  cardName: Spam Clicker
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Gain one instant and attack 0 cost cards that apply 2 burn
-  type: 1
-  Class: 1
+  cardEffectDiscription: Your card cost 5 or less triggers twice
+  type: 2
   Company: 2
+  containedKeywords: 
   attackBarCost: 0
-  drawBarCost: 15
+  drawBarCost: 40

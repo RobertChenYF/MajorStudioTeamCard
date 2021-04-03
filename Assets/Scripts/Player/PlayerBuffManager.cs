@@ -75,7 +75,7 @@ public class PlayerBuffManager : MonoBehaviour
         buffDisplay.Clear();
         foreach (PlayerBuff a in currentPlayerBuff)
         {
-            GameObject newBuff = Instantiate(buffDisplayPrefab,playerBuffDisplay.transform.position,Quaternion.identity,playerBuffDisplay);
+            GameObject newBuff = Instantiate(buffDisplayPrefab,playerBuffDisplay.transform.position+ new Vector3(0.5f*currentPlayerBuff.IndexOf(a),0,0),Quaternion.identity,playerBuffDisplay);
             newBuff.GetComponent<BuffHoverDisplay>().thisBuff = a;
             newBuff.GetComponent<BuffHoverDisplay>().MakeBuff();
             newBuff.GetComponent<BuffHoverDisplay>().UpdateCount(a.getStack());
@@ -115,6 +115,7 @@ public class PlayerBuffManager : MonoBehaviour
     {
         stack = stack + amount;
     }
+
     public virtual void TriggerEffect()
     {
         
@@ -137,6 +138,15 @@ public class PlayerBuff : Buff
             Services.playerBuffManager.RemoveBuff(this);
         }
     }
+
+    public void LoseStack()
+    {
+        stack--;
+        if (stack <= 0)
+        {
+            Services.playerBuffManager.RemoveBuff(this);
+        }
+    }
 }
 
 public class GainAttackWhenGainArmor : PlayerBuff
@@ -144,6 +154,83 @@ public class GainAttackWhenGainArmor : PlayerBuff
 
 }
 
+public class AdditionalCardwhenRedraw : PlayerBuff
+{
+    public AdditionalCardwhenRedraw()
+    {
+        buffDescription = "draw 1 additional card when redraw";
+    }
+    public override void ActivateBuff()
+    {
+        base.ActivateBuff();
+        Services.eventManager.Register<PlayerActionManager.RedrawEvent>(TriggerEffect);
+    }
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        for (int i = 0; i < stack; i++)
+        {
+            Services.actionManager.DrawCard();
+        }
+        
+    }
+    public override void DeactivateBuff()
+    {
+        base.DeactivateBuff();
+        Services.eventManager.Unregister<PlayerActionManager.RedrawEvent>(TriggerEffect);
+    }
+}
+
+public class Overclock : PlayerBuff
+{
+    public Overclock()
+    {
+        buffDescription = "gain 2 green manas every cycle ends";
+    }
+    public override void ActivateBuff()
+    {
+        base.ActivateBuff();
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(TriggerEffect);
+    }
+    public override void DeactivateBuff()
+    {
+        base.DeactivateBuff();
+        Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(TriggerEffect);
+    }
+    public void TriggerEffect(AGPEvent e)
+    {
+        Services.resourceManager.GainDrawBar(stack * 2);
+    }
+}
+public class Spam : PlayerBuff
+{
+    public Spam()
+    {
+        //icon
+        buffDescription = "card cost 5 or less trigger twice";
+    }
+
+    public override void ActivateBuff()
+    {
+        base.ActivateBuff();
+        Services.eventManager.Register<CardFunction.CardTriggerEvent>(TriggerEffect);
+    }
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        CardFunction.CardTriggerEvent a = (CardFunction.CardTriggerEvent)e;
+        if ((a.thisCard.GetAttackCost() <= 5 && a.thisCard.GetDrawCost() == 0)||(a.thisCard.GetAttackCost() == 0 && a.thisCard.GetDrawCost() <= 5))
+        {
+            a.thisCard.JustTriggerEffect();
+        }
+    }
+
+    public override void DeactivateBuff()
+    {
+        base.DeactivateBuff();
+        Services.eventManager.Unregister<CardFunction.CardTriggerEvent>(TriggerEffect);
+    }
+}
 public class Evasion : PlayerBuff
 {
    

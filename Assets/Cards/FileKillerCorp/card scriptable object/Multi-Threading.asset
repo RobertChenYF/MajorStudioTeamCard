@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
-  m_Name: Safe Exit
+  m_Name: Multi-Threading
   m_EditorClassIdentifier: 
-  cardName: Safe Exit
+  cardName: Multi-Threading
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Can be only played as the last card in hand with an empty
-    attack field, Gain Conceal
-  type: 1
-  Class: 1
+  cardEffectDiscription: draw 1 additional card eveytime you redraw
+  type: 2
   Company: 2
+  containedKeywords: 
   attackBarCost: 0
-  drawBarCost: 1
+  drawBarCost: 20
