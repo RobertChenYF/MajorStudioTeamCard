@@ -38,11 +38,13 @@ public class VisualEffectManager : MonoBehaviour
         dmgTxt.text = "" + damage.ToString();
         float currentAlpha = 255;
 
+        /*
         while (Vector3.Distance(dmgTxt.transform.position, damageParticleEndOffset) > 0.05f)
         {
             dmgTxt.transform.position = Vector3.Slerp(dmgTxt.transform.position, enemyTransform.position + damageParticleEndOffset, 1f * Time.deltaTime);
             dmgTxt.color = new Color32(255, 255, 255, (byte) Mathf.Lerp(currentAlpha, 0f, 1f * Time.deltaTime));
         }
+        */
 
         Destroy(dmgTxt);
 

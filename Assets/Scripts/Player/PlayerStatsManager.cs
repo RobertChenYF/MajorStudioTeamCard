@@ -27,8 +27,8 @@ public class PlayerStatsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Manager = GameObject.FindWithTag("GameManager");
-        maxHp = Manager.GetComponent<GameManager>().PlayerHealth;
+        //Manager = GameObject.FindWithTag("GameManager");
+        //maxHp = Manager.GetComponent<GameManager>().PlayerHealth;
         currentHp = maxHp;
         //currentAttackDmg = startAttackDmg;
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(LoseArmorAtCycleEnd);
