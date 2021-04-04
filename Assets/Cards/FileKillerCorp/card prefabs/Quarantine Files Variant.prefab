@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1818083420384569305
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 551059670771092851, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: 'gain 6 armor
+
+        <b>dedicate</b>: gain <b>harden</b> instead'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840536552134388129, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: File Killer Corp.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: card
+      value: 
+      objectReference: {fileID: 11400000, guid: 86d533b0937e6e649bcb947d5670922f, type: 2}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1673668038964395508, guid: e526880eed29123439d52c41a1049003, type: 3}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: zz_Dedicate_harden
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardEffect, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 57652988383308686}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: CardFunction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923554005924728535, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144293, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_Name
+      value: Quarantine Files Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.230532
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.457657
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002813558547356247, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948571846180533411, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: Quarantine Files
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154191173799545038, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+--- !u!114 &57652988383308686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+  m_PrefabInstance: {fileID: 1818083420384569305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee897bfb5dbdc6b4b9618b85bab66dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

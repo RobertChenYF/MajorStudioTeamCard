@@ -14,6 +14,11 @@ public class CardFunction : MonoBehaviour
     public Card card;
     private float attackCost;
     private float drawCost;
+    private Card.CardCompany company;
+    public Card.CardCompany getCompany()
+    {
+        return company;
+    }
     private Card.CardType cardType;
     private SpriteRenderer splashArt;
     private TextMeshPro nameText;
@@ -22,10 +27,19 @@ public class CardFunction : MonoBehaviour
     private TextMeshPro effectDiscriptionText;
     private Material mainCardMat;
     private SpriteRenderer backgroundRenderer;
+    private SpriteRenderer highlightborder;
+    private SpriteRenderer clickhighlightborder;
+    [HideInInspector]public GameObject keywordTextBox;
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
-    
- 
+    private List<Card.Keywords> containedKeywords;
+
+    public List<Card.Keywords> getKeywords()
+    {
+        return containedKeywords;
+        
+    }
+
     [HideInInspector]public bool canBePlayed;
 
     [Header("requirement fot the card to get played")]
@@ -49,6 +63,9 @@ public class CardFunction : MonoBehaviour
         MakeCard();
         UpdateCostDisplay();
         instanceId = GetInstanceID();
+        clickhighlightborder.enabled = false;
+        keywordTextBox.SetActive(false);
+        GetComponent<CardDisplayManager>().UpdateVisual();
     }
 
     // Update is called once per frame
@@ -66,6 +83,9 @@ public class CardFunction : MonoBehaviour
         effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
         backgroundRenderer = transform.Find("cardBackground").GetComponent<SpriteRenderer>();
         mainCardMat = backgroundRenderer.material;
+        highlightborder = transform.Find("highlight").GetComponent<SpriteRenderer>();
+        clickhighlightborder = transform.Find("click highlight").GetComponent<SpriteRenderer>();
+        keywordTextBox = transform.Find("keywordText").gameObject;
 
         if (card.cardSplashArt != null)
         {
@@ -76,13 +96,15 @@ public class CardFunction : MonoBehaviour
         {
             splashArt.sprite = null;
         }
-        
+        containedKeywords = new List<Card.Keywords>();
         nameText.text = card.cardName;
         cardType = card.type;
         gameObject.name = card.cardName;
         attackCost = card.attackBarCost;
         drawCost = card.drawBarCost;
+        company = card.Company;
         effectDiscriptionText.text = card.cardEffectDiscription;
+        containedKeywords = card.containedKeywords;
     }
 
     private void UpdateCostDisplay()
@@ -100,9 +122,10 @@ public class CardFunction : MonoBehaviour
         canBePlayed = (canBePlayed&&Services.actionManager.PlayerHand.Contains(this)&& Services.resourceManager.CheckDrawBar(drawCost)&&Services.resourceManager.CheckAttackBar(attackCost));
 
 
-        if (mainCardMat!=null)
+        if (highlightborder != null)
         {
-            mainCardMat.SetFloat("_OutlineEnabled", canBePlayed ? 1 : 0);
+            highlightborder.enabled = canBePlayed;
+           // mainCardMat.SetFloat("_OutlineEnabled", canBePlayed ? 1 : 0);
         }
         
         return (canBePlayed);
@@ -129,9 +152,22 @@ public class CardFunction : MonoBehaviour
     public virtual void TriggerEffect()
     {
         triggered.Invoke();
+        Services.eventManager.Fire(new CardTriggerEvent(this));
         AfterTriggered();
     }
 
+    public virtual void JustTriggerEffect()
+    {
+        triggered.Invoke();
+    }
+    public class CardTriggerEvent : AGPEvent
+    {
+        public CardFunction thisCard;
+        public CardTriggerEvent(CardFunction card)
+        {
+            thisCard = card;
+        }
+    }
     public virtual void AfterTriggered()
     {
         if (used.GetPersistentEventCount() > 0)
@@ -167,20 +203,28 @@ public class CardFunction : MonoBehaviour
             
             BringUpOrderInLayer();
         }
-        
+        if (containedKeywords.Count > 0)
+        {
+            keywordTextBox.SetActive(true);
+        }
     }
 
     void OnMouseExit()
     {
         //backgroundRenderer.material.color = originalColor;
         UpdateInHandLayerOrder();
+        if (containedKeywords.Count > 0)
+        {
+            keywordTextBox.SetActive(false);
+        }
     }
 
     void OnMouseDown()
     {
         if (Services.actionManager.InHand(this) != -1)
         {
-            backgroundRenderer.material.color = mouseOverColor;
+            clickhighlightborder.enabled = true;
+            //backgroundRenderer.material.color = mouseOverColor;
             BringUpOrderInLayer();
             PlayerActionManager.currentDragCard = this;
         }
@@ -190,7 +234,8 @@ public class CardFunction : MonoBehaviour
 
     void OnMouseUp()
     {
-        backgroundRenderer.material.color = originalColor;
+        //backgroundRenderer.material.color = originalColor;
+        clickhighlightborder.enabled = false;
         if (PlayerActionManager.currentDragCard == this && Services.actionManager.InHand(this) != -1)
         {
             if (Draggedout())

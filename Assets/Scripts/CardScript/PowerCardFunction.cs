@@ -5,24 +5,16 @@ using UnityEngine.Events;
 
 public class PowerCardFunction : CardFunction
 {
-    [Header("trigger requirement")]
-    [SerializeField] protected UnityEvent triggerRequirement;
-
-    
 
     public override void AfterPlayed()
     {
-        triggerRequirement.Invoke();
-        //go to power card location
+        //move up a bit then trigger effect
+        TriggerEffect();
     }
 
-    public void TriggerEffect(AGPEvent e)
-    {
-        triggered.Invoke();
-    }
     public override void AfterTriggered()
     {
-        //stay so can be triggered again
+        Services.actionManager.AddToExhaustPile(this);
     }
 
 }

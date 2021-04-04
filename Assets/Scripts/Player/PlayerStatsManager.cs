@@ -16,8 +16,11 @@ public class PlayerStatsManager : MonoBehaviour
     //private float currentAttackDmg;
     //private float buffedAttackDmg;
     private float currentArmor;
-    private GameObject Manager;
-
+    public float getArmor()
+    {
+        return currentArmor;
+    }
+    
     [SerializeField] private TextMeshPro playerStatsText;
 
 
@@ -52,7 +55,7 @@ public class PlayerStatsManager : MonoBehaviour
 
     public class PlayerTakeDamageEvent: AGPEvent{
 
-        public PlayerTakeDamageEvent(float amount1)
+        public PlayerTakeDamageEvent(float amount)
         {
 
         }
