@@ -8,7 +8,7 @@ using TMPro;
 
 public class PlayerActionManager : MonoBehaviour
 {
-    
+    private GameObject Manager;
     [SerializeField]private Enemy tempTestEnemy;
     [HideInInspector]public Enemy currentTargetEnemy;
     public static CardFunction currentDragCard;
