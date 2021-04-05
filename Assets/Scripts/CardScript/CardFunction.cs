@@ -32,7 +32,7 @@ public class CardFunction : MonoBehaviour
     [HideInInspector]public GameObject keywordTextBox;
     private Color mouseOverColor = Color.yellow;
     private Color originalColor = Color.white;
-    private List<Card.Keywords> containedKeywords;
+    public List<Card.Keywords> containedKeywords;
 
     public List<Card.Keywords> getKeywords()
     {
@@ -57,7 +57,7 @@ public class CardFunction : MonoBehaviour
     [HideInInspector]public GameObject linkedCardPrefab;
     // Start is called before the first frame update
 
-    void Start()
+    void Awake()
     {
         linkedCardPrefab = gameObject;
         MakeCard();

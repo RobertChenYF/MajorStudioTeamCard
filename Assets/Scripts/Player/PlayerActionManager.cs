@@ -171,9 +171,9 @@ public class PlayerActionManager : MonoBehaviour
 
     public void ReDraw()
     {
-        if (Services.resourceManager.CheckDrawBar(reDrawActionCost))
+        if (Services.resourceManager.CheckDrawBar(currentRedrawCost))
         {
-            Services.resourceManager.ConsumeDrawBar(reDrawActionCost);
+            Services.resourceManager.ConsumeDrawBar(currentRedrawCost);
             while (PlayerHand.Count > 0)
             {
                 MoveFromHandToDiscardPile(PlayerHand[0]);
@@ -212,6 +212,7 @@ public class PlayerActionManager : MonoBehaviour
     {
         if (card.getKeywords() != null && card.getKeywords().Contains(Card.Keywords.priority))
         {
+            Debug.Log("priority");
             PriorityDeck.Add(card);
         }
         DrawDeck.Add(card);
@@ -321,10 +322,10 @@ public class PlayerActionManager : MonoBehaviour
     }
     public void StartAttack()
     {
-        if (Services.resourceManager.CheckAttackBar(attackActionCost))
+        if (Services.resourceManager.CheckAttackBar(currentAttackCost))
         {
 
-            Services.resourceManager.ConsumeAttackBar(attackActionCost);
+            Services.resourceManager.ConsumeAttackBar(currentAttackCost);
             Services.combatManager.PauseTimeCycle();
             attackButton.interactable = false;
             attacking = true;
