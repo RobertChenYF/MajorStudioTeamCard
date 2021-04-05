@@ -63,6 +63,9 @@ public class Enemy: MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        //Call visual effect
+        StartCoroutine(Services.visualEffectManager.PlayEnemyTakeDamageEffect(this.transform, damage));
+
         if (currentArmor >= damage)
         {
             LoseArmor(damage);

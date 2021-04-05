@@ -5,15 +5,16 @@ using UnityEngine;
 public class MainMenuBehavior : MonoBehaviour
 {
     public GameObject MainMenu;
+    private GameObject Manager;
     // Start is called before the first frame update
     void Start()
     {
-        //MainMenuButton();
+        Manager = GameObject.FindWithTag("GameManager");
+        Debug.Log(Manager);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MainMenuButton()
     {
-        
+        Manager.GetComponent<GameManager>().PlayGame = true;
     }
 }
