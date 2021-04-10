@@ -114,7 +114,11 @@ public class PlayerStatsManager : MonoBehaviour
         currentArmor = Mathf.Max(0, currentArmor);
         TempUpdateDisplayStat();
     }
-
+    public void LoseAllArmor()
+    {
+        currentArmor = 0;
+        TempUpdateDisplayStat();
+    }
     public void LoseHp(float dmg)
     {
         currentHp -= dmg;

@@ -14,6 +14,7 @@ public class CardFunction : MonoBehaviour
     public Card card;
     private float attackCost;
     private float drawCost;
+    [HideInInspector] public bool generated = false;
     private Card.CardCompany company;
     public Card.CardCompany getCompany()
     {
@@ -40,6 +41,14 @@ public class CardFunction : MonoBehaviour
         
     }
 
+    public void NewCombat(AGPEvent e)
+    {
+        if (generated)
+        {
+            Services.eventManager.Unregister<RunStateManager.CombatStart>(NewCombat);
+            Destroy(gameObject);
+        }
+    }
     [HideInInspector]public bool canBePlayed;
 
     [Header("requirement fot the card to get played")]
@@ -66,6 +75,11 @@ public class CardFunction : MonoBehaviour
         clickhighlightborder.enabled = false;
         keywordTextBox.SetActive(false);
         GetComponent<CardDisplayManager>().UpdateVisual();
+        
+    }
+    private void Start()
+    {
+      Services.eventManager.Register<RunStateManager.CombatStart>(NewCombat);
     }
 
     // Update is called once per frame
@@ -227,6 +241,10 @@ public class CardFunction : MonoBehaviour
             //backgroundRenderer.material.color = mouseOverColor;
             BringUpOrderInLayer();
             PlayerActionManager.currentDragCard = this;
+        }
+        else if (Services.runStateManager.currentRunState.ToString().Equals("Reward"))
+        {
+            Services.runStateManager.currentSelectCard = this;
         }
         
         

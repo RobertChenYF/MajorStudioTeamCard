@@ -30,14 +30,7 @@ public class CardDisplayManager : MonoBehaviour
     {
         
         
-        card = GetComponent<CardFunction>().card;
-        splashArt = transform.Find("splash").GetComponent<SpriteRenderer>();
-        nameText = gameObject.transform.Find("CardNameText").GetComponent<TextMeshPro>();
-        AttackCostText = transform.Find("AttackCost").GetComponent<TextMeshPro>();
-        DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
-        effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
-        CompanyNameText = transform.Find("CardCompanyDisplay").GetComponent<TextMeshPro>();
-        keywordExplainText = transform.Find("keywordText").GetComponent<TextMeshPro>();
+        
     }
 
     void Start()
@@ -52,7 +45,14 @@ public class CardDisplayManager : MonoBehaviour
     public void UpdateVisual()
     {
 
-        
+        card = GetComponent<CardFunction>().card;
+        splashArt = transform.Find("splash").GetComponent<SpriteRenderer>();
+        nameText = gameObject.transform.Find("CardNameText").GetComponent<TextMeshPro>();
+        AttackCostText = transform.Find("AttackCost").GetComponent<TextMeshPro>();
+        DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
+        effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
+        CompanyNameText = transform.Find("CardCompanyDisplay").GetComponent<TextMeshPro>();
+        keywordExplainText = transform.Find("keywordText").GetComponent<TextMeshPro>();
         splashArt.sprite = card.cardSplashArt;
         nameText.text = card.cardName;
         cardType = card.type;
