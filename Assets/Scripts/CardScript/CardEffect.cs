@@ -27,7 +27,7 @@ public class CardEffect : MonoBehaviour
     public void zz_Effect_DeepBurn()
     {
         zz_Deal_Damage(5);
-        if (Services.actionManager.currentTargetEnemy.CheckBuff(new Burn()) != -1)
+        if (Services.actionManager.currentTargetEnemy != null&&Services.actionManager.currentTargetEnemy.CheckBuff(new Burn()) != -1)
         {
             zz_Deal_Damage(5);
         }
@@ -105,6 +105,7 @@ public class CardEffect : MonoBehaviour
     public void zz_Generate_Card_To_DrawPile(GameObject card)
     {
         Services.actionManager.GenerateCardAddToDrawPile(card);
+
     }
 
     public void zz_Draw_Cards(int amount)

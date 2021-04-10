@@ -854,6 +854,7 @@ GameObject:
   - component: {fileID: 7813298947201161176}
   - component: {fileID: 7813298947201161177}
   - component: {fileID: 7813298947201161183}
+  - component: {fileID: 6244428138369009162}
   m_Layer: 0
   m_Name: USB Enemy
   m_TagString: Untagged
@@ -942,7 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031898890b5f1a0479536e60fa415a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 3
   healthBarFill: {fileID: 7813298947444421537}
   armorIconDisplay: {fileID: 7813298946260779865}
   armorAmountDisplay: {fileID: 7813298946487212367}
@@ -954,6 +955,32 @@ MonoBehaviour:
   moveSet:
   - {fileID: 7813298946179961591}
   - {fileID: 7813298946065789406}
+--- !u!61 &6244428138369009162
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813298947201161178}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.55, y: 1.81}
+    newSize: {x: 0.55, y: 1.81}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 1.81}
+  m_EdgeRadius: 0
 --- !u!1 &7813298947239645080
 GameObject:
   m_ObjectHideFlags: 0

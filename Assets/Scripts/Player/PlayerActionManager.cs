@@ -9,10 +9,10 @@ using TMPro;
 public class PlayerActionManager : MonoBehaviour
 {
     private GameObject Manager;
-    [SerializeField]private Enemy tempTestEnemy;
+    
     [HideInInspector]public Enemy currentTargetEnemy;
     public static CardFunction currentDragCard;
-    public List<CardFunction> TempRunDeck;
+    
     public List<CardFunction> DrawDeck;
     public List<CardFunction> PriorityDeck;
     public List<CardFunction> PlayerHand;
@@ -28,6 +28,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private Transform hand;
     [SerializeField] private Transform attackField;
     [SerializeField] private Transform generateCardPos;
+    [SerializeField] public Transform enemyDefaultPos;
     public BoxCollider2D handArea;
 
     [Header("UI button")]
@@ -42,8 +43,18 @@ public class PlayerActionManager : MonoBehaviour
     private float currentAttackCost;
     private bool canPlayCard;
     [HideInInspector]public bool attacking;
+
+    private void UpdateBasicActionCost(AGPEvent e)
+    {
+        currentAttackCost -= 5;
+        currentRedrawCost -= 5;
+        currentRedrawCost = Mathf.Max(currentRedrawCost, 0);
+        currentAttackCost = Mathf.Max(currentAttackCost, 0);
+        //update visual
+        UpdateBasicActionCostDisplay();
+    }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         DrawDeck = new List<CardFunction>();
         PriorityDeck = new List<CardFunction>();
@@ -52,19 +63,20 @@ public class PlayerActionManager : MonoBehaviour
         AttackField = new List<CardFunction>();
         DeletePile = new List<CardFunction>();
         //DrawDeck = new List<CardFunction>();
-        currentTargetEnemy = tempTestEnemy;
-        TempStart();
+        
+        
         //add all cards from the run deck to draw deck
-        foreach (CardFunction card in TempRunDeck)
-        {
-            AddToDrawPile(card);
-        }
-        DrawMutipleCard(5);
+
+        
         attacking = false;
-        Services.eventManager.Register<CombatManager.TimeCycleEnd>(UpdateBasicActionCost);
+        
         currentRedrawCost = reDrawActionCost;
         currentAttackCost = attackActionCost;
         UpdateBasicActionCostDisplay();
+    }
+    private void Start()
+    {
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(UpdateBasicActionCost);
     }
 
     // Update is called once per frame
@@ -76,15 +88,7 @@ public class PlayerActionManager : MonoBehaviour
     }
 
 
-    private void UpdateBasicActionCost(AGPEvent e)
-    {
-        currentAttackCost -= 5;
-        currentRedrawCost -= 5;
-        currentRedrawCost = Mathf.Max(currentRedrawCost,0);
-        currentAttackCost = Mathf.Max(currentAttackCost, 0);
-        //update visual
-        UpdateBasicActionCostDisplay();
-    }
+    
     private void UpdateBasicActionCostDisplay()
     {
         attackButtonText.text = "Decompress cost " + currentAttackCost.ToString();
@@ -375,17 +379,23 @@ public class PlayerActionManager : MonoBehaviour
     {
         GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
         AddToHand(newCard.GetComponent<CardFunction>());
+        newCard.GetComponent<CardFunction>().generated = true;
+        newCard.transform.SetParent(Services.runStateManager.AllCardsInGame.transform);
     }
     public void GenerateCardAddToDiscardPile(GameObject card)
     {
         GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
         AddToDiscardPile(newCard.GetComponent<CardFunction>());
+        newCard.GetComponent<CardFunction>().generated = true;
+        newCard.transform.SetParent(Services.runStateManager.AllCardsInGame.transform);
     }
 
     public void GenerateCardAddToDrawPile(GameObject card)
     {
         GameObject newCard = Instantiate(card, generateCardPos.position, Quaternion.identity);
         AddToDrawPile(newCard.GetComponent<CardFunction>());
+        newCard.GetComponent<CardFunction>().generated = true;
+        newCard.transform.SetParent(Services.runStateManager.AllCardsInGame.transform);
         Shuffle(DrawDeck);
     }
 

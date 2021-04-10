@@ -31,6 +31,7 @@ public class Enemy: MonoBehaviour
         currentHp = maxHp;
         UpdateDisplayStat();
         StartAmove();
+        Services.combatManager.AllMainEnemy.Add(this);
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(CycleChargeReduce);
         // currentHp = maxHp;
     }
@@ -91,7 +92,8 @@ public class Enemy: MonoBehaviour
         {
             Services.actionManager.currentTargetEnemy = null;
         }
-        Destroy(gameObject);
+        Services.combatManager.AllMainEnemy.Remove(this);
+        gameObject.SetActive(false);
     }
 
     public void GainNewBuff(EnemyBuff newBuff, int stack)
