@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: Reclaim Hardware
   m_EditorClassIdentifier: 
   cardName: Reclaim Hardware
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'deal 10 damage
-
-    gain 15 armor'
+  cardSplashArt: {fileID: 21300000, guid: f97381090364de547b4181ae3346a8e1, type: 3}
+  cardEffectDiscription: Decompress to deal 10 damage and gain 15 encryption
   type: 0
   Company: 2
   containedKeywords: 

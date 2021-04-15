@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: deep scan
   m_EditorClassIdentifier: 
   cardName: Deep Scan
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'give the target 4 <b>burn</b>
+  cardSplashArt: {fileID: 21300000, guid: 7398c676532ac59459ed41632b4a69a7, type: 3}
+  cardEffectDiscription: 'Decompress to apply 4 <b>burn</b>
 
-    <b>dedicate</b>: give
-    the target 8 <b>burn</b> instead'
+    <b>Dedicate</b>:
+    Apply 8 <b>burn</b> instead'
   type: 0
   Company: 2
   containedKeywords: 0000000002000000

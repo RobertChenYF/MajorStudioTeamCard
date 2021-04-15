@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Locate Bad Sector
   m_EditorClassIdentifier: 
   cardName: Locate Bad Sector
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'Deal 5 damage
+  cardSplashArt: {fileID: 21300000, guid: 4cd834c96894f8f4cad8c64f2476db50, type: 3}
+  cardEffectDiscription: 'Decompress for 5 damage
 
-    shuffle Isolate Bad Sector into your
-    draw pile
+    Shuffle <i>Isolate Bad Sector</i>
+    into your draw deck
 
-    <b>delete</b>'
+    <b>Delete</b>'
   type: 0
   Company: 2
   containedKeywords: 01000000

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
   m_Name: Overheating
   m_EditorClassIdentifier: 
-  cardName: Overheating
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'draw 2 cards
+  cardName: Overheat
+  cardSplashArt: {fileID: 21300000, guid: 9b6fa3418fb6c5a468ed89d94affbe29, type: 3}
+  cardEffectDiscription: 'Draw 2 cards
 
-    Gain 40 red mana
+    Gain 40 GPU
 
-    <b>delete</b>'
+    <b>Delete</b>'
   type: 1
   Company: 2
   containedKeywords: 01000000

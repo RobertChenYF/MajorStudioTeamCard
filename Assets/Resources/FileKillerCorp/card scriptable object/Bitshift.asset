@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Bitshift
   m_EditorClassIdentifier: 
   cardName: Bitshift
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'Gain 8 armor
+  cardSplashArt: {fileID: 21300000, guid: 64b4a9ae95ad4734799c570c3858522d, type: 3}
+  cardEffectDiscription: 'Gain 8 Encryption
 
-    if you have <b>harden</b>, remove it
-    and gain 20 armor'
+    If you have <b>Harden</b>, remove
+    it and gain 20 armor.'
   type: 1
   Company: 2
   containedKeywords: 02000000

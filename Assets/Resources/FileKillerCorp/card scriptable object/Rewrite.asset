@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Rewrite
   m_EditorClassIdentifier: 
   cardName: Rewrite
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'gain 20 green mana
+  cardSplashArt: {fileID: 21300000, guid: 9114cce74c10d764fb2d125bc6712a5e, type: 3}
+  cardEffectDiscription: 'Decompress for 20 CPU
 
-    <b>initial</b>gain additional 20
-    green mana'
+    <b>Initial:</b> Gain an additional
+    20 CPU'
   type: 0
   Company: 2
   containedKeywords: 05000000
