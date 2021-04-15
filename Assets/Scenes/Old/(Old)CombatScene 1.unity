@@ -5190,6 +5190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1795037928}
   - component: {fileID: 1795037927}
+  - component: {fileID: 1795037929}
   m_Layer: 0
   m_Name: VisualEffectManager
   m_TagString: Untagged
@@ -5209,10 +5210,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46a189f2d80d2647a665bb966f3e68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageTextPrefab: {fileID: 4814467443234692087, guid: 6df5936a532be544f9d390298d2df57a, type: 3}
-  damageParticleOffset: {x: 0, y: 0, z: 0}
-  damageParticleEndOffset: {x: 3, y: 3, z: 0}
+  DamageTextPrefab: {fileID: 6116655469434448049, guid: 64a235d589401184abc9335075016d0d, type: 3}
+  damageParticleOffset: {x: 0.6, y: 0.4, z: 0}
+  damageParticleEndOffset: {x: 2, y: 2, z: 0}
   damageParticleTime: 0.5
+  flashTime: 0
+  dmgFlashColor: {r: 1, g: 0, b: 0, a: 0}
+  canvas: {fileID: 1127602749}
+  particleTransformSmoothing: 2
+  particleColorSmoothing: 0.21
+  dmgParticleColor: {r: 0.9433962, g: 0.88757014, b: 0.18393251, a: 0}
+  audioSource: {fileID: 0}
+  dmgSound: {fileID: 8300000, guid: 0b725ad36e391fd4096f750d82e6b53d, type: 3}
+  dmgSoundVolume: 0.2
+  playerDmgSound: {fileID: 0}
+  playerDmgSoundVolume: 0.5
 --- !u!4 &1795037928
 Transform:
   m_ObjectHideFlags: 0
@@ -6915,6 +6927,7 @@ MonoBehaviour:
   moveSet:
   - {fileID: 1381358636379533579}
   - {fileID: 1381358636466639394}
+  is_Idle: 0
   Mainbody: {fileID: 67037917}
 --- !u!61 &1381358635392152616
 BoxCollider2D:
