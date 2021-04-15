@@ -63,6 +63,9 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        //Play VisualEffect
+        StartCoroutine(Services.visualEffectManager.PlayPlayerTakeDamageEffect());
+
         currentDamageAmount = damage;
         TakeDamageEvent.Invoke();
         if (currentDamageAmount > 0)

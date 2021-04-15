@@ -22,6 +22,9 @@ public class Enemy: MonoBehaviour
     public List<BuffHoverDisplay> BuffDisplayList;
     public List<EnemyMoveset> moveSet;
 
+    //VisualEffects
+    public bool is_Idle;
+
     private EnemyMoveset currentChargeMove;
     private int currentChargeCycleTimer;
     public virtual void Start()
@@ -43,7 +46,25 @@ public class Enemy: MonoBehaviour
             enemyBuffText.text += a.tempString();
         }
         */
+
+        //call idle animation
+        //PlayEnemyIdleAnimation(is_Idle);
+
+        //for damage effect testing
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            if(this.gameObject)
+                TakeDamage(10);
+        }
     }
+    void PlayEnemyIdleAnimation(bool is_Idle)
+    {
+        if (is_Idle)
+        {
+
+        }
+    }
+
     public void UpdateBuffDisplay()
     {
         foreach (BuffHoverDisplay display in BuffDisplayList)
@@ -64,7 +85,7 @@ public class Enemy: MonoBehaviour
     public void TakeDamage(float damage)
     {
         //Call visual effect
-        StartCoroutine(Services.visualEffectManager.PlayEnemyTakeDamageEffect(this.transform, damage));
+        StartCoroutine(Services.visualEffectManager.PlayEnemyTakeDamageEffect(this.GetComponent<Enemy>(), damage));
 
         if (currentArmor >= damage)
         {
