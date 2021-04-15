@@ -50,7 +50,7 @@ public class PlayerStatsManager : MonoBehaviour
     void TempUpdateDisplayStat()
     {
         //temporary will replace with visual UI
-        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nArmor: " + currentArmor.ToString();
+        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nEncryption: " + currentArmor.ToString();
     }
 
     public class PlayerTakeDamageEvent: AGPEvent{

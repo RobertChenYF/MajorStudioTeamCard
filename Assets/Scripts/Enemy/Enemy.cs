@@ -8,6 +8,7 @@ using System;
 public class Enemy: MonoBehaviour
 {
     [SerializeField]protected float maxHp;
+    [SerializeField] protected float startingArmor;
     [SerializeField]protected Image healthBarFill;
     [SerializeField] protected GameObject armorIconDisplay;
     [SerializeField] protected TextMeshPro armorAmountDisplay;
@@ -29,6 +30,7 @@ public class Enemy: MonoBehaviour
         enemyBuffList = new List<EnemyBuff>();
         BuffDisplayList = new List<BuffHoverDisplay>();
         currentHp = maxHp;
+        currentArmor = startingArmor;
         UpdateDisplayStat();
         StartAmove();
         Services.combatManager.AllMainEnemy.Add(this);

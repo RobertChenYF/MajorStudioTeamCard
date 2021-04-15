@@ -91,8 +91,8 @@ public class PlayerActionManager : MonoBehaviour
     
     private void UpdateBasicActionCostDisplay()
     {
-        attackButtonText.text = "Decompress cost " + currentAttackCost.ToString();
-        redrawButtonText.text = "Redraw cost " + currentRedrawCost.ToString();
+        attackButtonText.text = "Decompress cost " + currentAttackCost.ToString() + " CPU";
+        redrawButtonText.text = "Draw cost " + currentRedrawCost.ToString() + " GPU";
     }
     public void PlayCard(CardFunction card)
     {

@@ -3,7 +3,9 @@ guid: 30571ebf1e6acea43885a1431b3ec291
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - GPUCost: {fileID: 8871750365745515610, guid: 52482b0533b94409f9c4b8731226fb10, type: 3}
+  - CPUCost: {fileID: 2530564911472380330, guid: 818405c88261242f28060baf06a3be22, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
