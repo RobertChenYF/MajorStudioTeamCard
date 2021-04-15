@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Terminate
   m_EditorClassIdentifier: 
   cardName: End Task
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Deal 5 Damage
+  cardSplashArt: {fileID: 21300000, guid: b91c26d0569ae0b4f919b8868cac5394, type: 3}
+  cardEffectDiscription: Decompress to deal 5 Damage
   type: 0
-  Class: 3
   Company: 0
+  containedKeywords: 
   attackBarCost: 15
   drawBarCost: 0

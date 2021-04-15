@@ -10,6 +10,8 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private float timeCircleDuration;
     private float CycleSpeed = .5f;
     private float CycleTimer = 0;
+    public List<Enemy> AllMainEnemy;
+    
 
     [Header("Manager Script")]
     [SerializeField] private PlayerActionManager actionManager;
@@ -17,6 +19,8 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private PlayerResourceManager resourceManager;
     [SerializeField] private PlayerBuffManager buffManager;
     [SerializeField] private VisualEffectManager visualEffectManager;
+    [SerializeField] private RunStateManager runStateManager;
+    [SerializeField] private CardList cardList;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -27,7 +31,9 @@ public class CombatManager : MonoBehaviour
         Services.statsManager = statsManager;
         Services.playerBuffManager = buffManager;
         Services.visualEffectManager = visualEffectManager;
-
+        Services.runStateManager = runStateManager;
+        Services.cardList = cardList;
+        AllMainEnemy = new List<Enemy>();
     }
 
     void Start()
@@ -83,4 +89,6 @@ public static class Services
     public static PlayerActionManager actionManager;
     public static PlayerBuffManager playerBuffManager;
     public static VisualEffectManager visualEffectManager;
+    public static RunStateManager runStateManager;
+    public static CardList cardList;
 }

@@ -14,7 +14,7 @@ public class PlayerBuffManager : MonoBehaviour
     public Sprite PlaceHolderBuffIcon;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         currentPlayerBuff = new List<PlayerBuff>();
         buffDisplay = new List<BuffHoverDisplay>();
@@ -52,6 +52,14 @@ public class PlayerBuffManager : MonoBehaviour
         currentPlayerBuff.Remove(buff);
         buff.DeactivateBuff();
         UpdateBuffDisplay();
+    }
+
+    public void RemoveAllBuff()
+    {
+        while(currentPlayerBuff.Count > 0)
+        {
+            RemoveBuff(currentPlayerBuff[0]);
+        }
     }
 
     public int CheckBuff(PlayerBuff a)

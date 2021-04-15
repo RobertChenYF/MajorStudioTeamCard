@@ -46,3 +46,6 @@ TagManager:
   - name: card
     uniqueID: 166141429
     locked: 0
+  - name: window
+    uniqueID: 2421093793
+    locked: 0

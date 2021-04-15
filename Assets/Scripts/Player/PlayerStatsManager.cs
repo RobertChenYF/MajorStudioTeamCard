@@ -50,7 +50,7 @@ public class PlayerStatsManager : MonoBehaviour
     void TempUpdateDisplayStat()
     {
         //temporary will replace with visual UI
-        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nArmor: " + currentArmor.ToString();
+        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nEncryption: " + currentArmor.ToString();
     }
 
     public class PlayerTakeDamageEvent: AGPEvent{
@@ -117,7 +117,11 @@ public class PlayerStatsManager : MonoBehaviour
         currentArmor = Mathf.Max(0, currentArmor);
         TempUpdateDisplayStat();
     }
-
+    public void LoseAllArmor()
+    {
+        currentArmor = 0;
+        TempUpdateDisplayStat();
+    }
     public void LoseHp(float dmg)
     {
         currentHp -= dmg;

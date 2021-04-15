@@ -12,12 +12,15 @@ public class CardDisplayManager : MonoBehaviour
     private float drawCost;
     private Card.CardType cardType;
     private SpriteRenderer splashArt;
+    private SpriteRenderer CostIndicator;
     private TextMeshPro nameText;
-    private TextMeshPro AttackCostText;
-    private TextMeshPro DrawCostText;
+    private TextMeshPro CostText;
+    //private TextMeshPro DrawCostText;
     private TextMeshPro effectDiscriptionText;
     private TextMeshPro CompanyNameText;
     private TextMeshPro keywordExplainText;
+    [SerializeField]private Sprite GPUCost;
+    [SerializeField]private Sprite CPUCost;
     private List<string> keywordDescription = new List<string>{ "<b>dedicate</b>: Draw a card if the card company matches this card trigger the effect",
         "<b>delete</b>: remove this card from this combat after the effect triggers",
         "<b>burn</b>: apply burn stack to the target, deal damage equal to the total stack of burn on the target, target loses a stack every time cycle",
@@ -30,14 +33,7 @@ public class CardDisplayManager : MonoBehaviour
     {
         
         
-        card = GetComponent<CardFunction>().card;
-        splashArt = transform.Find("splash").GetComponent<SpriteRenderer>();
-        nameText = gameObject.transform.Find("CardNameText").GetComponent<TextMeshPro>();
-        AttackCostText = transform.Find("AttackCost").GetComponent<TextMeshPro>();
-        DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
-        effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
-        CompanyNameText = transform.Find("CardCompanyDisplay").GetComponent<TextMeshPro>();
-        keywordExplainText = transform.Find("keywordText").GetComponent<TextMeshPro>();
+        
     }
 
     void Start()
@@ -52,15 +48,38 @@ public class CardDisplayManager : MonoBehaviour
     public void UpdateVisual()
     {
 
-        
+        card = GetComponent<CardFunction>().card;
+        splashArt = transform.Find("splash").GetComponent<SpriteRenderer>();
+        CostIndicator = transform.Find("CostIcon").GetComponent<SpriteRenderer>();
+        nameText = gameObject.transform.Find("CardNameText").GetComponent<TextMeshPro>();
+        CostText = transform.Find("Cost").GetComponent<TextMeshPro>();
+        //DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
+        effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
+        CompanyNameText = transform.Find("CardCompanyDisplay").GetComponent<TextMeshPro>();
+        keywordExplainText = transform.Find("keywordText").GetComponent<TextMeshPro>();
         splashArt.sprite = card.cardSplashArt;
         nameText.text = card.cardName;
         cardType = card.type;
         gameObject.name = card.cardName;
         attackCost = card.attackBarCost;
         drawCost = card.drawBarCost;
-        AttackCostText.text = attackCost.ToString();
-        DrawCostText.text = drawCost.ToString();
+
+        if (attackCost > 0)
+        {
+            CostText.text = attackCost.ToString();
+            CostIndicator.sprite = Services.cardList.CPUCostIcon;
+        }
+        else if(drawCost > 0)
+        {
+            CostText.text = drawCost.ToString();
+            CostIndicator.sprite = Services.cardList.GPUCostIcon;
+        }
+        else
+        {
+            CostText.text = drawCost.ToString();
+        }
+        
+        //DrawCostText.text = drawCost.ToString();
         effectDiscriptionText.text = card.cardEffectDiscription;
         CompanyNameText.text = companyFullName[(int)card.Company];
         string temp = "";
