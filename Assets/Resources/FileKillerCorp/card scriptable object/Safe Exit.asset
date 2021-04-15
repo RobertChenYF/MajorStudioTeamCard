@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Safe Exit
   m_EditorClassIdentifier: 
   cardName: Safe Exit
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Can be only played as the last card in hand with an empty
-    attack field, Gain <b>harden</b>
+  cardSplashArt: {fileID: 21300000, guid: a56eecbcd430d9e4fa11e7e0b67d4faf, type: 3}
+  cardEffectDiscription: 'Can be only played as the last card in hand and must have
+    no cards waiting to be decompressed.
+
+    Gain <b>Harden</b>'
   type: 1
   Company: 2
   containedKeywords: 04000000

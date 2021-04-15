@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Seed Files
   m_EditorClassIdentifier: 
   cardName: Seed Files
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'add 4 copies of seeded Defense to your draw deck
+  cardSplashArt: {fileID: 21300000, guid: 9c864d153d9b42347bf0083336dfaf70, type: 3}
+  cardEffectDiscription: 'Place 4 <i>Seeded Defense</i> cards into your draw deck
 
-    <b>delete</b>'
+    <b>Delete</b>'
   type: 1
   Company: 2
   containedKeywords: 01000000

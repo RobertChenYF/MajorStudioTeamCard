@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Isolate Bad Sector(token)
   m_EditorClassIdentifier: 
   cardName: Isolate Bad Sector
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'deal 10 damage
+  cardSplashArt: {fileID: 21300000, guid: 4665ba1bcf2c2a049a5549666bbb3ca9, type: 3}
+  cardEffectDiscription: 'Decompress for 10 damage
 
-    shuffle Desolate Bad Sector into your
-    draw pile
+    Place <i>Desolate Bad Sector</i>
+    into your draw deck
 
-    <b>delete</b>'
+    <b>Delete</b>'
   type: 0
   Company: 2
   containedKeywords: 01000000

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Backup
   m_EditorClassIdentifier: 
   cardName: Backup Files
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: Gain 8 Armor
+  cardSplashArt: {fileID: 21300000, guid: f97381090364de547b4181ae3346a8e1, type: 3}
+  cardEffectDiscription: Instantly gain 8 Encryption
   type: 1
   Company: 0
   containedKeywords: 

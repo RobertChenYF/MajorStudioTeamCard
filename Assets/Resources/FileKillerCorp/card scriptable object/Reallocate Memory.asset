@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Reallocate Memory
   m_EditorClassIdentifier: 
   cardName: Reallocate Memory
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'deal 7 damage
+  cardSplashArt: {fileID: 21300000, guid: 119d6e30e587c5248ab4487510d379de, type: 3}
+  cardEffectDiscription: 'Deal 7 damage
 
-    dedicate: gain 15 red mana'
+    <b>Dedicate:</b> Gain 15 CPU'
   type: 1
   Company: 2
   containedKeywords: 00000000

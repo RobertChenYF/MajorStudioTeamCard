@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Quarantine Files
   m_EditorClassIdentifier: 
   cardName: Quarantine Files
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'gain 6 armor
+  cardSplashArt: {fileID: 21300000, guid: 7a5192e848370194c93c104abc40096a, type: 3}
+  cardEffectDiscription: 'Gain 6 Encryption
 
-    <b>dedicate</b>: gain <b>harden</b> instead'
+    <b>Dedicate</b>: Gain <b>Harden</b>
+    instead'
   type: 1
   Company: 2
   containedKeywords: 0000000004000000
