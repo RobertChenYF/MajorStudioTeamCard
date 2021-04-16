@@ -944,6 +944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 3
+  startingArmor: 0
   healthBarFill: {fileID: 7813298947444421537}
   armorIconDisplay: {fileID: 7813298946260779865}
   armorAmountDisplay: {fileID: 7813298946487212367}
@@ -955,6 +956,7 @@ MonoBehaviour:
   moveSet:
   - {fileID: 7813298946179961591}
   - {fileID: 7813298946065789406}
+  is_Idle: 0
 --- !u!61 &6244428138369009162
 BoxCollider2D:
   m_ObjectHideFlags: 0

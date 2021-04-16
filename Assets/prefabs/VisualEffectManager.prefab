@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4070458609162924804}
   m_Layer: 0
   m_Name: VisualEffectManager
-  m_TagString: Untagged
+  m_TagString: VisEffectManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,16 +48,18 @@ MonoBehaviour:
   damageParticleOffset: {x: 0.6, y: 0.4, z: 0}
   damageParticleEndOffset: {x: 2, y: 2, z: 0}
   damageParticleTime: 0.5
-  flashTime: 0
-  dmgFlashColor: {r: 1, g: 0, b: 0, a: 0}
-  canvas: {fileID: 0}
   particleTransformSmoothing: 2
   particleColorSmoothing: 0.21
   dmgParticleColor: {r: 0.9433962, g: 0.88757014, b: 0.18393251, a: 0}
+  jitterOffset: {x: 0.08, y: 0.23, z: 0}
+  jitterSmoothing: 15
+  dmgFlashColor: {r: 1, g: 0, b: 0, a: 0}
+  flashSmoothingIn: 15
+  flashSmoothingOut: 0.5
   audioSource: {fileID: 0}
-  dmgSound: {fileID: 8300000, guid: 0b725ad36e391fd4096f750d82e6b53d, type: 3}
+  enemyDmgSound: {fileID: 8300000, guid: 0b725ad36e391fd4096f750d82e6b53d, type: 3}
   dmgSoundVolume: 0.2
-  playerDmgSound: {fileID: 0}
+  playerDmgSound: {fileID: 8300000, guid: b22e3b1b3052b914da482f2581e307c2, type: 3}
   playerDmgSoundVolume: 0.5
 --- !u!82 &4070458609162924804
 AudioSource:
