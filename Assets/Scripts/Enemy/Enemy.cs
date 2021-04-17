@@ -57,7 +57,7 @@ public class Enemy: MonoBehaviour
         if(Input.GetKeyDown(KeyCode.D))
         {
             if(this.gameObject)
-                TakeDamage(10);
+                TakeDamage(1);
         }
     }
     void PlayEnemyIdleAnimation(bool is_Idle)

@@ -54,8 +54,8 @@ MonoBehaviour:
   jitterOffset: {x: 0.08, y: 0.23, z: 0}
   jitterSmoothing: 15
   dmgFlashColor: {r: 1, g: 0, b: 0, a: 0}
-  flashSmoothingIn: 15
-  flashSmoothingOut: 0.5
+  dmgFlashSmoothingIn: 15
+  dmgFlashSmoothingOut: 0.5
   audioSource: {fileID: 0}
   enemyDmgSound: {fileID: 8300000, guid: 0b725ad36e391fd4096f750d82e6b53d, type: 3}
   dmgSoundVolume: 0.2
