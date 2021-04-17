@@ -65,7 +65,7 @@ public class CombatManager : MonoBehaviour
             Services.eventManager.Fire(new TimeCycleEnd());
 
             //Timer End Visual Effect
-            StartCoroutine(Services.visualEffectManager.PlayUpdateCycleEffect());
+            Services.visualEffectManager.PlayUpdateCycleEffect();
 
         }
         timeCycleDisplay.fillAmount = CycleTimer / timeCircleDuration;

@@ -88,7 +88,7 @@ public class Enemy: MonoBehaviour
     public void TakeDamage(float damage)
     {
         //Call visual effect
-        StartCoroutine(Services.visualEffectManager.PlayEnemyTakeDamageEffect(this.GetComponent<Enemy>(), damage));
+        Services.visualEffectManager.PlayEnemyTakeDamageEffect(this.GetComponent<Enemy>(), damage);
 
         if (currentArmor >= damage)
         {

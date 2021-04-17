@@ -111,8 +111,13 @@ public class VisualEffectManager : MonoBehaviour
             yield return null;
     }
 
+    public void PlayEnemyTakeDamageEffect(Enemy enemy, float damage)
+    {
+        StartCoroutine(EnemyTakeDamageEffect(enemy, damage));
+    }
+
     //Damage Number Throw Out Effect
-    public IEnumerator PlayEnemyTakeDamageEffect(Enemy enemy, float damage)
+    IEnumerator EnemyTakeDamageEffect(Enemy enemy, float damage)
     {
         enemy.is_Idle = false;
 
@@ -169,7 +174,12 @@ public class VisualEffectManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public IEnumerator PlayUpdateCycleEffect()
+    public void PlayUpdateCycleEffect()
+    {
+        StartCoroutine(UpdateCycleEffect());
+    }
+
+    IEnumerator UpdateCycleEffect()
     {
         //screen flash & woosh ?
 
