@@ -64,6 +64,9 @@ public class CombatManager : MonoBehaviour
             //trigger all time cycle function, fill resource, boss attack timer, card cooldown
             Services.eventManager.Fire(new TimeCycleEnd());
 
+            //Timer End Visual Effect
+            StartCoroutine(Services.visualEffectManager.PlayUpdateCycleEffect());
+
         }
         timeCycleDisplay.fillAmount = CycleTimer / timeCircleDuration;
         CycleTimer += Time.deltaTime * CycleSpeed;

@@ -19,8 +19,8 @@ public class VisualEffectManager : MonoBehaviour
 
     [Header ("Flash Effect")]
     [SerializeField] private Color dmgFlashColor;
-    [SerializeField] private float flashSmoothingIn;
-    [SerializeField] private float flashSmoothingOut;
+    [SerializeField] private float dmgFlashSmoothingIn;
+    [SerializeField] private float dmgFlashSmoothingOut;
 
     [Header ("Audio Effect Settings")]
     [SerializeField] private AudioSource audioSource;
@@ -28,6 +28,8 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private float dmgSoundVolume;
     [SerializeField] private AudioClip playerDmgSound;
     [SerializeField] private float playerDmgSoundVolume;
+    [SerializeField] private AudioClip nextCycleSound;
+    [SerializeField] private float nextCycleSoundVolume;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +63,7 @@ public class VisualEffectManager : MonoBehaviour
         audioSource.Play();
     }
 
-    IEnumerator PlayFlashEffect(SpriteRenderer sr, Color color)
+    IEnumerator PlayFlashEffect(SpriteRenderer sr, Color color, float smoothIn, float smoothOut)
     {
         Color temp = sr.color;
 
@@ -70,7 +72,7 @@ public class VisualEffectManager : MonoBehaviour
         //lerp the sprite color to hue
         while (Mathf.Abs(color.r - sr.color.r) > 0.05f || Mathf.Abs(color.g - sr.color.g) > 0.05f || Mathf.Abs(color.b - sr.color.b) > 0.05f) //use red value for tracking change
         {
-            sr.color = Color.Lerp(sr.color, color, flashSmoothingIn * Time.deltaTime);
+            sr.color = Color.Lerp(sr.color, color, smoothIn * Time.deltaTime);
             //print("Current Color: " + sr.color.ToString());
 
             yield return null;
@@ -79,7 +81,7 @@ public class VisualEffectManager : MonoBehaviour
         //lerp back
         while (Mathf.Abs(color.r - sr.color.r) > 0.05f || Mathf.Abs(color.g - sr.color.g) > 0.05f || Mathf.Abs(color.b - sr.color.b) > 0.05f) //use red value for tracking change
         {
-            sr.color = Color.Lerp(sr.color, temp, flashSmoothingOut * Time.deltaTime);
+            sr.color = Color.Lerp(sr.color, temp, smoothOut * Time.deltaTime);
 
             yield return null;
         }
@@ -99,7 +101,7 @@ public class VisualEffectManager : MonoBehaviour
             enemy.gameObject.transform.position =
                 Vector3.Slerp(enemy.gameObject.transform.position, tempPos + jitterOffset, jitterSmoothing * Time.deltaTime);
 
-            print("POS: " + enemy.gameObject.transform.position.ToString());
+            //print("POS: " + enemy.gameObject.transform.position.ToString());
 
             yield return null;
         }
@@ -123,7 +125,7 @@ public class VisualEffectManager : MonoBehaviour
         float currentAlpha = 1;
 
         //Play Flash, jitter, and Sound EFfect
-        StartCoroutine(PlayFlashEffect(enemy.gameObject.GetComponent<SpriteRenderer>(), dmgFlashColor));
+        StartCoroutine(PlayFlashEffect(enemy.gameObject.GetComponent<SpriteRenderer>(), dmgFlashColor, dmgFlashSmoothingIn, dmgFlashSmoothingOut));
         StartCoroutine(PlayEnemyHitJitter(enemy));
         PlayEnemyDamageSound();
 
@@ -140,7 +142,7 @@ public class VisualEffectManager : MonoBehaviour
         }
 
         //print("Particle Destroyed");
-        Destroy(dmgTxt);
+        Destroy(dmgTxt.gameObject);
 
         enemy.is_Idle = true;
 
@@ -160,9 +162,20 @@ public class VisualEffectManager : MonoBehaviour
         yield return null;
     }
 
-    void UpdateCycleEffect()
+    void PlayNextCycleSound()
     {
+        audioSource.clip = nextCycleSound;
+        audioSource.volume = nextCycleSoundVolume;
+        audioSource.Play();
+    }
 
+    public IEnumerator PlayUpdateCycleEffect()
+    {
+        //screen flash & woosh ?
+
+        PlayNextCycleSound();
+
+        yield return null;
     }
 
     void PlayPlayerGainHealthEffect()
