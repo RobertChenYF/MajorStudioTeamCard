@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: seeded Denfense
   m_EditorClassIdentifier: 
   cardName: Seeded Defense
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: gain 5 armor
+  cardSplashArt: {fileID: 21300000, guid: e4e6cf4d04580fe458c17e8c3d4900cd, type: 3}
+  cardEffectDiscription: Gain 5 armor
   type: 1
   Company: 2
   containedKeywords: 

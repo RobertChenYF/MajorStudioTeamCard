@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Sweep
   m_EditorClassIdentifier: 
   cardName: Sweep
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'give the target 3 <b>burn</b>
+  cardSplashArt: {fileID: 21300000, guid: 7d75c8dbafda24f4cb173ebd4baacb67, type: 3}
+  cardEffectDiscription: 'Give the target 3 <b>Burn</b>
 
-    <b>delete</b>'
+    <b>Delete</b>'
   type: 1
   Company: 2
   containedKeywords: 0200000001000000

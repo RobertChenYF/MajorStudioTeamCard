@@ -50,7 +50,7 @@ public class PlayerStatsManager : MonoBehaviour
     void TempUpdateDisplayStat()
     {
         //temporary will replace with visual UI
-        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nArmor: " + currentArmor.ToString();
+        playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nEncryption: " + currentArmor.ToString();
     }
 
     public class PlayerTakeDamageEvent: AGPEvent{
@@ -63,6 +63,9 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        //Play VisualEffect
+        StartCoroutine(Services.visualEffectManager.PlayPlayerTakeDamageEffect());
+
         currentDamageAmount = damage;
         TakeDamageEvent.Invoke();
         if (currentDamageAmount > 0)

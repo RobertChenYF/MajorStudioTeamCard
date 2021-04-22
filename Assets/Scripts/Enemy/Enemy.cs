@@ -8,6 +8,7 @@ using System;
 public class Enemy: MonoBehaviour
 {
     [SerializeField]protected float maxHp;
+    [SerializeField] protected float startingArmor;
     [SerializeField]protected Image healthBarFill;
     [SerializeField] protected GameObject armorIconDisplay;
     [SerializeField] protected TextMeshPro armorAmountDisplay;
@@ -22,6 +23,9 @@ public class Enemy: MonoBehaviour
     public List<BuffHoverDisplay> BuffDisplayList;
     public List<EnemyMoveset> moveSet;
 
+    //VisualEffects
+    public bool is_Idle;
+
     private EnemyMoveset currentChargeMove;
     private int currentChargeCycleTimer;
     public virtual void Start()
@@ -29,6 +33,7 @@ public class Enemy: MonoBehaviour
         enemyBuffList = new List<EnemyBuff>();
         BuffDisplayList = new List<BuffHoverDisplay>();
         currentHp = maxHp;
+        currentArmor = startingArmor;
         UpdateDisplayStat();
         StartAmove();
         Services.combatManager.AllMainEnemy.Add(this);
@@ -44,7 +49,25 @@ public class Enemy: MonoBehaviour
             enemyBuffText.text += a.tempString();
         }
         */
+
+        //call idle animation
+        //PlayEnemyIdleAnimation(is_Idle);
+
+        //for damage effect testing
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            if(this.gameObject)
+                TakeDamage(1);
+        }
     }
+    void PlayEnemyIdleAnimation(bool is_Idle)
+    {
+        if (is_Idle)
+        {
+
+        }
+    }
+
     public void UpdateBuffDisplay()
     {
         foreach (BuffHoverDisplay display in BuffDisplayList)
@@ -65,7 +88,7 @@ public class Enemy: MonoBehaviour
     public void TakeDamage(float damage)
     {
         //Call visual effect
-        StartCoroutine(Services.visualEffectManager.PlayEnemyTakeDamageEffect(this.transform, damage));
+        Services.visualEffectManager.PlayEnemyTakeDamageEffect(this.GetComponent<Enemy>(), damage);
 
         if (currentArmor >= damage)
         {

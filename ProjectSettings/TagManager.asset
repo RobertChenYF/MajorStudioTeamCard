@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameManager
+  - Canvas
+  - VisEffectManager
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Post Process
   - Water
   - UI
   - 

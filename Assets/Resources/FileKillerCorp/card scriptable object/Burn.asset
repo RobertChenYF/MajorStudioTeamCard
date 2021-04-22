@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
   m_Name: Burn
   m_EditorClassIdentifier: 
-  cardName: Burn
-  cardSplashArt: {fileID: 0}
-  cardEffectDiscription: give the target 6 <b>burn</b>
+  cardName: File Burn
+  cardSplashArt: {fileID: 21300000, guid: 39a92249c6d04f046be3773894e2b0ba, type: 3}
+  cardEffectDiscription: Decompress to apply 6 <b>burn</b> to the target.
   type: 0
   Company: 2
   containedKeywords: 

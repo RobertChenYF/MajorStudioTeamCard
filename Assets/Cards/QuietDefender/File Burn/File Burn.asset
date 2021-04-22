@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: File Burn
   cardSplashArt: {fileID: 0}
-  cardEffectDiscription: 'Gain 4 damage apply 2 Burn '
+  cardEffectDiscription: 'Decompress to deal 4 damage /n Apply 2 Burn '
   type: 0
-  Class: 1
   Company: 2
+  containedKeywords: 
   attackBarCost: 15
   drawBarCost: 0

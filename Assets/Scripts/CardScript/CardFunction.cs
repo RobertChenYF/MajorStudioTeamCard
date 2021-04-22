@@ -70,7 +70,7 @@ public class CardFunction : MonoBehaviour
     {
         linkedCardPrefab = gameObject;
         MakeCard();
-        UpdateCostDisplay();
+        //UpdateCostDisplay();
         instanceId = GetInstanceID();
         clickhighlightborder.enabled = false;
         keywordTextBox.SetActive(false);
@@ -92,8 +92,8 @@ public class CardFunction : MonoBehaviour
     {
         splashArt = transform.Find("splash").GetComponent<SpriteRenderer>();
         nameText = gameObject.transform.Find("CardNameText").GetComponent<TextMeshPro>();
-        AttackCostText = transform.Find("AttackCost").GetComponent<TextMeshPro>();
-        DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
+        //AttackCostText = transform.Find("AttackCost").GetComponent<TextMeshPro>();
+        //DrawCostText = transform.Find("DrawCost").GetComponent<TextMeshPro>();
         effectDiscriptionText = transform.Find("CardDescription").GetComponent<TextMeshPro>();
         backgroundRenderer = transform.Find("cardBackground").GetComponent<SpriteRenderer>();
         mainCardMat = backgroundRenderer.material;

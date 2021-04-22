@@ -11,6 +11,8 @@ public class CardList : MonoBehaviour
     //public List<GameObject> FileKillerCorpClassCard;
     private List<CardClass> allExistingCardClassInGame;
     public CardClass FileKillerCorp;
+    public Sprite GPUCostIcon;
+    public Sprite CPUCostIcon;
     // Start is called before the first frame update
     void Awake()
     {
