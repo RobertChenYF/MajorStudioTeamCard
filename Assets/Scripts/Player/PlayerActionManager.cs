@@ -19,6 +19,7 @@ public class PlayerActionManager : MonoBehaviour
     public List<CardFunction> DiscardPile;
     public List<CardFunction> AttackField;
     public List<CardFunction> DeletePile;
+    public List<CardFunction> CardInWindow;
 
     [SerializeField] private int playerHandMaxSize;
 
@@ -29,6 +30,9 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private Transform attackField;
     [SerializeField] private Transform generateCardPos;
     [SerializeField] public Transform enemyDefaultPos;
+    [SerializeField] private Transform WindowsStartPos;
+    [SerializeField] private Transform WindowContent;
+    [SerializeField] private GameObject CardWindow;
     public BoxCollider2D handArea;
 
     [Header("UI button")]
@@ -62,6 +66,7 @@ public class PlayerActionManager : MonoBehaviour
         DiscardPile = new List<CardFunction>();
         AttackField = new List<CardFunction>();
         DeletePile = new List<CardFunction>();
+        CardInWindow = new List<CardFunction>();
         //DrawDeck = new List<CardFunction>();
         
         
@@ -406,4 +411,77 @@ public class PlayerActionManager : MonoBehaviour
             card.CanPlay();
         }
     }
+
+    public void DisplayRunDeck()
+    {
+        //open window
+        CardWindow.SetActive(true);
+        //display card
+        DisplayAllCardsInList(Services.runStateManager.playerRunDeck,false);
+        //Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(0,1,0);
+        Services.runStateManager.AllCardsInGame.SetActive(false);
+        Services.runStateManager.CombatUICanvasSet(false);
+    }
+
+    public void DisplayDrawDecck()
+    {
+        //open window
+        CardWindow.SetActive(true);
+        //display card
+        DisplayAllCardsInList(DrawDeck, true);
+        //Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(0,1,0);
+        Services.runStateManager.AllCardsInGame.SetActive(false);
+        Services.runStateManager.CombatUICanvasSet(false);
+    }
+
+    public void DisplayDiscardPile()
+    {
+        //open window
+        CardWindow.SetActive(true);
+        //display card
+        DisplayAllCardsInList(DiscardPile, false);
+        //Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(0,1,0);
+        Services.runStateManager.AllCardsInGame.SetActive(false);
+        Services.runStateManager.CombatUICanvasSet(false);
+    }
+
+    public void CloseWindow()
+    {
+        
+
+        while (CardInWindow.Count > 0)
+        {
+            GameObject temp = CardInWindow[0].gameObject;
+            CardInWindow.RemoveAt(0);
+            Destroy(temp);
+        }
+
+        CardWindow.SetActive(false);
+        Services.runStateManager.AllCardsInGame.SetActive(true);
+        Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(1, 1, 1);
+        Services.runStateManager.CombatUICanvasSet(true);
+    }
+
+    public void DisplayAllCardsInList(List<CardFunction> deck, bool shuffle)
+    {
+        //for each card in the list instantiate a copy of it and add to the window list and change its trandform
+        foreach (CardFunction card in deck)
+        {
+            GameObject temp = Instantiate(card.gameObject);
+            temp.transform.SetParent(WindowContent);
+            CardInWindow.Add(temp.GetComponent<CardFunction>());
+
+        }
+        if (shuffle)
+        {
+            Shuffle(CardInWindow);
+        }
+        //change its position
+
+        for (int i = 0; i < CardInWindow.Count; i ++)
+        {
+            CardInWindow[i].gameObject.transform.localPosition = WindowsStartPos.localPosition + new Vector3((i%5)*50 ,(i/5)*-66,0);
+        }
+    }
+
 }

@@ -226,7 +226,12 @@ public class CardFunction : MonoBehaviour
     void OnMouseExit()
     {
         //backgroundRenderer.material.color = originalColor;
-        UpdateInHandLayerOrder();
+        if (Services.actionManager.InHand(this) != -1)
+        {
+
+            UpdateInHandLayerOrder();
+        }
+        
         if (containedKeywords.Count > 0)
         {
             keywordTextBox.SetActive(false);
@@ -271,6 +276,7 @@ public class CardFunction : MonoBehaviour
     public void UpdateInHandLayerOrder()
     {
         GetComponent<SortingGroup>().sortingOrder = Services.actionManager.PlayerHand.IndexOf(this);
+        
         transform.localScale = new Vector3(1,1,1);
     }
 
