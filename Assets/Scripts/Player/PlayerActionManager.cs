@@ -96,7 +96,12 @@ public class PlayerActionManager : MonoBehaviour
     }
     public void PlayCard(CardFunction card)
     {
-        if (card.CanPlay())
+        if (currentTargetEnemy == null)
+        {
+            //Pop up
+            print("Cannot Play");
+        }
+        else if (card.CanPlay())
         {
             Services.resourceManager.ConsumeDrawBar(card.GetDrawCost());
             Services.resourceManager.ConsumeAttackBar(card.GetAttackCost());
@@ -326,7 +331,11 @@ public class PlayerActionManager : MonoBehaviour
     }
     public void StartAttack()
     {
-        if (Services.resourceManager.CheckAttackBar(currentAttackCost))
+        if (currentTargetEnemy == null)
+        {
+            //Pop up
+        }
+        else if (Services.resourceManager.CheckAttackBar(currentAttackCost))
         {
 
             Services.resourceManager.ConsumeAttackBar(currentAttackCost);

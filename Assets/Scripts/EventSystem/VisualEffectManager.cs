@@ -85,7 +85,7 @@ public class VisualEffectManager : MonoBehaviour
 
             yield return null;
         }
-
+    
         sr.color = temp;
 
         yield return null;
@@ -177,6 +177,17 @@ public class VisualEffectManager : MonoBehaviour
     public void PlayUpdateCycleEffect()
     {
         StartCoroutine(UpdateCycleEffect());
+    }
+
+    public void PlayErrorPopUp(string error)
+    {
+        StartCoroutine(ErrorPopUp(error));
+    }
+
+    IEnumerator ErrorPopUp(string error)
+    {
+
+        yield return null;
     }
 
     IEnumerator UpdateCycleEffect()
