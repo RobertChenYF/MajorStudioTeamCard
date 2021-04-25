@@ -27,6 +27,7 @@ public class BeforeCombat : RunState
         base.Enter();
         Debug.Log("start");
         manager.SpawnNewMainEnemy();
+        Services.combatManager.PauseTimeCycle();
         manager.CombatPreviewWindow.SetActive(true);
         //load enemy preview window
 

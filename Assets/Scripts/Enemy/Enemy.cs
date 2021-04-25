@@ -168,6 +168,7 @@ public class Enemy: MonoBehaviour
         {
             Services.actionManager.currentTargetEnemy = null;
         }
+        Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(CycleChargeReduce);
         Services.combatManager.AllMainEnemy.Remove(this);
         gameObject.SetActive(false);
     }
