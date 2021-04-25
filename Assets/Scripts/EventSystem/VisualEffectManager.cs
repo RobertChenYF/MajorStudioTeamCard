@@ -30,11 +30,27 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private float playerDmgSoundVolume;
     [SerializeField] private AudioClip nextCycleSound;
     [SerializeField] private float nextCycleSoundVolume;
+    [SerializeField] private AudioClip errorSound;
+    [SerializeField] private float errorSoundVolume;
+
+    [Header("Error Message Pop Up")]
+    [SerializeField] private TextMeshPro ErrorMsgTextPrefab;
+    [SerializeField] private float errorTxtColorSmoothing;
+    [SerializeField] private float popUpTime;
+
+    [Header("Screen Shake Effect")]
+    [SerializeField] private float shakeDuration;
+    [SerializeField] private float shakeMagnitude;
+    [SerializeField] private float dampingSpeed;
+    private Vector3 initCamPos;
+    private Camera mainCam;
 
     // Start is called before the first frame update
     void Start()
     {
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         audioSource = this.gameObject.GetComponent<AudioSource>();
+        initCamPos = mainCam.gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -53,6 +69,13 @@ public class VisualEffectManager : MonoBehaviour
     {
         audioSource.clip = enemyDmgSound;
         audioSource.volume = dmgSoundVolume;
+        audioSource.Play();
+    }
+
+    void PlayErrorSound()
+    {
+        audioSource.clip = errorSound;
+        audioSource.volume = errorSoundVolume;
         audioSource.Play();
     }
 
@@ -101,8 +124,6 @@ public class VisualEffectManager : MonoBehaviour
             enemy.gameObject.transform.position =
                 Vector3.Slerp(enemy.gameObject.transform.position, tempPos + jitterOffset, jitterSmoothing * Time.deltaTime);
 
-            //print("POS: " + enemy.gameObject.transform.position.ToString());
-
             yield return null;
         }
 
@@ -119,7 +140,10 @@ public class VisualEffectManager : MonoBehaviour
     //Damage Number Throw Out Effect
     IEnumerator EnemyTakeDamageEffect(Enemy enemy, float damage)
     {
-        enemy.is_Idle = false;
+        foreach (Enemy e in Services.combatManager.AllMainEnemy)
+        {
+            e.is_Idle = false;
+        }
 
         //print("Starting Enemy Damage Effect.");
 
@@ -149,7 +173,10 @@ public class VisualEffectManager : MonoBehaviour
         //print("Particle Destroyed");
         Destroy(dmgTxt.gameObject);
 
-        enemy.is_Idle = true;
+        foreach (Enemy e in Services.combatManager.AllMainEnemy)
+        {
+            e.is_Idle = true;
+        }
 
         yield return null;
     }
@@ -160,9 +187,40 @@ public class VisualEffectManager : MonoBehaviour
 
     }
 
-    public IEnumerator PlayPlayerTakeDamageEffect()
+    public void PlayPlayerTakeDamageEffect(float dmg)
+    {
+        StartCoroutine(PlayerTakeDamageEffect(dmg));
+    }
+
+    IEnumerator PlayerTakeDamageEffect(float dmg)
     {
         PlayPlayerTakeDamageSound();
+
+        //screen shake to a degree based off the damage number
+        StartCoroutine(PlayCameraShake(Remap(dmg, 0, 10, 0, 0.75f), Remap(dmg, 0, 10, 0, 0.4f), dampingSpeed));
+
+        yield return null;
+    }
+
+    public static float Remap(float value, float from1, float to1, float from2, float to2)
+    {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+    }
+
+    IEnumerator PlayCameraShake(float magnitude, float duration, float damping)
+    {
+        float currentTime = Time.time;
+        float endTime = Time.time + duration;
+
+        while (currentTime < endTime)
+        {
+            mainCam.transform.localPosition = initCamPos + Random.insideUnitSphere * magnitude;
+            currentTime += Time.deltaTime * damping;
+
+            yield return null;
+        }
+
+        mainCam.transform.position = initCamPos;
 
         yield return null;
     }
@@ -186,6 +244,23 @@ public class VisualEffectManager : MonoBehaviour
 
     IEnumerator ErrorPopUp(string error)
     {
+        PlayErrorSound();
+
+        TextMeshPro errorTxt = Instantiate(ErrorMsgTextPrefab);
+        errorTxt.text = error;
+        float currentAlpha = 1;
+
+        yield return new WaitForSeconds(popUpTime);
+
+        while (errorTxt.color.a > 0.05f)
+        {
+            currentAlpha = Mathf.Lerp(currentAlpha, 0f, errorTxtColorSmoothing * Time.deltaTime);
+            errorTxt.faceColor = new Color(errorTxt.color.r, errorTxt.color.g, errorTxt.color.b, currentAlpha);
+
+            yield return null;
+        }
+
+        Destroy(errorTxt);
 
         yield return null;
     }

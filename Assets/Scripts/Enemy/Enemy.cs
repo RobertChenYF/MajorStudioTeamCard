@@ -76,7 +76,6 @@ public class Enemy: MonoBehaviour
         {
             StartCoroutine(PlayEnemyIdleAnimation());
         }
-        PlayEnemyIdleAnimation();
     }
     IEnumerator PlayEnemyIdleAnimation()
     {

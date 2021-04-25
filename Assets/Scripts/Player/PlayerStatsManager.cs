@@ -38,7 +38,11 @@ public class PlayerStatsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Effect Testing
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            TakeDamage(5);
+        }
     }
 
     private void LoseArmorAtCycleEnd(AGPEvent e)
@@ -64,7 +68,7 @@ public class PlayerStatsManager : MonoBehaviour
     public void TakeDamage(float damage)
     {
         //Play VisualEffect
-        StartCoroutine(Services.visualEffectManager.PlayPlayerTakeDamageEffect());
+        Services.visualEffectManager.PlayPlayerTakeDamageEffect(damage);
 
         currentDamageAmount = damage;
         TakeDamageEvent.Invoke();

@@ -99,7 +99,7 @@ public class PlayerActionManager : MonoBehaviour
         if (currentTargetEnemy == null)
         {
             //Pop up
-            print("Cannot Play");
+            Services.visualEffectManager.PlayErrorPopUp("Please select a target first!");
         }
         else if (card.CanPlay())
         {
@@ -334,6 +334,7 @@ public class PlayerActionManager : MonoBehaviour
         if (currentTargetEnemy == null)
         {
             //Pop up
+            Services.visualEffectManager.PlayErrorPopUp("Please select a target first!");
         }
         else if (Services.resourceManager.CheckAttackBar(currentAttackCost))
         {
