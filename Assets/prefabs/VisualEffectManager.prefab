@@ -63,6 +63,14 @@ MonoBehaviour:
   playerDmgSoundVolume: 0.5
   nextCycleSound: {fileID: 8300000, guid: e33c2383eb5d64842b19732384acf8be, type: 3}
   nextCycleSoundVolume: 0.26
+  errorSound: {fileID: 8300000, guid: aae140ffdd7e1d9479a6c6c969d80c05, type: 3}
+  errorSoundVolume: 0.5
+  ErrorMsgTextPrefab: {fileID: 5348285721208537264, guid: 260da03536c8fc446b802e31ce42d12a, type: 3}
+  errorTxtColorSmoothing: 3.66
+  popUpTime: 0.5
+  shakeDuration: 0.5
+  shakeMagnitude: 1
+  dampingSpeed: 1
 --- !u!82 &4070458609162924804
 AudioSource:
   m_ObjectHideFlags: 0

@@ -806,8 +806,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190210
-  m_fontColor: {r: 0.509434, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -975,8 +975,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190210
-  m_fontColor: {r: 0.509434, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1150,6 +1150,12 @@ MonoBehaviour:
   moveSet:
   - {fileID: 2539422240982624903}
   - {fileID: 2539422240255428646}
+  is_Idle: 1
+  idleSmoothingUp: 9
+  idleSmoothingDown: 6.4
+  idlePosOffset: {x: 0.05, y: 0.3, z: 0}
+  waitTime: 0.35
+  hangTime: 0.5
 --- !u!61 &404650317962451965
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1379,6 +1385,12 @@ MonoBehaviour:
   moveSet:
   - {fileID: 2539422241035699561}
   - {fileID: 2539422239844637322}
+  is_Idle: 0
+  idleSmoothingUp: 9
+  idleSmoothingDown: 6.4
+  idlePosOffset: {x: 0.05, y: 0.3, z: 0}
+  waitTime: 0.35
+  hangTime: 0.5
 --- !u!61 &2539422240478844580
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3021,8 +3033,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190210
-  m_fontColor: {r: 0.509434, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3196,6 +3208,12 @@ MonoBehaviour:
   moveSet:
   - {fileID: 4361200405490531361}
   - {fileID: 4361200405923733256}
+  is_Idle: 0
+  idleSmoothingUp: 9
+  idleSmoothingDown: 6.4
+  idlePosOffset: {x: 0.05, y: 0.3, z: 0}
+  waitTime: 0.35
+  hangTime: 0.5
 --- !u!61 &450600865397516508
 BoxCollider2D:
   m_ObjectHideFlags: 0

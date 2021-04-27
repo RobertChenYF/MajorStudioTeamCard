@@ -24,7 +24,16 @@ public class Enemy: MonoBehaviour
     public List<EnemyMoveset> moveSet;
 
     //VisualEffects
+    [Header ("Idle Animation")]
     public bool is_Idle;
+    [SerializeField] private float idleSmoothingUp;
+    [SerializeField] private float idleSmoothingDown;
+    [SerializeField] private Vector3 idlePosOffset;
+    [SerializeField] private float waitTime;
+    [SerializeField] private float hangTime;
+    bool goingUp = true;
+    Vector3 savedEnemyPos;
+    bool playing_idle = false;
 
     private EnemyMoveset currentChargeMove;
     private int currentChargeCycleTimer;
@@ -39,7 +48,13 @@ public class Enemy: MonoBehaviour
         Services.combatManager.AllMainEnemy.Add(this);
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(CycleChargeReduce);
         // currentHp = maxHp;
+
+        //Update Idle Position Offset
+        is_Idle = true;
+        savedEnemyPos = this.gameObject.transform.position;
+        idlePosOffset = new Vector3(idlePosOffset.x + savedEnemyPos.x, idlePosOffset.y + savedEnemyPos.y, 0);
     }
+
     public virtual void Update()
     {
         /*
@@ -50,22 +65,60 @@ public class Enemy: MonoBehaviour
         }
         */
 
-        //call idle animation
-        //PlayEnemyIdleAnimation(is_Idle);
-
         //for damage effect testing
         if(Input.GetKeyDown(KeyCode.D))
         {
             if(this.gameObject)
                 TakeDamage(1);
         }
-    }
-    void PlayEnemyIdleAnimation(bool is_Idle)
-    {
-        if (is_Idle)
-        {
 
+        if (is_Idle && !playing_idle)
+        {
+            StartCoroutine(PlayEnemyIdleAnimation());
         }
+    }
+    IEnumerator PlayEnemyIdleAnimation()
+    {
+        playing_idle = true;
+        while (is_Idle)
+        {
+            if (goingUp)
+            {
+                while (Vector3.Distance(this.gameObject.transform.position, idlePosOffset) > 0.05f)
+                {
+                    //print(EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothing * Time.deltaTime).ToString());
+                    this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothingUp * Time.deltaTime);
+                    yield return null;
+                }
+                goingUp = false;
+                yield return new WaitForSeconds(hangTime);
+            }
+            else
+            {
+                while (Vector3.Distance(this.gameObject.transform.position, savedEnemyPos) > 0.05f)
+                {
+                    this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, savedEnemyPos, idleSmoothingDown * Time.deltaTime);
+                    yield return null;
+                }
+                goingUp = true;
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        playing_idle = false;
+    }
+
+    public static float EaseInOutQuad(float start, float end, float value)
+    {
+        value /= .5f;
+        end -= start;
+        if (value < 1) return end * 0.5f * value * value + start;
+        value--;
+        return -end * 0.5f * (value * (value - 2) - 1) + start;
+    }
+
+    public static Vector3 EaseInOutQuad(Vector3 start, Vector3 end, float value)
+    {
+        return new Vector3(EaseInOutQuad(start.x, end.x, value), EaseInOutQuad(start.y, end.y, value), EaseInOutQuad(start.z, end.z, value));
     }
 
     public void UpdateBuffDisplay()
