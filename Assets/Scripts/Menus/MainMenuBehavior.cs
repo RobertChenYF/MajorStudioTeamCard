@@ -13,8 +13,18 @@ public class MainMenuBehavior : MonoBehaviour
         Debug.Log(Manager);
     }
 
-    public void MainMenuButton()
+    public void PlayButton()
     {
         Manager.GetComponent<GameManager>().PlayGame = true;
+    }
+
+    public void GlossaryButton()
+    {
+        Manager.GetComponent<GameManager>().ShowGlossary = true;
+    }
+
+    public void TutorialButton()
+    {
+        Manager.GetComponent<GameManager>().PlayTutorial = true;
     }
 }

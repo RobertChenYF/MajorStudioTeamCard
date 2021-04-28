@@ -2877,7 +2877,7 @@ AudioSource:
   m_Volume: 0.031
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -2970,7 +2970,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &771242487 stripped
 Transform:
@@ -5513,7 +5513,7 @@ RectTransform:
   m_Children:
   - {fileID: 1423325023}
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7479,7 +7479,6 @@ MonoBehaviour:
   ErrorMsgTextPrefab: {fileID: 0}
   errorTxtColorSmoothing: 0
   popUpTime: 0
-  mainCam: {fileID: 0}
   shakeDuration: 0
   shakeMagnitude: 0
   dampingSpeed: 0

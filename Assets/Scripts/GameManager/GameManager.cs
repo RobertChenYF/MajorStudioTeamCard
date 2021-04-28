@@ -8,16 +8,20 @@ public class GameManager : MonoBehaviour
     public enum StateType
     {
         MainMenu,      //Main menu state
-        Staging,      //When the player is in the Staging area between Encounters. Here is where the player picks their deck or picks the next Encounter.
-        Encounter,    //When the player is in an Encounter
+        Glossary,      //When the player is in the Staging area between Encounters. Here is where the player picks their deck or picks the next Encounter.
+        Combat,    //When the player is in combat
+        Tutorial,     //For the tutorial
         Unknown,      //A catch all state
         _PRELOAD,     //Initial State for loading
     }
 
     public float PlayerHealth;
     public int gameScore;
-    public List<CardFunction> GlobalPlayerHand;
+    //public List<CardFunction> GlobalPlayerHand;
     public bool PlayGame;
+    public bool ShowGlossary;
+    public bool PlayTutorial;
+    //private GameObject TutorialManager;
 
 
     StateType currentState;
@@ -27,8 +31,9 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         currentState = StateType._PRELOAD;
-        PlayerHealth = 100;
         PlayGame = false;
+        ShowGlossary = false;
+        PlayTutorial = false;
     }
 
     private void Update()
@@ -38,38 +43,39 @@ public class GameManager : MonoBehaviour
             case StateType._PRELOAD:
                 if (currentState == StateType._PRELOAD)
                 {
-                    Debug.Log(currentState);
                     SwitchScenes("MainMenu", StateType.MainMenu);
                 }
                 break;
             case StateType.MainMenu:
                 if (PlayGame == true)
                 {
-                    Debug.Log("Reached the Game Manager");
-                    SceneManager.LoadScene("Staging");
-                    currentState = StateType.Staging;
                     PlayGame = false;
-                }
-                break;
-            case StateType.Staging:
-                if (Input.GetKeyDown(KeyCode.Space))
+                    SceneManager.LoadScene("TutorialCombat");
+                    //SceneManager.LoadScene("Glossary");
+                    currentState = StateType.Combat;
+                } else if (ShowGlossary == true)
                 {
-                    SceneManager.LoadScene("Encounter");
-                    currentState = StateType.Encounter;
-                }
-                break;
-            case StateType.Encounter:
-                if (Input.GetKeyDown(KeyCode.Space))
+                    ShowGlossary = false;
+                    SceneManager.LoadScene("CombatScene");
+                    Debug.Log("No glossary scene");
+                    currentState = StateType.Glossary;
+                } else if (PlayTutorial == true)
                 {
-                    SceneManager.LoadScene("Staging");
-                    currentState = StateType.Staging;
+                    SceneManager.LoadScene("TutorialCombat");
+                    currentState = StateType.Tutorial;
                 }
                 break;
-            case StateType.Unknown:
+            case StateType.Combat:
+                break;
+            case StateType.Glossary:
+                break;
+            case StateType.Tutorial:
+                break;
+            case StateType.Unknown: 
                 //empty
                 break;
             default:
-                print("Incorrect intelligence level.");
+                print("Hold on partner, you went too far.");
                 break;
         }
     }
