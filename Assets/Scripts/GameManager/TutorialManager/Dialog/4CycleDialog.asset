@@ -15,7 +15,7 @@ MonoBehaviour:
   klippyImage: {fileID: 21300000, guid: a0ffdc23ca8738e4aaf25618f6fd78c7, type: 3}
   klippyDialog: 'Look at the top left corner. This circle represents the time you
     have in a cycle. '
-  arrowActive: 1
+  arrowActive: 0
   arrowImage: {fileID: 21300000, guid: 3d02d29a36fb67743bc42124349c6482, type: 3}
   arrowPosition: {x: -3.24, y: 2.79, z: -0.41}
   arrowRotation: {x: -1.32, y: 1.535, z: -27.753, w: 0}
