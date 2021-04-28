@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Purge Disk
   cardSplashArt: {fileID: 21300000, guid: 0404c708ca4fd884fae69bb2b4fa94ec, type: 3}
-  cardEffectDiscription: 'Deal 6 damage
+  cardEffectDiscription: 'Deal 6 damage.
 
-    If the target has <b>burn</b>, deal
+    If the target has <b>Burn</b>, deal
     6 more damage.'
   type: 1
   Company: 2

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
+  m_Name: Risky Archive
+  m_EditorClassIdentifier: 
+  cardName: Risky Archive
+  cardSplashArt: {fileID: 0}
+  cardEffectDiscription: "Take 3 damage and Gain 20 CPU. \n<b>Initial:</b> Fill your
+    CPU instead."
+  type: 0
+  Company: 3
+  containedKeywords: 05000000
+  attackBarCost: 0
+  drawBarCost: 0

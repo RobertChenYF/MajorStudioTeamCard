@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: System Sweep
   cardSplashArt: {fileID: 21300000, guid: a9a421e68f267e14b8a7f1df45d33b81, type: 3}
-  cardEffectDiscription: Add 2 copies of <i>Sweep</i> to your hand
+  cardEffectDiscription: Add 2 copies of <i>Sweep</i> to your hand.
   type: 1
   Company: 2
   containedKeywords: 

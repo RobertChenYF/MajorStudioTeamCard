@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Frontloaded Defense
   cardSplashArt: {fileID: 21300000, guid: e4fb1e553e4544649b9cf40a59eee9a7, type: 3}
-  cardEffectDiscription: 'Gain 10 armor
+  cardEffectDiscription: 'Gain 10 armor.
 
     <b>Priority</b>'
   type: 1

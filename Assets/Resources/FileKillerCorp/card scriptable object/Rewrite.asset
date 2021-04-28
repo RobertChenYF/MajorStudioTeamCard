@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Rewrite
   cardSplashArt: {fileID: 21300000, guid: 9114cce74c10d764fb2d125bc6712a5e, type: 3}
-  cardEffectDiscription: 'Decompress for 20 CPU
+  cardEffectDiscription: 'Decompress for 20 CPU.
 
     <b>Initial:</b> Gain an additional
-    20 CPU'
+    20 CPU.'
   type: 0
   Company: 2
   containedKeywords: 05000000

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93b9e45561ba9e745978fcad2f6782e6, type: 3}
-  m_Name: DialogData
+  m_Name: IntroDialog
   m_EditorClassIdentifier: 
   klippyImage: {fileID: 21300000, guid: a6d7b89ae0638c04893c8228d891a138, type: 3}
   klippyDialog: This is working!
