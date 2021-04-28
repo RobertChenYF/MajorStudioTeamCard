@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3620457e6dc7dfe48b8289614ea9b403, type: 3}
   m_Name: Lemons
   m_EditorClassIdentifier: 
-  cardName: LemonsToLemonate.msi
+  cardName: LemonsToLemonade.msi
   cardSplashArt: {fileID: 0}
   cardEffectDiscription: "Take 1 damage every cycle. \nGain 5 CPU power when you
     take damage."

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: End Process
   m_EditorClassIdentifier: 
   cardName: End Process
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 5f40d3b94e815fd41ba0c669997b7b8c, type: 3}
   cardEffectDiscription: "Gain 8 armor. \n<b>Delete</b> the next card you play."
   type: 1
   Company: 3

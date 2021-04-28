@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Risky Archive
   m_EditorClassIdentifier: 
   cardName: Risky Archive
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: f5432722175984b4387a9ec34ff2222f, type: 3}
   cardEffectDiscription: "Take 3 damage and Gain 20 CPU. \n<b>Initial:</b> Fill your
     CPU instead."
   type: 0

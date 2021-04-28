@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Refresh Directory
   m_EditorClassIdentifier: 
   cardName: Refresh Directory
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 4c408f5111ec6634cbc6240028145a54, type: 3}
   cardEffectDiscription: Draw cards equal to the number of cards waiting to be decompressed.
   type: 1
   Company: 3

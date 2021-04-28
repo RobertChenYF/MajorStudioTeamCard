@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Security Uplink
   m_EditorClassIdentifier: 
   cardName: Security Uplink
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 09a3ec02ed3ffd44f89785cc86267080, type: 3}
   cardEffectDiscription: 'Gain 20 GPU.
 
     <b>Sequence:</b> Gain 10 armor.'

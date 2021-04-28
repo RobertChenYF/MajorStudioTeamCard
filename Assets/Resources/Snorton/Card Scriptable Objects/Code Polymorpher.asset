@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Code Polymorpher
   m_EditorClassIdentifier: 
   cardName: Code Polymorpher
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 35ef5f0e28a85684392043573b97b94d, type: 3}
   cardEffectDiscription: Every time you take damage, heal for 2.
   type: 2
   Company: 3

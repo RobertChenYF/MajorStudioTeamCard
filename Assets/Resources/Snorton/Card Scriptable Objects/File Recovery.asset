@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: File Recovery
   m_EditorClassIdentifier: 
   cardName: File Recovery
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: e8b9fba0fb31ede4aa3e1c1801ea4cfe, type: 3}
   cardEffectDiscription: 'Gain 8 encryption.
 
     <b>Dedicate:</b> Heal 8.'

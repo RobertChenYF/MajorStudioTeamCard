@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Corrupted Definitions
   m_EditorClassIdentifier: 
   cardName: Corrupted Definitions
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: d38a7aa00dc086e4fbe984bb376ba58f, type: 3}
   cardEffectDiscription: 'Take 3 damage.
 
     Deal 6 Damage.'

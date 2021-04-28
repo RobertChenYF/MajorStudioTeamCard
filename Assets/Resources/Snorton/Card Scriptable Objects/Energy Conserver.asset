@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Energy Conserver
   m_EditorClassIdentifier: 
   cardName: Energy Conserver
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 565c158a6d670974c8d1e12b1a5d6631, type: 3}
   cardEffectDiscription: "Playing cards gives you Conservation. \nHeal 2 for each
     Conservation at the end of the encounter."
   type: 2

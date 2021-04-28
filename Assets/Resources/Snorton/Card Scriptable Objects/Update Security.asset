@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Update Security
   m_EditorClassIdentifier: 
   cardName: Update Security
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: c2e759d0ed6a335489088a1b8e83296c, type: 3}
   cardEffectDiscription: Whenver you play a <b>Generated</b> card, draw a card.
   type: 2
   Company: 3

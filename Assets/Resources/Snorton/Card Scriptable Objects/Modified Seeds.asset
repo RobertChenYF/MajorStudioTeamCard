@@ -20,6 +20,6 @@ MonoBehaviour:
     <b>Initial:</b> Draw 2 cards.'
   type: 0
   Company: 3
-  containedKeywords: 
+  containedKeywords: 05000000
   attackBarCost: 0
   drawBarCost: 10
