@@ -31,7 +31,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private Transform generateCardPos;
     [SerializeField] public Transform enemyDefaultPos;
     [SerializeField] private Transform WindowsStartPos;
-    [SerializeField] private Transform WindowContent;
+    [SerializeField] private RectTransform WindowContent;
     [SerializeField] private GameObject CardWindow;
     public BoxCollider2D handArea;
 
@@ -492,6 +492,16 @@ public class PlayerActionManager : MonoBehaviour
         {
             CardInWindow[i].gameObject.transform.localPosition = WindowsStartPos.localPosition + new Vector3((i%5)*50 ,(i/5)*-66,0);
         }
+
+        WindowContent.sizeDelta = new Vector2(WindowContent.sizeDelta.x, 200 + 70*(CardInWindow.Count/5));
     }
 
+
+    public void Skip()
+    {
+        while (Services.combatManager.AllMainEnemy.Count > 0)
+        {
+            Services.combatManager.AllMainEnemy[0].TakeDamage(999);
+        }
+    }
 }
