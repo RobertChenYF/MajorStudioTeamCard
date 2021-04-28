@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
                 if (PlayGame == true)
                 {
                     PlayGame = false;
-                    SceneManager.LoadScene("TutorialCombat");
+                    SceneManager.LoadScene("CombatScene");
                     //SceneManager.LoadScene("Glossary");
                     currentState = StateType.Combat;
                 } else if (ShowGlossary == true)
