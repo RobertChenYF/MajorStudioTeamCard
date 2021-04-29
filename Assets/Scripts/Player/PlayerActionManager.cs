@@ -43,7 +43,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private float attackActionCost;
     [SerializeField] private TextMeshProUGUI redrawButtonText;
     [SerializeField] private TextMeshProUGUI attackButtonText;
-    private float currentRedrawCost;
+    [HideInInspector]public float currentRedrawCost;
     private float currentAttackCost;
     private bool canPlayCard;
     [HideInInspector]public bool attacking;
@@ -92,7 +92,12 @@ public class PlayerActionManager : MonoBehaviour
         UpdateCardInAttackField();
     }
 
-
+    public void LowerDecompressCost(int amount)
+    {
+        currentAttackCost -= amount;
+        currentAttackCost = Mathf.Max(currentAttackCost,0);
+        UpdateBasicActionCostDisplay();
+    }
     
     private void UpdateBasicActionCostDisplay()
     {
@@ -183,11 +188,18 @@ public class PlayerActionManager : MonoBehaviour
 
     }
 
+    public void ResetBasicActionCost()
+    {
+        currentRedrawCost = reDrawActionCost;
+        currentAttackCost = attackActionCost;
+    }
+
     public void ReDraw()
     {
         if (Services.resourceManager.CheckDrawBar(currentRedrawCost))
         {
             Services.resourceManager.ConsumeDrawBar(currentRedrawCost);
+            currentRedrawCost = reDrawActionCost;
             while (PlayerHand.Count > 0)
             {
                 MoveFromHandToDiscardPile(PlayerHand[0]);
@@ -197,7 +209,7 @@ public class PlayerActionManager : MonoBehaviour
             Services.eventManager.Fire(new RedrawEvent());
         }
 
-        currentRedrawCost = reDrawActionCost;
+        
         UpdateBasicActionCostDisplay();
     }
 

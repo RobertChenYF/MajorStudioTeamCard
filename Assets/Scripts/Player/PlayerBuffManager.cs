@@ -13,6 +13,7 @@ public class PlayerBuffManager : MonoBehaviour
     public Sprite BurnBuffIcon;
     public Sprite PlaceHolderBuffIcon;
     
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -239,6 +240,73 @@ public class Spam : PlayerBuff
         Services.eventManager.Unregister<CardFunction.CardTriggerEvent>(TriggerEffect);
     }
 }
+
+public class UpdateSecurity : PlayerBuff
+{
+    public UpdateSecurity()
+    {
+        //icon
+        buffDescription = "draw a card whenevery you play a generated card";
+    }
+
+    public override void ActivateBuff()
+    {
+        base.ActivateBuff();
+        Services.eventManager.Register<PlayerActionManager.PlayerPlayCardEvent>(TriggerEffect);
+    }
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        PlayerActionManager.PlayerPlayCardEvent a = (PlayerActionManager.PlayerPlayCardEvent)e;
+        if (a.thisCard.generated)
+        {
+            Services.actionManager.DrawMutipleCard(stack);
+        }
+    }
+
+    public override void DeactivateBuff()
+    {
+        base.DeactivateBuff();
+        Services.eventManager.Unregister<PlayerActionManager.PlayerPlayCardEvent>(TriggerEffect);
+    }
+}
+
+public class CopyAndPaste : PlayerBuff
+{
+    public CopyAndPaste()
+    {
+        //icon
+        buffDescription = "refund the cost of the next card you play";
+    }
+
+    public override void ActivateBuff()
+    {
+        base.ActivateBuff();
+        Services.eventManager.Register<PlayerActionManager.PlayerPlayCardEvent>(TriggerEffect);
+    }
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        PlayerActionManager.PlayerPlayCardEvent a = (PlayerActionManager.PlayerPlayCardEvent)e;
+        if (a.thisCard.GetAttackCost() > 0)
+        {
+            Services.resourceManager.GainAttackBar(a.thisCard.GetAttackCost());
+        }
+        else if(a.thisCard.GetDrawCost() > 0)
+        {
+            Services.resourceManager.GainDrawBar(a.thisCard.GetDrawCost());
+        }
+        this.LoseStack();
+    }
+
+    public override void DeactivateBuff()
+    {
+        base.DeactivateBuff();
+        Services.eventManager.Unregister<PlayerActionManager.PlayerPlayCardEvent>(TriggerEffect);
+    }
+}
+
+
 public class Evasion : PlayerBuff
 {
    
@@ -265,6 +333,175 @@ public class Evasion : PlayerBuff
     public override void DeactivateBuff()
     {
         Services.statsManager.TakeDamageEvent.RemoveListener(TriggerEffect);
+    }
+
+}
+
+public class DefenseProtocol : PlayerBuff
+{
+
+    public DefenseProtocol()
+    {
+
+        //buffIcon = Services.playerBuffManager.EvasionBuffIcon;
+        buffDescription = "every time you take damage, add a <i>Wipe</i> to your hand";
+
+    }
+    public override void ActivateBuff()
+    {
+        Services.statsManager.TakeDamageEvent.AddListener(TriggerEffect);
+    }
+
+
+
+    public override void TriggerEffect()
+    {
+        for (int i = 0; i < stack; i ++)
+        {
+            Services.actionManager.GenerateCardAddToHand(Services.cardList.cardWipe);
+        }
+        
+        base.TriggerEffect();
+    }
+
+    public override void DeactivateBuff()
+    {
+        Services.statsManager.TakeDamageEvent.RemoveListener(TriggerEffect);
+    }
+
+}
+
+public class Polymorpher : PlayerBuff
+{
+
+    public Polymorpher()
+    {
+
+        //buffIcon = Services.playerBuffManager.EvasionBuffIcon;
+        buffDescription = "every time you take damage heal for 2";
+
+    }
+    public override void ActivateBuff()
+    {
+        Services.eventManager.Register<PlayerStatsManager.PlayerTakeDamageEvent>(TriggerEffect);
+    }
+
+
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        Services.statsManager.GainHp(2*stack);
+        base.TriggerEffect();
+    }
+
+    public override void DeactivateBuff()
+    {
+        Services.eventManager.Unregister<PlayerStatsManager.PlayerTakeDamageEvent>(TriggerEffect);
+    }
+
+
+}
+
+public class EndProcess : PlayerBuff
+{
+
+    public EndProcess()
+    {
+
+        //buffIcon = Services.playerBuffManager.EvasionBuffIcon;
+        buffDescription = "<b>delete</b> the next card you play";
+
+    }
+    public override void ActivateBuff()
+    {
+        Services.eventManager.Register<PlayerStatsManager.PlayerTakeDamageEvent>(TriggerEffect);
+    }
+
+
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        Services.statsManager.GainHp(2 * stack);
+        base.TriggerEffect();
+    }
+
+    public override void DeactivateBuff()
+    {
+        Services.eventManager.Unregister<PlayerStatsManager.PlayerTakeDamageEvent>(TriggerEffect);
+    }
+
+
+}
+
+public class EnergyConserver : PlayerBuff
+{
+    int conservation = 0;
+    public EnergyConserver()
+    {
+
+        //buffIcon = Services.playerBuffManager.EvasionBuffIcon;
+        buffDescription = "gain a Conservation every time you play a card, heal 2 for each Conservation at the end of the combat";
+
+    }
+    public override void ActivateBuff()
+    {
+        Services.eventManager.Register<PlayerActionManager.PlayerPlayCardEvent>(gainStack);
+        Services.eventManager.Register<Combat.CombatEndEvent>(TriggerEffect);
+    }
+
+    public void gainStack(AGPEvent e)
+    {
+        conservation++;
+    }
+
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        Services.statsManager.GainHp(2 * stack * conservation);
+        base.TriggerEffect();
+    }
+
+    public override void DeactivateBuff()
+    {
+        Services.eventManager.Unregister<PlayerActionManager.PlayerPlayCardEvent>(gainStack);
+        Services.eventManager.Unregister<Combat.CombatEndEvent>(TriggerEffect);
+    }
+
+
+}
+
+public class Lemon : PlayerBuff
+{
+    
+    public Lemon()
+    {
+
+        //buffIcon = Services.playerBuffManager.EvasionBuffIcon;
+        buffDescription = "take 1 damage every time cycle, gain 5 CPU everytime you take damage";
+
+    }
+    public override void ActivateBuff()
+    {
+        Services.eventManager.Register<CombatManager.TimeCycleEnd>(take1Damage);
+        Services.eventManager.Register<PlayerStatsManager.PlayerTakeDamageEvent>(TriggerEffect);
+    }
+
+    public void take1Damage(AGPEvent e)
+    {
+        Services.statsManager.TakeDamage(1*stack);
+    }
+
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        Services.resourceManager.GainAttackBar(stack*5);
+        base.TriggerEffect();
+    }
+
+    public override void DeactivateBuff()
+    {
+        Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(take1Damage);
+        Services.eventManager.Unregister<PlayerStatsManager.PlayerTakeDamageEvent>(TriggerEffect);
     }
 
 

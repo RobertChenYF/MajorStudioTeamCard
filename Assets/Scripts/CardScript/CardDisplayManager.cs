@@ -13,6 +13,10 @@ public class CardDisplayManager : MonoBehaviour
     private Card.CardType cardType;
     private SpriteRenderer splashArt;
     private SpriteRenderer CostIndicator;
+    private SpriteRenderer Background;
+    private SpriteRenderer descriptionBG;
+    private SpriteRenderer TopNameBG;
+    private SpriteRenderer CompanyNameBG;
     private TextMeshPro nameText;
     private TextMeshPro CostText;
     //private TextMeshPro DrawCostText;
@@ -32,7 +36,7 @@ public class CardDisplayManager : MonoBehaviour
         "<b>Usage</b>: Has a limited amount of plays before being permanantly removed from your deck.",
         "<b>Generated</b>: A card created by another card."
         };
-    public static string[] companyFullName = {"Basic Software","HackerzAren'tUs Inc.","File Killer Corp.","","" };
+    public static string[] companyFullName = {"Basic Software","HackerzAren'tUs Inc.","File Killer Corp.","Snorton","" };
 
     // Start is called before the first frame update
     void Awake()
@@ -56,6 +60,10 @@ public class CardDisplayManager : MonoBehaviour
 
         card = GetComponent<CardFunction>().card;
         splashArt = transform.Find("splash").GetComponent<SpriteRenderer>();
+        Background = transform.Find("cardBackground").GetComponent<SpriteRenderer>();
+        descriptionBG = transform.Find("carddesc").GetComponent<SpriteRenderer>();
+        CompanyNameBG = transform.Find("bottom background").GetComponent<SpriteRenderer>();
+        TopNameBG = transform.Find("title background").GetComponent<SpriteRenderer>();
         CostIndicator = transform.Find("CostIcon").GetComponent<SpriteRenderer>();
         nameText = gameObject.transform.Find("CardNameText").GetComponent<TextMeshPro>();
         CostText = transform.Find("Cost").GetComponent<TextMeshPro>();
@@ -84,8 +92,25 @@ public class CardDisplayManager : MonoBehaviour
         {
             CostText.text = drawCost.ToString();
         }
-        
+
         //DrawCostText.text = drawCost.ToString();
+        int index = 0;
+        if (card.Company == Card.CardCompany.BasicSoftware)
+        {
+            index = 0;
+        }
+        else if (card.Company == Card.CardCompany.FileKillerCorp)
+        {
+            index = 1;
+        }
+        else if (card.Company == Card.CardCompany.Snorton)
+        {
+            index = 2;
+        }
+        Background.sprite = Services.cardList.CardBackGround[index];
+        TopNameBG.sprite = Services.cardList.CardTitleBackGround[index];
+        CompanyNameBG.sprite = Services.cardList.CardTitleBackGround[index];
+        descriptionBG.sprite = Services.cardList.CardDescriptionBackGround[index];
         effectDiscriptionText.text = card.cardEffectDiscription;
         CompanyNameText.text = companyFullName[(int)card.Company];
         string temp = "";
