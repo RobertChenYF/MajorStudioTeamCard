@@ -17,6 +17,6 @@ MonoBehaviour:
   cardEffectDiscription: Decompress to apply 6 <b>Burn</b> to the target.
   type: 0
   Company: 2
-  containedKeywords: 
+  containedKeywords: 02000000
   attackBarCost: 15
   drawBarCost: 0

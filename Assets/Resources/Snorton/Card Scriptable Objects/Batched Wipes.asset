@@ -20,6 +20,6 @@ MonoBehaviour:
     Add more <i>Wipes</i> based on the amount of cards waiting to be decompressed.'
   type: 0
   Company: 3
-  containedKeywords: 
+  containedKeywords: 0600000005000000
   attackBarCost: 5
   drawBarCost: 0

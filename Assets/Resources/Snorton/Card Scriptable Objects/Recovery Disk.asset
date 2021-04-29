@@ -17,6 +17,6 @@ MonoBehaviour:
   cardEffectDiscription: "Heal for 8 health.\n<b>Usage:</b> (5) \n<b>Delete</b> "
   type: 0
   Company: 3
-  containedKeywords: 01000000
+  containedKeywords: 0100000008000000
   attackBarCost: 0
   drawBarCost: 5

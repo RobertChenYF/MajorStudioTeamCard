@@ -19,6 +19,6 @@ MonoBehaviour:
     <b>Sequence:</b> Gain 10 armor.'
   type: 0
   Company: 3
-  containedKeywords: 
+  containedKeywords: 06000000
   attackBarCost: 0
   drawBarCost: 15

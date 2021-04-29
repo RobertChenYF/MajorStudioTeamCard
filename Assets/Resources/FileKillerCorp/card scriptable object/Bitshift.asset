@@ -20,6 +20,6 @@ MonoBehaviour:
     it and gain 20 armor.'
   type: 1
   Company: 2
-  containedKeywords: 02000000
+  containedKeywords: 04000000
   attackBarCost: 0
   drawBarCost: 15

@@ -15,8 +15,8 @@ MonoBehaviour:
   cardName: Semi-Auto Cleanser
   cardSplashArt: {fileID: 21300000, guid: 77db41de7366fb34084852af197a1465, type: 3}
   cardEffectDiscription: Put 3 <i>Wipes</i> in your hand.
-  type: 0
+  type: 1
   Company: 3
-  containedKeywords: 
+  containedKeywords: 05000000
   attackBarCost: 0
   drawBarCost: 10

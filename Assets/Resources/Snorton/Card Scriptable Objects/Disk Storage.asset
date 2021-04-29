@@ -20,6 +20,6 @@ MonoBehaviour:
     Add two <i>Wipes</i> instead.'
   type: 0
   Company: 3
-  containedKeywords: 00000000
+  containedKeywords: 0000000005000000
   attackBarCost: 15
   drawBarCost: 0

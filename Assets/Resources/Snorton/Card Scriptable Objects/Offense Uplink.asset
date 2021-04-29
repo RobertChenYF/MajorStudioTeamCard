@@ -20,6 +20,6 @@ MonoBehaviour:
     damage.'
   type: 0
   Company: 3
-  containedKeywords: 
+  containedKeywords: 06000000
   attackBarCost: 15
   drawBarCost: 0

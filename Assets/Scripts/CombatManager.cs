@@ -47,6 +47,10 @@ public class CombatManager : MonoBehaviour
         UpdateTimeCycle();
     }
 
+    public void resetCycleTimer()
+    {
+        CycleTimer = 0;
+    }
     public class TimeCycleEnd: AGPEvent
     {
         

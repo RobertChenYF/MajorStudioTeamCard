@@ -20,6 +20,6 @@ MonoBehaviour:
     for each card waiting to be decompressed.'
   type: 0
   Company: 3
-  containedKeywords: 05000000
+  containedKeywords: 07000000
   attackBarCost: 15
   drawBarCost: 0

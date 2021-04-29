@@ -26,6 +26,7 @@ public class BeforeCombat : RunState
     {
         base.Enter();
         Debug.Log("start");
+       
         manager.SpawnNewMainEnemy();
         Services.combatManager.PauseTimeCycle();
         manager.CombatPreviewWindow.SetActive(true);
@@ -62,6 +63,8 @@ public class Combat : RunState
     public override void Enter()
     {
         base.Enter();
+        Services.actionManager.ResetBasicActionCost();
+        Services.combatManager.resetCycleTimer();
         manager.AllCardsInGame.SetActive(true);
         manager.CombatUICanvasSet(true);
         Debug.Log("combat");
@@ -82,8 +85,17 @@ public class Combat : RunState
     public override void Leave()
     {
         base.Leave();
+        manager.draftLeft = 2;
+        Services.eventManager.Fire(new CombatEndEvent());
         //clear all deck list
         Services.combatManager.PauseTimeCycle();
+    }
+
+    public class CombatEndEvent: AGPEvent
+    {
+        public CombatEndEvent(){
+
+        }
     }
 }
 
@@ -110,6 +122,7 @@ public class Reward : RunState
     public override void Enter()
     {
         base.Enter();
+        Services.combatManager.PauseTimeCycle();
         manager.AllCardsInGame.SetActive(false);
         manager.CombatUICanvasSet(false);
         manager.RewardWindow.SetActive(true);
@@ -117,7 +130,9 @@ public class Reward : RunState
         manager.skipButton.gameObject.SetActive(true);
         manager.chooseButton.gameObject.SetActive(true);
         manager.chooseButton.interactable = false;
-        List<GameObject> rewardCards = manager.GenerateReward(manager.currentActiveClass1);
+        // List<GameObject> rewardCards = manager.GenerateReward(manager.currentActiveClass1);
+
+        List<GameObject> rewardCards = manager.GenerateRewardMixPool(manager.currentActiveClass1,manager.currentActiveClass2);
         manager.DisplayReward(rewardCards);
         Debug.Log("reward");
         //system choose reward
