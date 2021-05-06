@@ -27,10 +27,10 @@ public class CardDisplayManager : MonoBehaviour
     [SerializeField]private Sprite CPUCost;
     private List<string> keywordDescription = new List<string>{ "<b>Dedicate</b>: Draw a card. If the card comes from the same company, trigger this effect.",
         "<b>Delete</b>: This card will not return to your draw deck after play. (If you picked this card, it will remain in your run deck.)",
-        "<b>Burn</b>: Applies Burn to the target. When applying new burns to the target, deal damage equal to the previous burn amount. Burn reduces by one per cycle.",
+        "<b>Burn</b>: Applies a debuff to the target. When applying new burns to the target, deal damage equal to the previous burn amount. Burn reduces by one per cycle.",
         "<b>Priority</b>: This card goes at the top of your draw pile.",
         "<b>Harden</b>: Become immune to damage. Harden is lost everytime you would have taken damage.",
-        "<b>Wipe</b>: A cheap one use 5 damage card.",
+        "<b>Wipe</b>: A cheap, one time use 5 damage card.",
         "<b>Sequence</b>: Triggers an effect when you have 4 cards waiting for decompression.",
         "<b>Initial</b>: Has an additional effect when the first card to be decompressed.",
         "<b>Usage</b>: Has a limited amount of plays before being permanantly removed from your deck.",

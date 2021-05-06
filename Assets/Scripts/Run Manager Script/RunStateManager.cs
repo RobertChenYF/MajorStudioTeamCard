@@ -27,7 +27,7 @@ public class RunStateManager : MonoBehaviour
     public GameObject selectRing;
     public CardFunction currentSelectCard = null;
 
-    [HideInInspector]public int draftLeft = 2;
+    public int draftLeft = 2;
     //public CardClass currentActiveClass2;
 
     // Start is called before the first frame update
@@ -35,7 +35,14 @@ public class RunStateManager : MonoBehaviour
     {
         currentActiveClass1 = Services.cardList.FileKillerCorp;
         currentActiveClass2 = Services.cardList.Snorton;
-        ChangeState(new Reward(this));
+        if (draftLeft > 0)
+        {
+            ChangeState(new Reward(this));
+        }
+        else
+        {
+            ChangeState(new BeforeCombat(this));
+        }
     }
 
     // Update is called once per frame
