@@ -8,10 +8,10 @@ public class EnemyMoveset : MonoBehaviour
     public enum moveType {dealDamage,GainArmor,Special};
     [HideInInspector]public Enemy enemy;
     [SerializeField] public int CycleBeforeMove;
-    [SerializeField] protected int damageAmount;
-    [SerializeField] protected int armorAmount;
+    [SerializeField] public int damageAmount;
+    [SerializeField] public int armorAmount;
     [SerializeField] protected string specialMoveExplain;
-    [SerializeField] protected List<moveType> moves;
+    [SerializeField] public List<moveType> moves;
     [SerializeField] protected UnityEvent SpecialMoveset;
 
     public virtual void MoveTrigger()
@@ -51,5 +51,22 @@ public class EnemyMoveset : MonoBehaviour
         return moveString;
     }
 
-    
+    public Sprite MoveIcon(moveType moveType)
+    {
+        if (moveType == moveType.dealDamage)
+        {
+            return Services.cardList.AttackIntentIcon;
+        }
+        else if (moveType == moveType.GainArmor)
+        {
+
+            return Services.cardList.ArmorIntentIcon;
+        }
+        else if (moveType == moveType.Special)
+        {
+            return Services.cardList.SpecialIntentIcon;
+        }
+        return null;
+    }
+
 }

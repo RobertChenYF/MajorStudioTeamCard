@@ -19,6 +19,10 @@ public class CardList : MonoBehaviour
     public List<Sprite> CardBackGround;
     public List<Sprite> CardDescriptionBackGround;
     public List<Sprite> CardTitleBackGround;
+
+    public Sprite AttackIntentIcon;
+    public Sprite ArmorIntentIcon;
+    public Sprite SpecialIntentIcon;
     // Start is called before the first frame update
     void Awake()
     {

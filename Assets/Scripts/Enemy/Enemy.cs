@@ -12,6 +12,10 @@ public class Enemy: MonoBehaviour
     [SerializeField]protected Image healthBarFill;
     [SerializeField] protected GameObject armorIconDisplay;
     [SerializeField] protected TextMeshPro armorAmountDisplay;
+    [SerializeField] protected TextMeshPro IntentCycleText;
+    [SerializeField] protected TextMeshPro IntentStatsText;
+    [SerializeField] protected SpriteRenderer IntentIconDisplay;
+
     [SerializeField] private GameObject buffDisplayPrefab;
     protected float currentHp;
     protected float currentArmor;
@@ -236,6 +240,11 @@ public class Enemy: MonoBehaviour
         //enemyHpText.text += currentArmor > 0 ? "\nArmor: " + currentArmor : "";
     }
 
+    private void UpdateVisualIntent()
+    {
+
+    }
+
     private void CycleChargeReduce(AGPEvent e)
     {
         currentChargeCycleTimer--;
@@ -258,6 +267,7 @@ public class Enemy: MonoBehaviour
         currentChargeMove = moveSet[0];
         currentChargeCycleTimer = currentChargeMove.CycleBeforeMove;
         nextMoveString = currentChargeMove.MoveDisplay();
+        SetIntentIcon();
         UpdateCycleDisplay();
     }
     public void LoseArmor(float dmg)
@@ -265,6 +275,23 @@ public class Enemy: MonoBehaviour
         currentArmor -= dmg;
         currentArmor = Mathf.Max(0, currentArmor);
         UpdateDisplayStat();
+    }
+
+    public void SetIntentIcon()
+    {
+        IntentIconDisplay.sprite = currentChargeMove.MoveIcon(currentChargeMove.moves[0]);
+        if (currentChargeMove.moves[0] == EnemyMoveset.moveType.dealDamage)
+        {
+            IntentStatsText.text = currentChargeMove.damageAmount.ToString();
+        }
+        else if (currentChargeMove.moves[0] == EnemyMoveset.moveType.GainArmor)
+        {
+            IntentStatsText.text = currentChargeMove.armorAmount.ToString();
+        }
+        else if (currentChargeMove.moves[0] == EnemyMoveset.moveType.Special)
+        {
+            IntentStatsText.text = "?";
+        }
     }
     protected void NextMove()
     {
@@ -276,11 +303,13 @@ public class Enemy: MonoBehaviour
         }
         currentChargeMove = moveSet[a];
         currentChargeCycleTimer = currentChargeMove.CycleBeforeMove;
+        SetIntentIcon();
         nextMoveString = currentChargeMove.MoveDisplay();
     }
 
     protected void UpdateCycleDisplay()
     {
+        IntentCycleText.text = currentChargeCycleTimer.ToString();
         enemyNextMoveDisplay.text = "after " + currentChargeCycleTimer + " cycle\n" + nextMoveString;
     }
 
