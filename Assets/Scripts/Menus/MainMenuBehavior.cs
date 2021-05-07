@@ -27,4 +27,9 @@ public class MainMenuBehavior : MonoBehaviour
     {
         Manager.GetComponent<GameManager>().PlayTutorial = true;
     }
+
+    public void QuitButton()
+    {
+        Manager.GetComponent<GameManager>().ExitGame();
+    }
 }
