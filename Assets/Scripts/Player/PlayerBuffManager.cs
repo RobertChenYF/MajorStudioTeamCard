@@ -26,10 +26,10 @@ public class PlayerBuffManager : MonoBehaviour
     {
         
         //playerBuffTextDisplay.text = "";
-        foreach (PlayerBuff a in currentPlayerBuff)
-        {
+      //  foreach (PlayerBuff a in currentPlayerBuff)
+      //  {
            // playerBuffTextDisplay.text += a.tempString();
-        }
+       // }
     }
 
     public void GainNewBuff(PlayerBuff newBuff, int stack)

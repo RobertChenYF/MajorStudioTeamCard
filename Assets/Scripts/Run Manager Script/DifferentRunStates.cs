@@ -11,7 +11,7 @@ public class DifferentRunStates : MonoBehaviour
 
 public class BeforeCombat : RunState
 {
-
+    GameObject tempEnemy;
     public BeforeCombat(RunStateManager runStateManager) : base(runStateManager)
     {
 
@@ -26,8 +26,9 @@ public class BeforeCombat : RunState
     {
         base.Enter();
         Debug.Log("start");
-       
-        manager.SpawnNewMainEnemy();
+
+        //manager.SpawnNewMainEnemy();
+        tempEnemy = manager.InstantiateEnemyPreview();
         Services.combatManager.PauseTimeCycle();
         manager.CombatPreviewWindow.SetActive(true);
         //load enemy preview window
@@ -38,6 +39,9 @@ public class BeforeCombat : RunState
     public override void Leave()
     {
         base.Leave();
+        // manager.DestroyThis(tempEnemy);
+        // Services.combatManager.AllMainEnemy.Clear();
+        manager.moveTransform(tempEnemy);
         manager.CombatPreviewWindow.SetActive(false);
         //close enemy preview window
     }
@@ -63,6 +67,7 @@ public class Combat : RunState
     public override void Enter()
     {
         base.Enter();
+        
         Services.actionManager.ResetBasicActionCost();
         Services.combatManager.resetCycleTimer();
         manager.AllCardsInGame.SetActive(true);

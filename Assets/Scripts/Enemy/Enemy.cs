@@ -15,6 +15,7 @@ public class Enemy: MonoBehaviour
     [SerializeField] protected TextMeshPro IntentCycleText;
     [SerializeField] protected TextMeshPro IntentStatsText;
     [SerializeField] protected SpriteRenderer IntentIconDisplay;
+    public GameObject IntentUI;
 
     [SerializeField] private GameObject buffDisplayPrefab;
     protected float currentHp;
@@ -231,10 +232,12 @@ public class Enemy: MonoBehaviour
         if (currentArmor>0)
         {
             armorIconDisplay.SetActive(true);
+            healthBarFill.color = Color.gray;
             armorAmountDisplay.text = currentArmor.ToString();
         }
         else
         {
+            healthBarFill.color = Color.white;
             armorIconDisplay.SetActive(false);
         }
         //enemyHpText.text += currentArmor > 0 ? "\nArmor: " + currentArmor : "";
