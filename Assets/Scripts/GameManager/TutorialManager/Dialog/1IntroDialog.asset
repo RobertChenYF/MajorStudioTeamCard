@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93b9e45561ba9e745978fcad2f6782e6, type: 3}
   m_Name: 1IntroDialog
   m_EditorClassIdentifier: 
-  klippyImage: {fileID: 21300000, guid: f3d506498e936ea418d94eb231093321, type: 3}
+  klippyImage: {fileID: 21300000, guid: 8dc7cd3619587014f8648ca864666dca, type: 3}
   klippyDialog: It looks like you need some help! I'm Klippy, your digital assistant,
     and you're currently in combat. Hooray!
   arrowActive: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zip Bomb
   m_EditorClassIdentifier: 
   cardName: Zip Bomb
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 990e738532971e742889ee8c4c7e7dff, type: 3}
   cardEffectDiscription: Deal 30 damage.
   type: 0
   Company: 3
