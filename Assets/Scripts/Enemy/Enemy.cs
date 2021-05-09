@@ -35,11 +35,14 @@ public class Enemy: MonoBehaviour
     public bool is_Idle;
     [SerializeField] private float idleSmoothingUp;
     [SerializeField] private float idleSmoothingDown;
-    [SerializeField] private Vector3 idlePosOffset;
+    [SerializeField] private Vector3 savedIdlePosOffset;
+    private Vector3 idlePosOffset;
     [SerializeField] private float waitTime;
     [SerializeField] private float hangTime;
+    [SerializeField] private float cutOffVal;
     bool goingUp = true;
-    Vector3 savedEnemyPos;
+    //[HideInInspector]
+    public Vector3 savedEnemyPos;
     bool playing_idle = false;
 
     private EnemyMoveset currentChargeMove;
@@ -58,8 +61,12 @@ public class Enemy: MonoBehaviour
 
         //Update Idle Position Offset
         is_Idle = true;
+    }
+
+    public void updateIdlePosOffset()
+    {
         savedEnemyPos = this.gameObject.transform.position;
-        idlePosOffset = new Vector3(idlePosOffset.x + savedEnemyPos.x, idlePosOffset.y + savedEnemyPos.y, 0);
+        idlePosOffset = new Vector3(savedIdlePosOffset.x + savedEnemyPos.x, savedIdlePosOffset.y + savedEnemyPos.y, 0);
     }
 
     public virtual void Update()
@@ -78,6 +85,11 @@ public class Enemy: MonoBehaviour
             if(this.gameObject)
                 TakeDamage(1);
         }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (this.gameObject)
+                Services.visualEffectManager.EnemyGainBuffEffect(this.gameObject);
+        }
 
         if (is_Idle && !playing_idle)
         {
@@ -91,7 +103,7 @@ public class Enemy: MonoBehaviour
         {
             if (goingUp)
             {
-                while (Vector3.Distance(this.gameObject.transform.position, idlePosOffset) > 0.05f)
+                while (Vector3.Distance(this.gameObject.transform.position, idlePosOffset) > cutOffVal)
                 {
                     //print(EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothing * Time.deltaTime).ToString());
                     this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothingUp * Time.deltaTime);
@@ -102,7 +114,7 @@ public class Enemy: MonoBehaviour
             }
             else
             {
-                while (Vector3.Distance(this.gameObject.transform.position, savedEnemyPos) > 0.05f)
+                while (Vector3.Distance(this.gameObject.transform.position, savedEnemyPos) > cutOffVal)
                 {
                     this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, savedEnemyPos, idleSmoothingDown * Time.deltaTime);
                     yield return null;
@@ -186,6 +198,9 @@ public class Enemy: MonoBehaviour
 
     public void GainNewBuff(EnemyBuff newBuff, int stack)
     {
+
+        Services.visualEffectManager.EnemyGainBuffEffect(this.gameObject);
+
         if (CheckBuff(newBuff) == -1)
         {
             newBuff.thisEnemy = this;
