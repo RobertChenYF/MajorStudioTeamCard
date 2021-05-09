@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class PlayerStatsManager : MonoBehaviour
@@ -13,6 +14,10 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField] private float defaultArmorDepletion;
     [HideInInspector] public UnityEvent TakeDamageEvent;
     [HideInInspector] public float currentDamageAmount;
+    [SerializeField] private TextMeshPro ArmorText;
+    [SerializeField] private GameObject ArmorIcon;
+    [SerializeField] private TextMeshPro HealthText;
+    [SerializeField] private Image HealthBarfill;
     //private float currentAttackDmg;
     //private float buffedAttackDmg;
     private float currentArmor;
@@ -53,6 +58,20 @@ public class PlayerStatsManager : MonoBehaviour
 
     void TempUpdateDisplayStat()
     {
+
+        if (currentArmor > 0)
+        {
+            ArmorIcon.SetActive(true);
+            HealthBarfill.color = Color.gray;
+        }
+        else
+        {
+            ArmorIcon.SetActive(false);
+            HealthBarfill.color = Color.white;
+        }
+        HealthBarfill.fillAmount = currentHp / maxHp;
+        ArmorText.text = currentArmor.ToString();
+        HealthText.text = currentHp.ToString() + "/" + maxHp.ToString();
         //temporary will replace with visual UI
         playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nEncryption: " + currentArmor.ToString();
     }
@@ -107,7 +126,7 @@ public class PlayerStatsManager : MonoBehaviour
     {
         if (value > 0)
         {
-        
+           
         Services.eventManager.Fire(new GainArmorEvent(value));
         currentArmor += value;
         TempUpdateDisplayStat();
@@ -129,9 +148,19 @@ public class PlayerStatsManager : MonoBehaviour
     public void LoseHp(float dmg)
     {
         currentHp -= dmg;
+        Services.eventManager.Fire(new LoseHpEvent(dmg));
         if (currentHp <= 0)
         {
             Debug.Log("player die");
+        }
+    }
+
+    public class LoseHpEvent : AGPEvent
+    {
+        public float value;
+        public LoseHpEvent(float amount)
+        {
+            value = amount;
         }
     }
 

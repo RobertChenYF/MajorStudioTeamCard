@@ -9,18 +9,21 @@ public class GameManager : MonoBehaviour
     {
         MainMenu,      //Main menu state
         Glossary,      //When the player is in the Staging area between Encounters. Here is where the player picks their deck or picks the next Encounter.
-        Combat,    //When the player is in combat
-        Tutorial,     //For the tutorial
+        Combat,    //When the player is in combat - Use InGame instead
+        Tutorial,     //For the tutorial - Use InGame instead
+        InGame,       //For any type of scene where the player will start combat (Tutorial and normal runs)
         Unknown,      //A catch all state
         _PRELOAD,     //Initial State for loading
     }
 
-    public float PlayerHealth;
-    public int gameScore;
+    //public float PlayerHealth;
+    //public int gameScore;
     //public List<CardFunction> GlobalPlayerHand;
     public bool PlayGame;
     public bool ShowGlossary;
     public bool PlayTutorial;
+    public bool OpenPauseMenu;
+    public GameObject PauseMenuCanvas;
     //private GameObject TutorialManager;
 
 
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
         PlayGame = false;
         ShowGlossary = false;
         PlayTutorial = false;
+        OpenPauseMenu = false;
     }
 
     private void Update()
@@ -52,7 +56,7 @@ public class GameManager : MonoBehaviour
                     PlayGame = false;
                     SceneManager.LoadScene("CombatScene");
                     //SceneManager.LoadScene("Glossary");
-                    currentState = StateType.Combat;
+                    currentState = StateType.InGame;
                 } else if (ShowGlossary == true)
                 {
                     ShowGlossary = false;
@@ -61,8 +65,9 @@ public class GameManager : MonoBehaviour
                     currentState = StateType.Glossary;
                 } else if (PlayTutorial == true)
                 {
+                    PlayTutorial = false;
                     SceneManager.LoadScene("TutorialCombat");
-                    currentState = StateType.Tutorial;
+                    currentState = StateType.InGame;
                 }
                 break;
             case StateType.Combat:
@@ -70,6 +75,23 @@ public class GameManager : MonoBehaviour
             case StateType.Glossary:
                 break;
             case StateType.Tutorial:
+                break;
+            case StateType.InGame:
+                if (Input.GetKeyDown(KeyCode.Escape) && OpenPauseMenu == false)
+                {
+                    OpenPauseMenu = true;
+                } else if (Input.GetKeyDown(KeyCode.Escape) && OpenPauseMenu == true)
+                {
+                    OpenPauseMenu = false;
+                }
+
+                if (OpenPauseMenu == true)
+                {
+                    PauseMenuCanvas.SetActive(true);
+                } else if (OpenPauseMenu == false)
+                {
+                    PauseMenuCanvas.SetActive(false);
+                }
                 break;
             case StateType.Unknown: 
                 //empty
@@ -84,5 +106,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
         currentState = stateName;
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

@@ -31,8 +31,8 @@ public class CardDisplayManager : MonoBehaviour
         "<b>Priority</b>: This card goes at the top of your draw pile.",
         "<b>Harden</b>: Become immune to damage. Harden is lost everytime you would have taken damage.",
         "<b>Wipe</b>: A cheap, one time use 5 damage card.",
-        "<b>Sequence</b>: Triggers an effect when you have 4 cards waiting for decompression.",
-        "<b>Initial</b>: Has an additional effect when the first card to be decompressed.",
+        "<b>Sequence</b>: Triggers additional effects if you have 3 cards waiting for decompression when played",
+        "<b>Initial</b>: Triggers additional effects if this is the first card to be decompressed when played",
         "<b>Usage</b>: Has a limited amount of plays before being permanantly removed from your deck.",
         "<b>Generated</b>: A card created by another card."
         };

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Modified Seeds
   m_EditorClassIdentifier: 
   cardName: Modified Seeds
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 2835cf2357d64c044b76552dd780eb04, type: 3}
   cardEffectDiscription: 'Shuffle 3 copies of <i>Seeded Defense</i> to your draw
     pile.
 

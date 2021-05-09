@@ -27,7 +27,7 @@ public class CardEffect : MonoBehaviour
 
     public void CheckSequence(CardFunction card)
     {
-        if (Services.actionManager.AttackField.Count >= 4)
+        if (Services.actionManager.AttackField.Count >= 3)
         {
             card.sequence = true;
         }

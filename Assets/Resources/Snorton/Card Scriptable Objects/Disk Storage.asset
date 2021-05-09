@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Disk Storage
   m_EditorClassIdentifier: 
   cardName: Disk Storage
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 261246a6ce8ed80468df90a3fcbafad9, type: 3}
   cardEffectDiscription: 'Deal 6 Damage and add a <i>Wipe</i> to your hand.
 
     <b>Dedicate:</b>

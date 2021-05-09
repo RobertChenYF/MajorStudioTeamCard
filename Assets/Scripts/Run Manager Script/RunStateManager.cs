@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RunStateManager : MonoBehaviour
 {
@@ -21,11 +22,19 @@ public class RunStateManager : MonoBehaviour
     [SerializeField] private Transform cardPos1;
     [SerializeField] private Transform cardPos2;
     [SerializeField] private Transform cardPos3;
+    [SerializeField] private TextMeshPro EnemyIntroductionText;
+    [SerializeField] private TextMeshPro EnemyNameText;
+
+    [SerializeField] private List<string> EnemyName;
+    [TextArea(10, 15)]
+    [SerializeField]private List<string> EnemyIntroduction;
+    public Transform enemyPreviewPos;
 
     public Button skipButton;
     public Button chooseButton;
     public GameObject selectRing;
     public CardFunction currentSelectCard = null;
+
 
     public int draftLeft = 2;
     //public CardClass currentActiveClass2;
@@ -208,5 +217,30 @@ public class RunStateManager : MonoBehaviour
     public void PressEnterCombat()
     {
         ChangeState(new Combat(this));
+    }
+
+    public GameObject InstantiateEnemyPreview()
+    {
+        GameObject a = Instantiate(AllEnemyList[0]);
+        a.transform.SetParent(enemyPreviewPos);
+        a.transform.localPosition = Vector3.zero;
+        a.transform.localScale = new Vector3(45,45,1);
+        EnemyIntroductionText.text = EnemyIntroduction[0];
+        EnemyNameText.text = EnemyName[0];
+        //a.GetComponent<Enemy>().enabled = false;
+        return a;
+    }
+
+    public void moveTransform(GameObject a)
+    {
+        a.transform.SetParent(Services.actionManager.enemyDefaultPos);
+        a.transform.position = new Vector3(0,0,0);
+        a.transform.localScale = new Vector3(1,1,1);
+        a.GetComponent<Enemy>().IntentUI.SetActive(true);
+        a.GetComponent<Enemy>().enabled = true;
+    }
+    public void DestroyThis(GameObject a)
+    {
+        Destroy(a);
     }
 }
