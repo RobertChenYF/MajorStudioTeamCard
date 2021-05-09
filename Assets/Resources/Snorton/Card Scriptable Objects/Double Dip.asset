@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Double Dip
   m_EditorClassIdentifier: 
   cardName: Double Dip
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 247683603f5ee9e4fb3cb2b1c1c5dd96, type: 3}
   cardEffectDiscription: 'Draw 2 cards.
 
     If your draw cost is at 0, draw 2 more

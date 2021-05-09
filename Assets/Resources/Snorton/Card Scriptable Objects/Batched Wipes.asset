@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Batched Wipes
   m_EditorClassIdentifier: 
   cardName: Batched Wipes
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: 3d7a68ed247ea954e9eb1e84fd1d7959, type: 3}
   cardEffectDiscription: 'Add a <i>Wipes</i> to your hand.
 
     <b>Sequence:</b>

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Defense Protocol
   m_EditorClassIdentifier: 
   cardName: Defense Protocol
-  cardSplashArt: {fileID: 0}
+  cardSplashArt: {fileID: 21300000, guid: ca169f7ee909b0e49914f59e50cd87cc, type: 3}
   cardEffectDiscription: "Gain a <i>Wipe</i> when you take damage. \nTake 5 damage
     on play."
   type: 2
