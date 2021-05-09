@@ -70,6 +70,7 @@ public class PlayerStatsManager : MonoBehaviour
             HealthBarfill.color = Color.white;
         }
         HealthBarfill.fillAmount = currentHp / maxHp;
+        ArmorText.text = currentArmor.ToString();
         HealthText.text = currentHp.ToString() + "/" + maxHp.ToString();
         //temporary will replace with visual UI
         playerStatsText.text = "HP: " + currentHp.ToString() + "/" + maxHp.ToString() + "\nEncryption: " + currentArmor.ToString();
