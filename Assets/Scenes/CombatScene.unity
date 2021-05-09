@@ -635,7 +635,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.79999924, y: -0.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &126390863
@@ -660,8 +660,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Close
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
+  m_sharedMaterial: {fileID: 3057950702536193192, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -685,8 +685,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.12
-  m_fontSizeBase: 13.12
+  m_fontSize: 9.56
+  m_fontSizeBase: 9.56
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -901,7 +901,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.99986756}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2368,7 +2368,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 190515899}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99986756
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6380,6 +6380,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -3.93
       objectReference: {fileID: 0}
+    - target: {fileID: 957982513527270230, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.006
+      objectReference: {fileID: 0}
     - target: {fileID: 5275495046731997495, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -10097,8 +10101,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 1409863f5f9ca7c4988b8e083d9de0e8, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
