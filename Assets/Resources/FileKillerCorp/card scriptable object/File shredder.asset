@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: File Shredder
   cardSplashArt: {fileID: 21300000, guid: d8afd7bdd6231aa44a0c6d67f1f0887e, type: 3}
-  cardEffectDiscription: Decompress for 15 <b>burn</b>
+  cardEffectDiscription: Decompress for 15 <b>Burn</b>.
   type: 0
   Company: 2
   containedKeywords: 02000000

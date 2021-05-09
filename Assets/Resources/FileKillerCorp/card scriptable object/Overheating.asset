@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Overheat
   cardSplashArt: {fileID: 21300000, guid: 9b6fa3418fb6c5a468ed89d94affbe29, type: 3}
-  cardEffectDiscription: 'Draw 2 cards
+  cardEffectDiscription: 'Draw 2 cards.
 
-    Gain 40 GPU
+    Gain 40 GPU.
 
-    <b>Delete</b>'
+    <b>Delete</b>.'
   type: 1
   Company: 2
   containedKeywords: 01000000

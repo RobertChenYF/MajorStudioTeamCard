@@ -12,6 +12,12 @@ public class Enemy: MonoBehaviour
     [SerializeField]protected Image healthBarFill;
     [SerializeField] protected GameObject armorIconDisplay;
     [SerializeField] protected TextMeshPro armorAmountDisplay;
+    [SerializeField] protected TextMeshPro IntentCycleText;
+    [SerializeField] protected TextMeshPro IntentStatsText;
+    [SerializeField] protected SpriteRenderer IntentIconDisplay;
+    public GameObject IntentUI;
+    public GameObject StatsUI;
+
     [SerializeField] private GameObject buffDisplayPrefab;
     protected float currentHp;
     protected float currentArmor;
@@ -22,6 +28,7 @@ public class Enemy: MonoBehaviour
     public List<EnemyBuff> enemyBuffList;
     public List<BuffHoverDisplay> BuffDisplayList;
     public List<EnemyMoveset> moveSet;
+    public List<EnemyMoveset> startingMove;
 
     //VisualEffects
     [Header ("Idle Animation")]
@@ -169,6 +176,10 @@ public class Enemy: MonoBehaviour
             Services.actionManager.currentTargetEnemy = null;
         }
         Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(CycleChargeReduce);
+        while (enemyBuffList.Count > 0)
+        {
+            RemoveBuff(enemyBuffList[0]);
+        }
         Services.combatManager.AllMainEnemy.Remove(this);
         gameObject.SetActive(false);
     }
@@ -220,6 +231,12 @@ public class Enemy: MonoBehaviour
 
     }
 
+    public void GainHp(float value)
+    {
+        currentHp += value;
+        currentHp = Mathf.Min(maxHp,currentHp);
+        UpdateDisplayStat();
+    }
     private void UpdateDisplayStat()
     {
         enemyHpText.text =  currentHp.ToString()+"/" + maxHp.ToString();
@@ -227,13 +244,20 @@ public class Enemy: MonoBehaviour
         if (currentArmor>0)
         {
             armorIconDisplay.SetActive(true);
+            healthBarFill.color = Color.gray;
             armorAmountDisplay.text = currentArmor.ToString();
         }
         else
         {
+            healthBarFill.color = Color.white;
             armorIconDisplay.SetActive(false);
         }
         //enemyHpText.text += currentArmor > 0 ? "\nArmor: " + currentArmor : "";
+    }
+
+    private void UpdateVisualIntent()
+    {
+
     }
 
     private void CycleChargeReduce(AGPEvent e)
@@ -251,13 +275,27 @@ public class Enemy: MonoBehaviour
 
     protected void StartAmove()
     {
+        foreach (EnemyMoveset a in startingMove)
+        {
+            a.enemy = this;
+        }
         foreach (EnemyMoveset a in moveSet)
         {
             a.enemy = this;
         }
-        currentChargeMove = moveSet[0];
+        if (startingMove.Count > 0)
+        {
+            currentChargeMove = startingMove[0];
+            startingMove.RemoveAt(0);
+        }
+        else
+        {
+            currentChargeMove = moveSet[0];
+        }
+        
         currentChargeCycleTimer = currentChargeMove.CycleBeforeMove;
         nextMoveString = currentChargeMove.MoveDisplay();
+        SetIntentIcon();
         UpdateCycleDisplay();
     }
     public void LoseArmor(float dmg)
@@ -266,21 +304,49 @@ public class Enemy: MonoBehaviour
         currentArmor = Mathf.Max(0, currentArmor);
         UpdateDisplayStat();
     }
+
+    public void SetIntentIcon()
+    {
+        IntentIconDisplay.sprite = currentChargeMove.MoveIcon(currentChargeMove.moves[0]);
+        if (currentChargeMove.moves[0] == EnemyMoveset.moveType.dealDamage)
+        {
+            IntentStatsText.text = currentChargeMove.damageAmount.ToString();
+        }
+        else if (currentChargeMove.moves[0] == EnemyMoveset.moveType.GainArmor)
+        {
+            IntentStatsText.text = currentChargeMove.armorAmount.ToString();
+        }
+        else if (currentChargeMove.moves[0] == EnemyMoveset.moveType.Special)
+        {
+            IntentStatsText.text = "?";
+        }
+    }
     protected void NextMove()
     {
-        int a = moveSet.IndexOf(currentChargeMove);
-        a++;
+        int a;
+        if (moveSet.Contains(currentChargeMove))
+        {
+            a = moveSet.IndexOf(currentChargeMove);
+            a++;
+        }
+        else
+        {
+            a = 0;
+        }
+        
         if (a > moveSet.Count - 1)
         {
             a = 0;
         }
         currentChargeMove = moveSet[a];
         currentChargeCycleTimer = currentChargeMove.CycleBeforeMove;
+        SetIntentIcon();
         nextMoveString = currentChargeMove.MoveDisplay();
     }
 
     protected void UpdateCycleDisplay()
     {
+        IntentCycleText.text = currentChargeCycleTimer.ToString();
         enemyNextMoveDisplay.text = "after " + currentChargeCycleTimer + " cycle\n" + nextMoveString;
     }
 

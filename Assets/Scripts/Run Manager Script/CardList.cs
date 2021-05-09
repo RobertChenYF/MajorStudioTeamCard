@@ -11,13 +11,24 @@ public class CardList : MonoBehaviour
     //public List<GameObject> FileKillerCorpClassCard;
     private List<CardClass> allExistingCardClassInGame;
     public CardClass FileKillerCorp;
+    public CardClass Snorton;
     public Sprite GPUCostIcon;
     public Sprite CPUCostIcon;
+    public GameObject cardWipe;
+
+    public List<Sprite> CardBackGround;
+    public List<Sprite> CardDescriptionBackGround;
+    public List<Sprite> CardTitleBackGround;
+
+    public Sprite AttackIntentIcon;
+    public Sprite ArmorIntentIcon;
+    public Sprite SpecialIntentIcon;
     // Start is called before the first frame update
     void Awake()
     {
         FileKillerCorp = new CardClass("File Killer Corp.", "FileKillerCorp");
-        allExistingCardClassInGame = new List<CardClass> { FileKillerCorp };
+        Snorton = new CardClass("Snorton", "Snorton");
+        allExistingCardClassInGame = new List<CardClass> { FileKillerCorp,Snorton };
         
         
         LoadCard();
@@ -36,8 +47,8 @@ public class CardList : MonoBehaviour
             
             tempLoad = Resources.LoadAll(cardClass.FileName+"/card prefabs", typeof(GameObject));
             cardClass.AllClassCard = ArrayToList(tempLoad);
-            tempLoad = Resources.LoadAll(cardClass.FileName + "/starting card", typeof(GameObject));
-            cardClass.startingCard = ArrayToList(tempLoad);
+            //tempLoad = Resources.LoadAll(cardClass.FileName + "/starting card", typeof(GameObject));
+            //cardClass.startingCard = ArrayToList(tempLoad);
             //load starting card
         }
         

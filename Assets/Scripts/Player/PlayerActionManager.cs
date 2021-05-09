@@ -31,7 +31,7 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private Transform generateCardPos;
     [SerializeField] public Transform enemyDefaultPos;
     [SerializeField] private Transform WindowsStartPos;
-    [SerializeField] private Transform WindowContent;
+    [SerializeField] private RectTransform WindowContent;
     [SerializeField] private GameObject CardWindow;
     public BoxCollider2D handArea;
 
@@ -43,11 +43,11 @@ public class PlayerActionManager : MonoBehaviour
     [SerializeField] private float attackActionCost;
     [SerializeField] private TextMeshProUGUI redrawButtonText;
     [SerializeField] private TextMeshProUGUI attackButtonText;
-    private float currentRedrawCost;
+    [HideInInspector]public float currentRedrawCost;
     private float currentAttackCost;
     private bool canPlayCard;
     [HideInInspector]public bool attacking;
-
+    [SerializeField] private GameObject RunDeckButton;
     private void UpdateBasicActionCost(AGPEvent e)
     {
         currentAttackCost -= 5;
@@ -92,12 +92,17 @@ public class PlayerActionManager : MonoBehaviour
         UpdateCardInAttackField();
     }
 
-
+    public void LowerDecompressCost(int amount)
+    {
+        currentAttackCost -= amount;
+        currentAttackCost = Mathf.Max(currentAttackCost,0);
+        UpdateBasicActionCostDisplay();
+    }
     
     private void UpdateBasicActionCostDisplay()
     {
-        attackButtonText.text = "Decompress cost " + currentAttackCost.ToString() + " CPU";
-        redrawButtonText.text = "Draw cost " + currentRedrawCost.ToString() + " GPU";
+        attackButtonText.text = currentAttackCost.ToString() + " CPU";
+        redrawButtonText.text = currentRedrawCost.ToString() + " GPU";
     }
     public void PlayCard(CardFunction card)
     {
@@ -183,11 +188,18 @@ public class PlayerActionManager : MonoBehaviour
 
     }
 
+    public void ResetBasicActionCost()
+    {
+        currentRedrawCost = reDrawActionCost;
+        currentAttackCost = attackActionCost;
+    }
+
     public void ReDraw()
     {
         if (Services.resourceManager.CheckDrawBar(currentRedrawCost))
         {
             Services.resourceManager.ConsumeDrawBar(currentRedrawCost);
+            currentRedrawCost = reDrawActionCost;
             while (PlayerHand.Count > 0)
             {
                 MoveFromHandToDiscardPile(PlayerHand[0]);
@@ -197,7 +209,7 @@ public class PlayerActionManager : MonoBehaviour
             Services.eventManager.Fire(new RedrawEvent());
         }
 
-        currentRedrawCost = reDrawActionCost;
+        
         UpdateBasicActionCostDisplay();
     }
 
@@ -428,10 +440,14 @@ public class PlayerActionManager : MonoBehaviour
         CardWindow.SetActive(true);
         //display card
         DisplayAllCardsInList(Services.runStateManager.playerRunDeck,false);
+        Services.runStateManager.RewardWindow.SetActive(false);
         //Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(0,1,0);
         Services.runStateManager.AllCardsInGame.SetActive(false);
+        RunDeckButton.SetActive(false);
         Services.runStateManager.CombatUICanvasSet(false);
     }
+
+
 
     public void DisplayDrawDecck()
     {
@@ -467,10 +483,21 @@ public class PlayerActionManager : MonoBehaviour
         }
 
         CardWindow.SetActive(false);
-        Services.runStateManager.AllCardsInGame.SetActive(true);
-        Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(1, 1, 1);
-        Services.runStateManager.CombatUICanvasSet(true);
+        RunDeckButton.SetActive(true);
+        if (Services.runStateManager.currentRunState.ToString().Equals("Combat"))
+        {
+            Services.runStateManager.AllCardsInGame.SetActive(true);
+            Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(1, 1, 1);
+            Services.runStateManager.CombatUICanvasSet(true);
+        }
+        if (Services.runStateManager.currentRunState.ToString().Equals("Reward"))
+        {
+            Services.runStateManager.RewardWindow.SetActive(true);
+        }
+
     }
+
+
 
     public void DisplayAllCardsInList(List<CardFunction> deck, bool shuffle)
     {
@@ -492,6 +519,16 @@ public class PlayerActionManager : MonoBehaviour
         {
             CardInWindow[i].gameObject.transform.localPosition = WindowsStartPos.localPosition + new Vector3((i%5)*50 ,(i/5)*-66,0);
         }
+
+        WindowContent.sizeDelta = new Vector2(WindowContent.sizeDelta.x, 200 + 70*(CardInWindow.Count/5));
     }
 
+
+    public void Skip()
+    {
+        while (Services.combatManager.AllMainEnemy.Count > 0)
+        {
+            Services.combatManager.AllMainEnemy[0].TakeDamage(999);
+        }
+    }
 }

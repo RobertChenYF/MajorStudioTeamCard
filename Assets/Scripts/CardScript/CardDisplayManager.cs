@@ -13,6 +13,10 @@ public class CardDisplayManager : MonoBehaviour
     private Card.CardType cardType;
     private SpriteRenderer splashArt;
     private SpriteRenderer CostIndicator;
+    private SpriteRenderer Background;
+    private SpriteRenderer descriptionBG;
+    private SpriteRenderer TopNameBG;
+    private SpriteRenderer CompanyNameBG;
     private TextMeshPro nameText;
     private TextMeshPro CostText;
     //private TextMeshPro DrawCostText;
@@ -21,12 +25,18 @@ public class CardDisplayManager : MonoBehaviour
     private TextMeshPro keywordExplainText;
     [SerializeField]private Sprite GPUCost;
     [SerializeField]private Sprite CPUCost;
-    private List<string> keywordDescription = new List<string>{ "<b>dedicate</b>: Draw a card if the card company matches this card trigger the effect",
-        "<b>delete</b>: remove this card from this combat after the effect triggers",
-        "<b>burn</b>: apply burn stack to the target, deal damage equal to the total stack of burn on the target, target loses a stack every time cycle",
-        "<b>priority</b>: when you draw a card, draw this card first if this card is in your draw pile",
-        "<b>harden</b>: the next time you take damage, take 0 damage and lose a stack of harden" };
-    public static string[] companyFullName = {"Basic Software","","File Killer Corp.","","" };
+    private List<string> keywordDescription = new List<string>{ "<b>Dedicate</b>: Draw a card. If the card comes from the same company, trigger this effect.",
+        "<b>Delete</b>: This card will not return to your draw deck after play. (If you picked this card, it will remain in your run deck.)",
+        "<b>Burn</b>: Applies a debuff to the target. When applying new burns to the target, deal damage equal to the previous burn amount. Burn reduces by one per cycle.",
+        "<b>Priority</b>: This card goes at the top of your draw pile.",
+        "<b>Harden</b>: Become immune to damage. Harden is lost everytime you would have taken damage.",
+        "<b>Wipe</b>: A cheap, one time use 5 damage card.",
+        "<b>Sequence</b>: Triggers additional effects if you have 3 cards waiting for decompression when played",
+        "<b>Initial</b>: Triggers additional effects if this is the first card to be decompressed when played",
+        "<b>Usage</b>: Has a limited amount of plays before being permanantly removed from your deck.",
+        "<b>Generated</b>: A card created by another card."
+        };
+    public static string[] companyFullName = {"Basic Software","HackerzAren'tUs Inc.","File Killer Corp.","Snorton","" };
 
     // Start is called before the first frame update
     void Awake()
@@ -50,6 +60,10 @@ public class CardDisplayManager : MonoBehaviour
 
         card = GetComponent<CardFunction>().card;
         splashArt = transform.Find("splash").GetComponent<SpriteRenderer>();
+        Background = transform.Find("cardBackground").GetComponent<SpriteRenderer>();
+        descriptionBG = transform.Find("carddesc").GetComponent<SpriteRenderer>();
+        CompanyNameBG = transform.Find("bottom background").GetComponent<SpriteRenderer>();
+        TopNameBG = transform.Find("title background").GetComponent<SpriteRenderer>();
         CostIndicator = transform.Find("CostIcon").GetComponent<SpriteRenderer>();
         nameText = gameObject.transform.Find("CardNameText").GetComponent<TextMeshPro>();
         CostText = transform.Find("Cost").GetComponent<TextMeshPro>();
@@ -78,8 +92,25 @@ public class CardDisplayManager : MonoBehaviour
         {
             CostText.text = drawCost.ToString();
         }
-        
+
         //DrawCostText.text = drawCost.ToString();
+        int index = 0;
+        if (card.Company == Card.CardCompany.BasicSoftware)
+        {
+            index = 0;
+        }
+        else if (card.Company == Card.CardCompany.FileKillerCorp)
+        {
+            index = 1;
+        }
+        else if (card.Company == Card.CardCompany.Snorton)
+        {
+            index = 2;
+        }
+        Background.sprite = Services.cardList.CardBackGround[index];
+        TopNameBG.sprite = Services.cardList.CardTitleBackGround[index];
+        CompanyNameBG.sprite = Services.cardList.CardTitleBackGround[index];
+        descriptionBG.sprite = Services.cardList.CardDescriptionBackGround[index];
         effectDiscriptionText.text = card.cardEffectDiscription;
         CompanyNameText.text = companyFullName[(int)card.Company];
         string temp = "";

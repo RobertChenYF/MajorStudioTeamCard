@@ -33,6 +33,34 @@ public class BodyPart : EnemyBuff
         //Services.eventManager.Register<>
     }
 }
+
+public class GainHpWhenPlayerLoseHp : EnemyBuff
+{
+    public GainHpWhenPlayerLoseHp()
+    {
+        buffDescription = "Gain health equals to the amount of health player loses";
+        //buffIcon = Services.playerBuffManager.BurnBuffIcon;
+    }
+
+    public override void ActivateBuff()
+    {
+
+        Services.eventManager.Register<PlayerStatsManager.LoseHpEvent>(TriggerEffect);
+    }
+
+    public void TriggerEffect(AGPEvent e)
+    {
+        PlayerStatsManager.LoseHpEvent a = (PlayerStatsManager.LoseHpEvent) e;
+        thisEnemy.GainHp(a.value);
+        
+        base.TriggerEffect();
+    }
+
+    public override void DeactivateBuff()
+    {
+        Services.eventManager.Unregister<PlayerStatsManager.LoseHpEvent>(TriggerEffect);
+    }
+}
 public class Burn : EnemyBuff
 {
     

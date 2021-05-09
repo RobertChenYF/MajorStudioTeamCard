@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Spam Clicker
   cardSplashArt: {fileID: 21300000, guid: 9cf6456a715955740b5551db8dea2afb, type: 3}
-  cardEffectDiscription: Cards that cost 5 or less trigger twice
+  cardEffectDiscription: Cards that cost 5 or less trigger twice.
   type: 2
   Company: 2
   containedKeywords: 

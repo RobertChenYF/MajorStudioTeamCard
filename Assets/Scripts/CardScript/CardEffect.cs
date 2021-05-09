@@ -12,7 +12,7 @@ public class CardEffect : MonoBehaviour
         Services.statsManager.GainTempAttack(value);
     }
     */
-
+    [SerializeField]private GameObject wipe;
 
     private bool dedicate(Card.CardCompany company)
     {
@@ -24,6 +24,48 @@ public class CardEffect : MonoBehaviour
         return false;
         
     }
+
+    public void CheckSequence(CardFunction card)
+    {
+        if (Services.actionManager.AttackField.Count >= 3)
+        {
+            card.sequence = true;
+        }
+    }
+
+    public void CheckInitial(CardFunction card)
+    {
+        if (Services.actionManager.AttackField.Count == 0)
+        {
+            card.initial = true;
+        }
+    }
+
+    public void zz_Effect_BatchedWipe(CardFunction card)
+    {
+        if (card.sequence)
+        {
+            card.sequence = false;
+            for (int i = 0; i < Services.actionManager.AttackField.Count; i ++)
+            {
+                Services.actionManager.GenerateCardAddToHand(wipe);
+            }
+        }
+    }
+
+    public void zz_Effect_ChangeIP(CardFunction card)
+    {
+        if (dedicate(card.getCompany()))
+        {
+            Services.actionManager.LowerDecompressCost(10);
+        }
+    }
+
+    public void zz_Effect_Heal(int amount)
+    {
+        Services.statsManager.GainHp(amount);
+    }
+
     public void zz_Effect_DeepBurn()
     {
         zz_Deal_Damage(5);
@@ -182,4 +224,113 @@ public class CardEffect : MonoBehaviour
         //Services.playerBuffManager.GainNewBuff(new Hold_Scenario(), stack);
     }
 
+    public void zz_On_CodePolymorpher(int stack)
+    {
+        Services.playerBuffManager.GainNewBuff(new Polymorpher(),stack);
+    }
+
+    public void zz_CopyAndPaste(CardFunction card)
+    {
+        if (dedicate(card.getCompany()))
+        {
+            Services.playerBuffManager.GainNewBuff(new CopyAndPaste(),1);
+        }
+    }
+    public void zz_DefenseProtocol()
+    {
+        Services.playerBuffManager.GainNewBuff(new DefenseProtocol(),1);
+    }
+
+    public void zz_DiskStorage(CardFunction card)
+    {
+        if (dedicate(card.getCompany()))
+        {
+            Services.actionManager.GenerateCardAddToHand(wipe);
+        }
+    }
+
+    public void zz_DoubleDip()
+    {
+        if (Services.actionManager.currentRedrawCost <= 0)
+        {
+            zz_Draw_Cards(2);
+        }
+    }
+
+    public void zz_EnergyConserver()
+    {
+        Services.playerBuffManager.GainNewBuff(new EnergyConserver(),1);
+    }
+
+    public void zz_FileRecovery(CardFunction card)
+    {
+        if (dedicate(card.getCompany()))
+        {
+            Services.statsManager.GainHp(8);
+        }
+    }
+
+    public void zz_Lemon()
+    {
+        Services.playerBuffManager.GainNewBuff(new Lemon(), 1);
+    }
+
+    public void zz_initialDraw2(CardFunction card)
+    {
+        if (card.initial)
+        {
+            zz_Draw_Cards(2);
+            card.initial = false;
+        }
+    }
+
+    public void zz_OffenseUplink(CardFunction card)
+    {
+        if (card.sequence)
+        {
+            zz_Deal_Damage(8);
+            card.sequence = false;
+        }
+    }
+
+    public void zz_SecurityUplink(CardFunction card)
+    {
+        if (card.sequence)
+        {
+            zz_Effect_GainArmor(10);
+            card.sequence = false;
+        }
+    }
+
+    public void zz_initialDealExtra(CardFunction card)
+    {
+        if (card.initial)
+        {
+            zz_Deal_Damage(2*Services.actionManager.AttackField.Count);
+            card.initial = false;
+        }
+    }
+
+    public void zz_RefreshDirectory()
+    {
+        zz_Draw_Cards(Services.actionManager.AttackField.Count);
+    }
+
+    public void zz_RiskyArchive(CardFunction card)
+    {
+        if (card.initial)
+        {
+            zz_GainRedMana(50);
+            card.initial = false;
+        }
+        else
+        {
+            zz_GainRedMana(20);
+        }
+    }
+
+    public void zz_UpdateSecurity()
+    {
+        Services.playerBuffManager.GainNewBuff(new UpdateSecurity(),1);
+    }
 }

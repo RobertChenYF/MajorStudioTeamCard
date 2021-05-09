@@ -14,7 +14,7 @@ public class Card : ScriptableObject
     public enum CardType {Compressed, Executable, Installer};
     //public enum CardClass { testing , Evasion, Vanilla, Basic, Support};
     public enum CardCompany {BasicSoftware, CompanyA,FileKillerCorp,Snorton};
-    public enum Keywords {dedicate, delete, burn,  priority, harden,initial};
+    public enum Keywords { dedicate, delete, burn, priority, harden, wipe, sequence, initial, usage };
     [Header("Type and Class")]
     public CardType type;
     //public CardClass Class;

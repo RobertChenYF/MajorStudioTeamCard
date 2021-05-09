@@ -12,6 +12,8 @@ public class CardFunction : MonoBehaviour
 
     [Header("card basic info")]
     public Card card;
+    [HideInInspector] public bool sequence = false;
+    [HideInInspector] public bool initial = false;
     private float attackCost;
     private float drawCost;
     [HideInInspector] public bool generated = false;
@@ -167,6 +169,7 @@ public class CardFunction : MonoBehaviour
     {
         triggered.Invoke();
         Services.eventManager.Fire(new CardTriggerEvent(this));
+
         AfterTriggered();
     }
 

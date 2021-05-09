@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RunStateManager : MonoBehaviour
 {
     [HideInInspector] public CardClass currentActiveClass1;
+    [HideInInspector] public CardClass currentActiveClass2;
     public RunState currentRunState;
     public List<CardFunction> playerRunDeck;
     public List<GameObject> playerCardGameobject;
@@ -20,18 +22,38 @@ public class RunStateManager : MonoBehaviour
     [SerializeField] private Transform cardPos1;
     [SerializeField] private Transform cardPos2;
     [SerializeField] private Transform cardPos3;
+    [SerializeField] private TextMeshPro EnemyIntroductionText;
+    [SerializeField] private TextMeshPro EnemyNameText;
+
+    [SerializeField] private List<string> EnemyName;
+    [TextArea(10, 15)]
+    [SerializeField]private List<string> EnemyIntroduction;
+    public Transform enemyPreviewPos;
 
     public Button skipButton;
     public Button chooseButton;
     public GameObject selectRing;
     public CardFunction currentSelectCard = null;
+    [HideInInspector]public int currentStage;
+
+    public int draftLeft = 2;
+    public GameObject GameWinScreen;
+    public GameObject GameLoseScreen;
     //public CardClass currentActiveClass2;
 
     // Start is called before the first frame update
     void Start()
     {
         currentActiveClass1 = Services.cardList.FileKillerCorp;
-        ChangeState(new BeforeCombat(this));
+        currentActiveClass2 = Services.cardList.Snorton;
+        if (draftLeft > 0)
+        {
+            ChangeState(new Reward(this));
+        }
+        else
+        {
+            ChangeState(new BeforeCombat(this));
+        }
     }
 
     // Update is called once per frame
@@ -126,6 +148,38 @@ public class RunStateManager : MonoBehaviour
         return rewardCard;
     }
 
+    public List<GameObject> GenerateRewardMixPool(CardClass cardClassA,CardClass cardClassB)
+    {
+        List<GameObject> rewardCard = new List<GameObject>();
+        List<GameObject> cardPool = new List<GameObject>();
+        foreach (GameObject card in cardClassA.AllClassCard)
+        {
+            cardPool.Add(card);
+        }
+        foreach (GameObject card in cardClassB.AllClassCard)
+        {
+            cardPool.Add(card);
+        }
+        List<int> cardCode = new List<int>();
+
+        while (cardCode.Count < 3)
+        {
+            int a = Random.Range(0, cardPool.Count);
+            if (!cardCode.Contains(a))
+            {
+                cardCode.Add(a);
+            }
+        }
+
+        foreach (int a in cardCode)
+        {
+            GameObject card = Instantiate(cardPool[a]);
+            card.transform.SetParent(RewardWindow.transform);
+            rewardCard.Add(card);
+        }
+        return rewardCard;
+    }
+
     public void DisplayReward(List<GameObject> cards)
     {
         cards[0].transform.position = cardPos1.position;
@@ -135,19 +189,67 @@ public class RunStateManager : MonoBehaviour
 
     public void PressSkipButton()
     {
-
-        ChangeState(new BeforeCombat(this));
+        draftLeft --;
+        Services.statsManager.GainHp(5);
+        if (draftLeft == 0)
+        {
+            ChangeState(new BeforeCombat(this));
+        }
+        else if (draftLeft > 0)
+        {
+            ChangeState(new Reward(this));
+        }
     }
 
     public void PressChooseButton()
     {
         AddToRunReck(currentSelectCard);
         currentSelectCard = null;
-        ChangeState(new BeforeCombat(this));
+        draftLeft--;
+        if (draftLeft == 0)
+        {
+            ChangeState(new BeforeCombat(this));
+        }
+        else if (draftLeft > 0)
+        {
+            ChangeState(new Reward(this));
+        }
+        
     }
 
     public void PressEnterCombat()
     {
         ChangeState(new Combat(this));
+    }
+
+    public GameObject InstantiateEnemyPreview()
+    {
+        GameObject a = Instantiate(AllEnemyList[currentStage]);
+        a.transform.SetParent(enemyPreviewPos);
+        a.transform.localPosition = Vector3.zero;
+        a.transform.localScale = new Vector3(45,45,1);
+        EnemyIntroductionText.text = EnemyIntroduction[currentStage];
+        EnemyNameText.text = EnemyName[currentStage];
+        //a.GetComponent<Enemy>().enabled = false;
+        return a;
+    }
+
+    public void moveTransform(GameObject a)
+    {
+        a.transform.SetParent(Services.actionManager.enemyDefaultPos);
+        a.transform.position = new Vector3(0, 0, 0);
+        a.transform.localScale = new Vector3(1, 1, 1);
+        foreach (Enemy b in Services.combatManager.AllMainEnemy)
+        {
+
+            b.GetComponent<Enemy>().IntentUI.SetActive(true);
+            b.GetComponent<Enemy>().StatsUI.SetActive(true);
+            b.GetComponent<Enemy>().enabled = true;
+        }
+
+    }
+    public void DestroyThis(GameObject a)
+    {
+        Destroy(a);
     }
 }

@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4898030711768660703
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_Name
+      value: Energy Conserver
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.347
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157003514691063451, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_text
+      value: "Playing cards gives you Conservation. \nHeal 2 for each Conservation
+        at the end of the encounter."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252325409728935678, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_text
+      value: Snorton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4337035966482639584, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: card
+      value: 
+      objectReference: {fileID: 11400000, guid: 337f917fa91b4424693756f2194162b2, type: 2}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: keywordTextBox
+      value: 
+      objectReference: {fileID: 4441275147203253540}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1673668038964395508, guid: e526880eed29123439d52c41a1049003, type: 3}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: zz_EnergyConserver
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardEffect, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139488577707403702, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8871750365745515610, guid: 52482b0533b94409f9c4b8731226fb10, type: 3}
+    - target: {fileID: 7188295694883952053, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 565c158a6d670974c8d1e12b1a5d6631, type: 3}
+    - target: {fileID: 7317077009725382960, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_text
+      value: Energy Conserver
+      objectReference: {fileID: 0}
+    - target: {fileID: 9105109444143788027, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9117180173746227491, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+--- !u!1 &4441275147203253540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9105109444143788027, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+  m_PrefabInstance: {fileID: 4898030711768660703}
+  m_PrefabAsset: {fileID: 0}

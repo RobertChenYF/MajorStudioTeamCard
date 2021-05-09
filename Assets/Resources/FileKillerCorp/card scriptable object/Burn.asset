@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: File Burn
   cardSplashArt: {fileID: 21300000, guid: 39a92249c6d04f046be3773894e2b0ba, type: 3}
-  cardEffectDiscription: Decompress to apply 6 <b>burn</b> to the target.
+  cardEffectDiscription: Decompress to apply 6 <b>Burn</b> to the target.
   type: 0
   Company: 2
-  containedKeywords: 
+  containedKeywords: 02000000
   attackBarCost: 15
   drawBarCost: 0

@@ -11,7 +11,7 @@ public class DifferentRunStates : MonoBehaviour
 
 public class BeforeCombat : RunState
 {
-
+    GameObject tempEnemy;
     public BeforeCombat(RunStateManager runStateManager) : base(runStateManager)
     {
 
@@ -26,7 +26,9 @@ public class BeforeCombat : RunState
     {
         base.Enter();
         Debug.Log("start");
-        manager.SpawnNewMainEnemy();
+
+        //manager.SpawnNewMainEnemy();
+        tempEnemy = manager.InstantiateEnemyPreview();
         Services.combatManager.PauseTimeCycle();
         manager.CombatPreviewWindow.SetActive(true);
         //load enemy preview window
@@ -37,6 +39,9 @@ public class BeforeCombat : RunState
     public override void Leave()
     {
         base.Leave();
+        // manager.DestroyThis(tempEnemy);
+        // Services.combatManager.AllMainEnemy.Clear();
+        manager.moveTransform(tempEnemy);
         manager.CombatPreviewWindow.SetActive(false);
         //close enemy preview window
     }
@@ -55,13 +60,26 @@ public class Combat : RunState
         //if all main enemy die
         if (Services.combatManager.AllMainEnemy.Count == 0)
         {
-            manager.ChangeState(new Reward(manager));
+            manager.currentStage++;
+            if (manager.currentStage >= Services.runStateManager.AllEnemyList.Count)
+            {
+                manager.ChangeState(new GameWin(manager));
+            }
+            else
+            {
+                manager.ChangeState(new Reward(manager));
+            }
+            
         }
+
     }
 
     public override void Enter()
     {
         base.Enter();
+        
+        Services.actionManager.ResetBasicActionCost();
+        Services.combatManager.resetCycleTimer();
         manager.AllCardsInGame.SetActive(true);
         manager.CombatUICanvasSet(true);
         Debug.Log("combat");
@@ -82,8 +100,71 @@ public class Combat : RunState
     public override void Leave()
     {
         base.Leave();
+        manager.draftLeft = 2;
+
+        Services.eventManager.Fire(new CombatEndEvent());
         //clear all deck list
         Services.combatManager.PauseTimeCycle();
+        //Services.combatManager.PauseTimeCycle();
+        manager.AllCardsInGame.SetActive(false);
+        manager.CombatUICanvasSet(false);
+    }
+
+    public class CombatEndEvent: AGPEvent
+    {
+        public CombatEndEvent(){
+
+        }
+    }
+}
+
+public class Gameover : RunState
+{
+    public Gameover(RunStateManager runStateManager) : base(runStateManager)
+    {
+
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        //set gameover screen on
+        manager.GameLoseScreen.SetActive(true);
+    }
+
+    public override void Leave()
+    {
+        base.Leave();
+    }
+
+    public override void StateBehavior()
+    {
+        
+    }
+}
+
+public class GameWin : RunState
+{
+    public GameWin(RunStateManager runStateManager) : base(runStateManager)
+    {
+
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        manager.GameWinScreen.SetActive(true);
+        //set gamewin screen on
+    }
+
+    public override void Leave()
+    {
+        base.Leave();
+    }
+
+    public override void StateBehavior()
+    {
+
     }
 }
 
@@ -110,14 +191,15 @@ public class Reward : RunState
     public override void Enter()
     {
         base.Enter();
-        manager.AllCardsInGame.SetActive(false);
-        manager.CombatUICanvasSet(false);
+
         manager.RewardWindow.SetActive(true);
         manager.selectRing.SetActive(false);
         manager.skipButton.gameObject.SetActive(true);
         manager.chooseButton.gameObject.SetActive(true);
         manager.chooseButton.interactable = false;
-        List<GameObject> rewardCards = manager.GenerateReward(manager.currentActiveClass1);
+        // List<GameObject> rewardCards = manager.GenerateReward(manager.currentActiveClass1);
+
+        List<GameObject> rewardCards = manager.GenerateRewardMixPool(manager.currentActiveClass1,manager.currentActiveClass2);
         manager.DisplayReward(rewardCards);
         Debug.Log("reward");
         //system choose reward

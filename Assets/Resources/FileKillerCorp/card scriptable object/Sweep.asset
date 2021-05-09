@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Sweep
   cardSplashArt: {fileID: 21300000, guid: 7d75c8dbafda24f4cb173ebd4baacb67, type: 3}
-  cardEffectDiscription: 'Give the target 3 <b>Burn</b>
+  cardEffectDiscription: 'Give the target 3 <b>Burn</b>.
 
     <b>Delete</b>'
   type: 1

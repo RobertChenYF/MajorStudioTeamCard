@@ -7,6 +7,7 @@ TagManager:
   - GameManager
   - Canvas
   - VisEffectManager
+  - Klippy
   layers:
   - Default
   - TransparentFX
