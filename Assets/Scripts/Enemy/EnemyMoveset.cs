@@ -69,4 +69,8 @@ public class EnemyMoveset : MonoBehaviour
         return null;
     }
 
+    public void GainLeechBuff()
+    {
+        enemy.GainNewBuff(new GainHpWhenPlayerLoseHp(), 1);
+    }
 }

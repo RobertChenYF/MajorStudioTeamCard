@@ -147,9 +147,19 @@ public class PlayerStatsManager : MonoBehaviour
     public void LoseHp(float dmg)
     {
         currentHp -= dmg;
+        Services.eventManager.Fire(new LoseHpEvent(dmg));
         if (currentHp <= 0)
         {
             Debug.Log("player die");
+        }
+    }
+
+    public class LoseHpEvent : AGPEvent
+    {
+        public float value;
+        public LoseHpEvent(float amount)
+        {
+            value = amount;
         }
     }
 

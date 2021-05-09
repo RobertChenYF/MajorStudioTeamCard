@@ -27,6 +27,7 @@ public class Enemy: MonoBehaviour
     public List<EnemyBuff> enemyBuffList;
     public List<BuffHoverDisplay> BuffDisplayList;
     public List<EnemyMoveset> moveSet;
+    public List<EnemyMoveset> startingMove;
 
     //VisualEffects
     [Header ("Idle Animation")]
@@ -174,6 +175,10 @@ public class Enemy: MonoBehaviour
             Services.actionManager.currentTargetEnemy = null;
         }
         Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(CycleChargeReduce);
+        while (enemyBuffList.Count > 0)
+        {
+            RemoveBuff(enemyBuffList[0]);
+        }
         Services.combatManager.AllMainEnemy.Remove(this);
         gameObject.SetActive(false);
     }
@@ -225,6 +230,12 @@ public class Enemy: MonoBehaviour
 
     }
 
+    public void GainHp(float value)
+    {
+        currentHp += value;
+        currentHp = Mathf.Min(maxHp,currentHp);
+        UpdateDisplayStat();
+    }
     private void UpdateDisplayStat()
     {
         enemyHpText.text =  currentHp.ToString()+"/" + maxHp.ToString();
@@ -263,11 +274,24 @@ public class Enemy: MonoBehaviour
 
     protected void StartAmove()
     {
+        foreach (EnemyMoveset a in startingMove)
+        {
+            a.enemy = this;
+        }
         foreach (EnemyMoveset a in moveSet)
         {
             a.enemy = this;
         }
-        currentChargeMove = moveSet[0];
+        if (startingMove.Count > 0)
+        {
+            currentChargeMove = startingMove[0];
+            startingMove.RemoveAt(0);
+        }
+        else
+        {
+            currentChargeMove = moveSet[0];
+        }
+        
         currentChargeCycleTimer = currentChargeMove.CycleBeforeMove;
         nextMoveString = currentChargeMove.MoveDisplay();
         SetIntentIcon();
@@ -298,8 +322,17 @@ public class Enemy: MonoBehaviour
     }
     protected void NextMove()
     {
-        int a = moveSet.IndexOf(currentChargeMove);
-        a++;
+        int a;
+        if (moveSet.Contains(currentChargeMove))
+        {
+            a = moveSet.IndexOf(currentChargeMove);
+            a++;
+        }
+        else
+        {
+            a = 0;
+        }
+        
         if (a > moveSet.Count - 1)
         {
             a = 0;
