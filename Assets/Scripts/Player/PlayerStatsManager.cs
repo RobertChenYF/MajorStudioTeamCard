@@ -151,7 +151,7 @@ public class PlayerStatsManager : MonoBehaviour
         Services.eventManager.Fire(new LoseHpEvent(dmg));
         if (currentHp <= 0)
         {
-            Debug.Log("player die");
+            Services.runStateManager.ChangeState(new Gameover(Services.runStateManager));
         }
     }
 

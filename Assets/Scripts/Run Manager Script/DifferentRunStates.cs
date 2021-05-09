@@ -60,8 +60,18 @@ public class Combat : RunState
         //if all main enemy die
         if (Services.combatManager.AllMainEnemy.Count == 0)
         {
-            manager.ChangeState(new Reward(manager));
+            manager.currentStage++;
+            if (manager.currentStage >= Services.runStateManager.AllEnemyList.Count)
+            {
+                manager.ChangeState(new GameWin(manager));
+            }
+            else
+            {
+                manager.ChangeState(new Reward(manager));
+            }
+            
         }
+
     }
 
     public override void Enter()
@@ -91,9 +101,13 @@ public class Combat : RunState
     {
         base.Leave();
         manager.draftLeft = 2;
+
         Services.eventManager.Fire(new CombatEndEvent());
         //clear all deck list
         Services.combatManager.PauseTimeCycle();
+        //Services.combatManager.PauseTimeCycle();
+        manager.AllCardsInGame.SetActive(false);
+        manager.CombatUICanvasSet(false);
     }
 
     public class CombatEndEvent: AGPEvent
@@ -101,6 +115,56 @@ public class Combat : RunState
         public CombatEndEvent(){
 
         }
+    }
+}
+
+public class Gameover : RunState
+{
+    public Gameover(RunStateManager runStateManager) : base(runStateManager)
+    {
+
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        //set gameover screen on
+        manager.GameLoseScreen.SetActive(true);
+    }
+
+    public override void Leave()
+    {
+        base.Leave();
+    }
+
+    public override void StateBehavior()
+    {
+        
+    }
+}
+
+public class GameWin : RunState
+{
+    public GameWin(RunStateManager runStateManager) : base(runStateManager)
+    {
+
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        manager.GameWinScreen.SetActive(true);
+        //set gamewin screen on
+    }
+
+    public override void Leave()
+    {
+        base.Leave();
+    }
+
+    public override void StateBehavior()
+    {
+
     }
 }
 
@@ -127,9 +191,7 @@ public class Reward : RunState
     public override void Enter()
     {
         base.Enter();
-        Services.combatManager.PauseTimeCycle();
-        manager.AllCardsInGame.SetActive(false);
-        manager.CombatUICanvasSet(false);
+
         manager.RewardWindow.SetActive(true);
         manager.selectRing.SetActive(false);
         manager.skipButton.gameObject.SetActive(true);

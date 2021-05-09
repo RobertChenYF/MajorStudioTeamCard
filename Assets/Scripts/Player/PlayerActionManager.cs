@@ -47,7 +47,7 @@ public class PlayerActionManager : MonoBehaviour
     private float currentAttackCost;
     private bool canPlayCard;
     [HideInInspector]public bool attacking;
-
+    [SerializeField] private GameObject RunDeckButton;
     private void UpdateBasicActionCost(AGPEvent e)
     {
         currentAttackCost -= 5;
@@ -440,10 +440,14 @@ public class PlayerActionManager : MonoBehaviour
         CardWindow.SetActive(true);
         //display card
         DisplayAllCardsInList(Services.runStateManager.playerRunDeck,false);
+        Services.runStateManager.RewardWindow.SetActive(false);
         //Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(0,1,0);
         Services.runStateManager.AllCardsInGame.SetActive(false);
+        RunDeckButton.SetActive(false);
         Services.runStateManager.CombatUICanvasSet(false);
     }
+
+
 
     public void DisplayDrawDecck()
     {
@@ -479,10 +483,21 @@ public class PlayerActionManager : MonoBehaviour
         }
 
         CardWindow.SetActive(false);
-        Services.runStateManager.AllCardsInGame.SetActive(true);
-        Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(1, 1, 1);
-        Services.runStateManager.CombatUICanvasSet(true);
+        RunDeckButton.SetActive(true);
+        if (Services.runStateManager.currentRunState.ToString().Equals("Combat"))
+        {
+            Services.runStateManager.AllCardsInGame.SetActive(true);
+            Services.runStateManager.AllCardsInGame.transform.localScale = new Vector3(1, 1, 1);
+            Services.runStateManager.CombatUICanvasSet(true);
+        }
+        if (Services.runStateManager.currentRunState.ToString().Equals("Reward"))
+        {
+            Services.runStateManager.RewardWindow.SetActive(true);
+        }
+
     }
+
+
 
     public void DisplayAllCardsInList(List<CardFunction> deck, bool shuffle)
     {
