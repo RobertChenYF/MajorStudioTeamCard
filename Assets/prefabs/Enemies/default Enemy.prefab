@@ -1194,6 +1194,7 @@ MonoBehaviour:
   IntentStatsText: {fileID: 5648549686386085226}
   IntentIconDisplay: {fileID: 5648549687108294591}
   IntentUI: {fileID: 5648549686374421129}
+  StatsUI: {fileID: 6721688824617617338}
   buffDisplayPrefab: {fileID: 2462491501082864526, guid: 3d748e2f40f29e74188675b384e9a11f, type: 3}
   enemyHpText: {fileID: 6721688824110141604}
   enemyBuffPos: {fileID: 6721688823206777196}
@@ -1901,7 +1902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6721688824617617339
 RectTransform:
   m_ObjectHideFlags: 0

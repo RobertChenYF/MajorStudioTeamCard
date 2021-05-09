@@ -16,6 +16,7 @@ public class Enemy: MonoBehaviour
     [SerializeField] protected TextMeshPro IntentStatsText;
     [SerializeField] protected SpriteRenderer IntentIconDisplay;
     public GameObject IntentUI;
+    public GameObject StatsUI;
 
     [SerializeField] private GameObject buffDisplayPrefab;
     protected float currentHp;

@@ -52,7 +52,7 @@ MonoBehaviour:
   CycleBeforeMove: 3
   damageAmount: 0
   armorAmount: 0
-  specialMoveExplain: Gaining a buff
+  specialMoveExplain: ???
   moves: 02000000
   SpecialMoveset:
     m_PersistentCalls:

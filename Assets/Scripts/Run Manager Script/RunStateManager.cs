@@ -34,9 +34,11 @@ public class RunStateManager : MonoBehaviour
     public Button chooseButton;
     public GameObject selectRing;
     public CardFunction currentSelectCard = null;
-
+    [HideInInspector]public int currentStage;
 
     public int draftLeft = 2;
+    public GameObject GameWinScreen;
+    public GameObject GameLoseScreen;
     //public CardClass currentActiveClass2;
 
     // Start is called before the first frame update
@@ -188,6 +190,7 @@ public class RunStateManager : MonoBehaviour
     public void PressSkipButton()
     {
         draftLeft --;
+        Services.statsManager.GainHp(5);
         if (draftLeft == 0)
         {
             ChangeState(new BeforeCombat(this));
@@ -221,12 +224,12 @@ public class RunStateManager : MonoBehaviour
 
     public GameObject InstantiateEnemyPreview()
     {
-        GameObject a = Instantiate(AllEnemyList[0]);
+        GameObject a = Instantiate(AllEnemyList[currentStage]);
         a.transform.SetParent(enemyPreviewPos);
         a.transform.localPosition = Vector3.zero;
         a.transform.localScale = new Vector3(45,45,1);
-        EnemyIntroductionText.text = EnemyIntroduction[0];
-        EnemyNameText.text = EnemyName[0];
+        EnemyIntroductionText.text = EnemyIntroduction[currentStage];
+        EnemyNameText.text = EnemyName[currentStage];
         //a.GetComponent<Enemy>().enabled = false;
         return a;
     }
@@ -234,10 +237,16 @@ public class RunStateManager : MonoBehaviour
     public void moveTransform(GameObject a)
     {
         a.transform.SetParent(Services.actionManager.enemyDefaultPos);
-        a.transform.position = new Vector3(0,0,0);
-        a.transform.localScale = new Vector3(1,1,1);
-        a.GetComponent<Enemy>().IntentUI.SetActive(true);
-        a.GetComponent<Enemy>().enabled = true;
+        a.transform.position = new Vector3(0, 0, 0);
+        a.transform.localScale = new Vector3(1, 1, 1);
+        foreach (Enemy b in Services.combatManager.AllMainEnemy)
+        {
+
+            b.GetComponent<Enemy>().IntentUI.SetActive(true);
+            b.GetComponent<Enemy>().StatsUI.SetActive(true);
+            b.GetComponent<Enemy>().enabled = true;
+        }
+
     }
     public void DestroyThis(GameObject a)
     {
