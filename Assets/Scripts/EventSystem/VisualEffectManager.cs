@@ -34,6 +34,10 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private float errorSoundVolume;
     [SerializeField] private AudioClip buffSound;
     [SerializeField] private float buffSoundVolume;
+    [SerializeField] private AudioClip decompressSound;
+    [SerializeField] private float decompressSoundVolume;
+    [SerializeField] private AudioClip redrawSound;
+    [SerializeField] private float redrawSoundVolume;
 
     [Header("Enemy Buff Effect")]
     [SerializeField] private ParticleSystem buffParticles;
@@ -249,6 +253,13 @@ public class VisualEffectManager : MonoBehaviour
         yield return null;
     }
 
+    IEnumerator EnemyDealDamageEffect(Enemy enemy)
+    {
+
+
+        yield return null;
+    }
+
     public void PlayEnemyTakeDamageEffect(Enemy enemy, float damage)
     {
         StartCoroutine(EnemyTakeDamageEffect(enemy, damage));
@@ -268,10 +279,25 @@ public class VisualEffectManager : MonoBehaviour
         yield return null;
     }
 
+    public void PlayDecompresSound()
+    {
+        audioSource.clip = decompressSound;
+        audioSource.volume = decompressSoundVolume;
+        audioSource.Play();
+    }
+
+    public void PlayRedrawSound()
+    {
+        audioSource.clip = redrawSound;
+        audioSource.volume = redrawSoundVolume;
+        audioSource.Play();
+    }
+
     public void PlayEnemyGainHealthEffect(Enemy enemy, float hp)
     {
         StartCoroutine(NumberFlyOut(enemy.gameObject.transform.position + damageParticleOffset, damageParticleEndOffset,
             gainhpParticleColor, "+" + hp.ToString()));
+        PlayBuffSound();
     }
 
     IEnumerator NumberFlyOut(Vector3 startpos, Vector3 endOffset, Color color, string text)
