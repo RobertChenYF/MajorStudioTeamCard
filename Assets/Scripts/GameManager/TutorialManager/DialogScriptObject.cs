@@ -8,6 +8,7 @@ public class DialogScriptObject : ScriptableObject
 {
     public Sprite klippyImage;
     public string klippyDialog;
+    public bool holdPlayer;
 
     [Header("Arrow")]
     public bool arrowActive;

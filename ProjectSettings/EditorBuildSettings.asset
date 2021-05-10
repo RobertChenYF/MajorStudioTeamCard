@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/CombatScene.unity
     guid: dd6e6b43d0ded49c9919c5872ce463ef
   - enabled: 1
-    path: Assets/Scenes/TutorialCombat.unity
+    path: Assets/Scenes/(Old)TutorialCombat.unity
     guid: 13bf59ce4010667498e8811b07eacc0b
   m_configObjects: {}
