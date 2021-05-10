@@ -73,7 +73,14 @@ public class RunStateManager : MonoBehaviour
     {
         GameObject newEnemy = Instantiate(AllEnemyList[0], Services.actionManager.enemyDefaultPos.position,Quaternion.identity);
         //newEnemy.transform.position = new Vector3(0, 0, 0);
-        newEnemy.GetComponent<Enemy>().updateIdlePosOffset();
+        if (newEnemy.transform.childCount > 0)
+        {
+            newEnemy.GetComponentInChildren<Enemy>().updateIdlePosOffset();
+        }
+        else
+        {
+            newEnemy.GetComponent<Enemy>().updateIdlePosOffset();
+        }
 
     }
 
@@ -232,6 +239,18 @@ public class RunStateManager : MonoBehaviour
         a.transform.localScale = new Vector3(40,40,1);
         EnemyIntroductionText.text = EnemyIntroduction[currentStage];
         EnemyNameText.text = EnemyName[currentStage];
+        if (a.GetComponent<Enemy>())
+        {
+            if (a.transform.childCount > 0)
+            {
+                a.GetComponentInChildren<Enemy>().updateIdlePosOffset();
+            }
+            else
+            {
+                a.GetComponent<Enemy>().updateIdlePosOffset();
+            }
+        }
+
         //a.GetComponent<Enemy>().enabled = false;
         return a;
     }
@@ -248,7 +267,14 @@ public class RunStateManager : MonoBehaviour
             b.GetComponent<Enemy>().StatsUI.SetActive(true);
             b.GetComponent<Enemy>().enabled = true;
             //update savedPos
-            b.updateIdlePosOffset();
+            if (b.transform.childCount > 0)
+            {
+                b.GetComponentInChildren<Enemy>().updateIdlePosOffset();
+            }
+            else
+            {
+                b.GetComponent<Enemy>().updateIdlePosOffset();
+            }
         }
 
     }

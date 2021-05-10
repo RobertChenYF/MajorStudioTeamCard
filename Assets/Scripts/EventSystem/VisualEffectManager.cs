@@ -308,7 +308,7 @@ public class VisualEffectManager : MonoBehaviour
         Txt.gameObject.transform.position += new Vector3(0, 0, 3f);
         Txt.text = text;
         float currentAlpha = 1;
-        print("" + Txt.gameObject.transform.position + " " + Txt.text);
+        //print("" + Txt.gameObject.transform.position + " " + Txt.text);
 
         while (Vector3.Distance(Txt.gameObject.transform.position, startpos + endOffset) > 0.05f)
         {

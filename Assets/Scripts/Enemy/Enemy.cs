@@ -32,13 +32,13 @@ public class Enemy: MonoBehaviour
 
     //VisualEffects
     [Header ("Idle Animation")]
-    public bool is_Idle;
+    [HideInInspector] public bool is_Idle;
     [SerializeField] private float idleSmoothingUp;
     [SerializeField] private float idleSmoothingDown;
     [SerializeField] private Vector3 savedIdlePosOffset;
     [SerializeField] private float waitTime;
     [SerializeField] private float hangTime;
-    [SerializeField] private float cutOffVal;
+    //[SerializeField] private float cutOffVal;
     public Color savedColor;
     private Vector3 idlePosOffset;
     bool goingUp = true;
@@ -61,7 +61,7 @@ public class Enemy: MonoBehaviour
         // currentHp = maxHp;
 
         //Update Idle Position Offset
-        is_Idle = true;
+        //is_Idle = true;
         savedColor = this.gameObject.GetComponent<SpriteRenderer>().color;
     }
 
@@ -114,7 +114,7 @@ public class Enemy: MonoBehaviour
         {
             if (goingUp)
             {
-                while (Vector3.Distance(this.gameObject.transform.position, idlePosOffset) > cutOffVal)
+                while (Vector3.Distance(this.gameObject.transform.position, idlePosOffset) > 0.05f)
                 {
                     //print(EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothing * Time.deltaTime).ToString());
                     this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothingUp * Time.deltaTime);
@@ -125,7 +125,7 @@ public class Enemy: MonoBehaviour
             }
             else
             {
-                while (Vector3.Distance(this.gameObject.transform.position, savedEnemyPos) > cutOffVal)
+                while (Vector3.Distance(this.gameObject.transform.position, savedEnemyPos) > 0.05f)
                 {
                     this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, savedEnemyPos, idleSmoothingDown * Time.deltaTime);
                     yield return null;

@@ -1142,6 +1142,11 @@ MonoBehaviour:
   healthBarFill: {fileID: 2539422239581970670}
   armorIconDisplay: {fileID: 2539422239485381191}
   armorAmountDisplay: {fileID: 2539422240599490447}
+  IntentCycleText: {fileID: 0}
+  IntentStatsText: {fileID: 0}
+  IntentIconDisplay: {fileID: 0}
+  IntentUI: {fileID: 0}
+  StatsUI: {fileID: 0}
   buffDisplayPrefab: {fileID: 2462491501082864526, guid: 3d748e2f40f29e74188675b384e9a11f, type: 3}
   enemyHpText: {fileID: 2539422239724087731}
   enemyBuffPos: {fileID: 2539422241462518181}
@@ -1150,12 +1155,15 @@ MonoBehaviour:
   moveSet:
   - {fileID: 2539422240982624903}
   - {fileID: 2539422240255428646}
+  startingMove: []
   is_Idle: 1
   idleSmoothingUp: 9
   idleSmoothingDown: 6.4
-  idlePosOffset: {x: 0.05, y: 0.3, z: 0}
+  savedIdlePosOffset: {x: 0.05, y: 0.3, z: 0}
   waitTime: 0.35
   hangTime: 0.5
+  savedColor: {r: 0, g: 0, b: 0, a: 0}
+  savedEnemyPos: {x: 0, y: 0, z: 0}
 --- !u!61 &404650317962451965
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1377,6 +1385,11 @@ MonoBehaviour:
   healthBarFill: {fileID: 2539422241212099879}
   armorIconDisplay: {fileID: 2539422239409150611}
   armorAmountDisplay: {fileID: 2539422241254475356}
+  IntentCycleText: {fileID: 0}
+  IntentStatsText: {fileID: 0}
+  IntentIconDisplay: {fileID: 0}
+  IntentUI: {fileID: 0}
+  StatsUI: {fileID: 0}
   buffDisplayPrefab: {fileID: 2462491501082864526, guid: 3d748e2f40f29e74188675b384e9a11f, type: 3}
   enemyHpText: {fileID: 2539422239776652381}
   enemyBuffPos: {fileID: 2539422241149758361}
@@ -1385,12 +1398,15 @@ MonoBehaviour:
   moveSet:
   - {fileID: 2539422241035699561}
   - {fileID: 2539422239844637322}
+  startingMove: []
   is_Idle: 0
   idleSmoothingUp: 9
   idleSmoothingDown: 6.4
-  idlePosOffset: {x: 0.05, y: 0.3, z: 0}
+  savedIdlePosOffset: {x: 0.05, y: 0.3, z: 0}
   waitTime: 0.35
   hangTime: 0.5
+  savedColor: {r: 0, g: 0, b: 0, a: 0}
+  savedEnemyPos: {x: 0, y: 0, z: 0}
 --- !u!61 &2539422240478844580
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3200,6 +3216,11 @@ MonoBehaviour:
   healthBarFill: {fileID: 4361200406759169399}
   armorIconDisplay: {fileID: 4361200405544054159}
   armorAmountDisplay: {fileID: 4361200407381096345}
+  IntentCycleText: {fileID: 0}
+  IntentStatsText: {fileID: 0}
+  IntentIconDisplay: {fileID: 0}
+  IntentUI: {fileID: 0}
+  StatsUI: {fileID: 0}
   buffDisplayPrefab: {fileID: 2462491501082864526, guid: 3d748e2f40f29e74188675b384e9a11f, type: 3}
   enemyHpText: {fileID: 4361200405556367539}
   enemyBuffPos: {fileID: 4361200407465316731}
@@ -3208,12 +3229,15 @@ MonoBehaviour:
   moveSet:
   - {fileID: 4361200405490531361}
   - {fileID: 4361200405923733256}
+  startingMove: []
   is_Idle: 0
   idleSmoothingUp: 9
   idleSmoothingDown: 6.4
-  idlePosOffset: {x: 0.05, y: 0.3, z: 0}
+  savedIdlePosOffset: {x: 0.05, y: 0.3, z: 0}
   waitTime: 0.35
   hangTime: 0.5
+  savedColor: {r: 0, g: 0, b: 0, a: 0}
+  savedEnemyPos: {x: 0, y: 0, z: 0}
 --- !u!61 &450600865397516508
 BoxCollider2D:
   m_ObjectHideFlags: 0
