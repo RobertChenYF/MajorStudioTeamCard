@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Gain <b>harden</b>
       objectReference: {fileID: 0}
+    - target: {fileID: 971907580599039899, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1840536552134388129, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_text
       value: File Killer Corp.
@@ -19,6 +23,10 @@ PrefabInstance:
       propertyPath: card
       value: 
       objectReference: {fileID: 11400000, guid: 80419fc13f711194bb5a5ac46ad11974, type: 2}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: canBePlayed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: triggered.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -65,11 +73,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -23.89961
+      value: -0.03000021
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.354658
+      value: -2.45
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.z

@@ -2221,17 +2221,41 @@ MonoBehaviour:
   EnemyIntroductionText: {fileID: 657737287}
   EnemyNameText: {fileID: 1782178596}
   EnemyName:
-  - Enemy A
-  - Enemy B
-  - Enemy C
-  - Enemy D
+  - 'Pinocchio.exe '
+  - The S.U.D.S
+  - CD-ROM
+  - Klippy
   - Enemy E
   - Enemy F
   EnemyIntroduction:
-  - This Enemy a is adsfmsaklmfaslkdm
-  - This Enemy B is adsfmsaklmfaslkdm
-  - This Enemy C is adsfmsaklmfaslkdm
-  - This Enemy D is adsfmsaklmfaslkdm
+  - 'A modern day tragedy, malware with emotions.
+
+    Don''t feel sorry for it though,
+    it feeds off of your pain.
+
+
+    Special Ability: Sap
+
+    Heals when you take
+    damage.'
+  - 'The S.U.D.S is what you get when your
+
+    computer stays out in the cold for
+    too long.
+
+    Should of gave it a scarf.
+
+
+
+    Special Ability: Viral Link
+
+    Periodically,
+    all S.U.D.S parts heal.'
+  - "An entire device is revolting against the system!\nIs this a oppressed <i>hardwareker</i>
+    rising up?\n\nSpecial Ability: Bad CD\nThe Central Body can throw a Junk File
+    into \nyour draw deck."
+  - "Ultimate Betrayal! Unexpected Twists!\nKlippy! Oh the tragedy! \nWe're you a
+    double agent?\nOr a unwitting victim?"
   - This Enemy E is adsfmsaklmfaslkdm
   - This Enemy F is adsfmsaklmfaslkdm
   enemyPreviewPos: {fileID: 1608339778}
@@ -8647,10 +8671,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 72
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

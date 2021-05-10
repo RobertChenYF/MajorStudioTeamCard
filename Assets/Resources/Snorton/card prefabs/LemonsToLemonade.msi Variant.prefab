@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_Name
-      value: LemonsToLemonade.msi
+      value: LemonsToLemonade.msi Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_IsActive
@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.347
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.73
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.z

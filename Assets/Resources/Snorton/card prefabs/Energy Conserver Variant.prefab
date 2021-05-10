@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_Name
-      value: Energy Conserver
+      value: Energy Conserver Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_IsActive
@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.347
+      value: -4.03
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.45
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.z
@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: card
       value: 
       objectReference: {fileID: 11400000, guid: 337f917fa91b4424693756f2194162b2, type: 2}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: canBePlayed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: keywordTextBox
       value: 
