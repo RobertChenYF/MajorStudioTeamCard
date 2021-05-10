@@ -263,6 +263,7 @@ public class PlayerActionManager : MonoBehaviour
 
             DrawMutipleCard(5);
             Services.eventManager.Fire(new RedrawEvent());
+            Services.visualEffectManager.PlayRedrawSound();
         }
 
         
@@ -416,6 +417,7 @@ public class PlayerActionManager : MonoBehaviour
             Services.combatManager.PauseTimeCycle();
             attackButton.interactable = false;
             attacking = true;
+            Services.visualEffectManager.PlayDecompresSound();
             StartCoroutine(AttackCoroutine());
             
         }

@@ -59,7 +59,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   enemyDmgSound: {fileID: 8300000, guid: d0dc609f6af5df743bd4f76934b446c3, type: 3}
   dmgSoundVolume: 0.2
-  playerDmgSound: {fileID: 8300000, guid: b22e3b1b3052b914da482f2581e307c2, type: 3}
+  playerDmgSound: {fileID: 8300000, guid: 64efcc9569109784f95666a3bba65118, type: 3}
   playerDmgSoundVolume: 0.5
   nextCycleSound: {fileID: 8300000, guid: f74736c96ce6fad44ab9f47f19fa6698, type: 3}
   nextCycleSoundVolume: 0.26
@@ -67,6 +67,10 @@ MonoBehaviour:
   errorSoundVolume: 0.5
   buffSound: {fileID: 8300000, guid: 5a3549d345ce240438a9867d7477bd0e, type: 3}
   buffSoundVolume: 0.6
+  decompressSound: {fileID: 8300000, guid: 13ed2d131186e14419a6de2dbab2ea1c, type: 3}
+  decompressSoundVolume: 1
+  redrawSound: {fileID: 8300000, guid: d285de4a819b0254eb23d27405b72274, type: 3}
+  redrawSoundVolume: 1
   buffParticles: {fileID: 6790215039390768315, guid: 145316e35210a784bbf65baee9c7e4a6, type: 3}
   buffFlashColor: {r: 0.97073174, g: 0, b: 1, a: 0.3254902}
   buffFlashSmoothingIn: 1.1
@@ -89,6 +93,7 @@ MonoBehaviour:
   hpParticleOffset: {x: 0.3, y: 0.5, z: 0}
   hpParticleEndOffset: {x: 1, y: 1.5, z: 0}
   hpParticleColor: {r: 1, g: 1, b: 1, a: 0}
+  gainhpParticleColor: {r: 0.10529864, g: 1, b: 0, a: 0}
 --- !u!82 &4070458609162924804
 AudioSource:
   m_ObjectHideFlags: 0
