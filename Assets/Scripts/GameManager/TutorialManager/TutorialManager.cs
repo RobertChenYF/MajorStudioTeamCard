@@ -102,13 +102,13 @@ public class TutorialManager : MonoBehaviour
         }
         TutorialPositionText.GetComponent<TextMeshProUGUI>().text = $"{count + 2}/{dialogLength + 1}";
 
-        if (Dialogs[count].specialEvent == true)
-        {
-            foreach (GameObject element in specialEventHolder)
-            {
-                element.SetActive(true);
-            }
-        }
+        //if (Dialogs[count].specialEvent == true)
+        //{
+        //    foreach (GameObject element in specialEventHolder)
+        //    {
+        //        element.SetActive(true);
+        //    }
+        //}
     }
 
     private void FixedUpdate()
