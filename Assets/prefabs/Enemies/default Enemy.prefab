@@ -1185,7 +1185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bc51db77b11d54da34d465d4cc8bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 60
+  maxHp: 30
   startingArmor: 0
   healthBarFill: {fileID: 6721688822899088736}
   armorIconDisplay: {fileID: 6721688824080526744}

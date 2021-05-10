@@ -52,7 +52,7 @@ public class RunStateManager : MonoBehaviour
         }
         else
         {
-            ChangeState(new BeforeCombat(this));
+            ChangeState(new Combat(this));
         }
     }
 
