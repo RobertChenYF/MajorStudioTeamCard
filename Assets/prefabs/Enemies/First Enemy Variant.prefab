@@ -161,6 +161,10 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: is_Idle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: waitTime
       value: 0.35
       objectReference: {fileID: 0}
