@@ -77,6 +77,14 @@ MonoBehaviour:
   shakeDuration: 0.5
   shakeMagnitude: 1
   dampingSpeed: 1
+  healthBar: {fileID: 0}
+  healthBarFill: {fileID: 0}
+  healthBarText: {fileID: 0}
+  hpFlashSmoothingIn: 8
+  hpFlashSmoothingOut: 4
+  hpParticleOffset: {x: 0.3, y: 0.5, z: 0}
+  hpParticleEndOffset: {x: 1, y: 1.5, z: 0}
+  hpParticleColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!82 &4070458609162924804
 AudioSource:
   m_ObjectHideFlags: 0

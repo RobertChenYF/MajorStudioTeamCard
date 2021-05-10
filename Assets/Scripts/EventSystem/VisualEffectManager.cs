@@ -40,6 +40,14 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private Color buffFlashColor;
     [SerializeField] private float buffFlashSmoothingIn;
     [SerializeField] private float buffFlashSmoothingOut;
+    private bool isBuffing;
+
+    [Header("Gain Armor Effect")]
+    [SerializeField] private ParticleSystem armorParticles;
+    [SerializeField] private Color armorFlashColor;
+    [SerializeField] private float armorFlashSmoothingIn;
+    [SerializeField] private float armorFlashSmoothingOut;
+    private bool isGainingArmor;
 
     [Header("Error Message Pop Up")]
     [SerializeField] private TextMeshPro ErrorMsgTextPrefab;
@@ -52,6 +60,16 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private float dampingSpeed;
     private Vector3 initCamPos;
     private Camera mainCam;
+
+    [Header("Health Bar Flash Effect")]
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private GameObject healthBarFill;
+    [SerializeField] private GameObject healthBarText;
+    [SerializeField] private float hpFlashSmoothingIn;
+    [SerializeField] private float hpFlashSmoothingOut;
+    [SerializeField] private Vector3 hpParticleOffset;
+    [SerializeField] private Vector3 hpParticleEndOffset;
+    [SerializeField] private Color hpParticleColor;
 
     // Start is called before the first frame update
     void Start()
@@ -122,6 +140,61 @@ public class VisualEffectManager : MonoBehaviour
         yield return null;
     }
 
+    IEnumerator PlayFlashEffect(Image image, Color color, float smoothIn, float smoothOut)
+    {
+        Color temp = image.color;
+
+        //print("Beginning Enemy Damage Flash");
+
+        //lerp the sprite color to hue
+        while (Mathf.Abs(color.r - image.color.r) > 0.05f || Mathf.Abs(color.g - image.color.g) > 0.05f || Mathf.Abs(color.b - image.color.b) > 0.05f) //use red value for tracking change
+        {
+            image.color = Color.Lerp(image.color, color, smoothIn * Time.deltaTime);
+            //print("Current Color: " + sr.color.ToString());
+
+            yield return null;
+        }
+
+        //lerp back
+        while (Mathf.Abs(color.r - image.color.r) > 0.05f || Mathf.Abs(color.g - image.color.g) > 0.05f || Mathf.Abs(color.b - image.color.b) > 0.05f) //use red value for tracking change
+        {
+            image.color = Color.Lerp(image.color, temp, smoothOut * Time.deltaTime);
+
+            yield return null;
+        }
+
+        image.color = temp;
+
+        yield return null;
+    }
+
+    IEnumerator PlayFlashEffect(Enemy enemy, Color color, float smoothIn, float smoothOut)
+    {
+        SpriteRenderer sr = enemy.gameObject.GetComponent<SpriteRenderer>();
+        //print("Beginning Enemy Damage Flash");
+
+        //lerp the sprite color to hue
+        while (Mathf.Abs(color.r - sr.color.r) > 0.05f || Mathf.Abs(color.g - sr.color.g) > 0.05f || Mathf.Abs(color.b - sr.color.b) > 0.05f) //use red value for tracking change
+        {
+            sr.color = Color.Lerp(sr.color, color, smoothIn * Time.deltaTime);
+            //print("Current Color: " + sr.color.ToString());
+
+            yield return null;
+        }
+
+        //lerp back
+        while (Mathf.Abs(color.r - sr.color.r) > 0.05f || Mathf.Abs(color.g - sr.color.g) > 0.05f || Mathf.Abs(color.b - sr.color.b) > 0.05f) //use red value for tracking change
+        {
+            sr.color = Color.Lerp(sr.color, enemy.savedColor, smoothOut * Time.deltaTime);
+
+            yield return null;
+        }
+
+        sr.color = enemy.savedColor;
+
+        yield return null;
+    }
+
     IEnumerator PlayEnemyHitJitter(Enemy enemy)
     {
 
@@ -153,38 +226,45 @@ public class VisualEffectManager : MonoBehaviour
             e.is_Idle = false;
         }
 
-        //print("Starting Enemy Damage Effect.");
-
-        //Create the particle at the enemy location with offset and set text
-        TextMeshPro dmgTxt = Instantiate(DamageTextPrefab);
-        dmgTxt.gameObject.transform.position = enemy.gameObject.transform.position + damageParticleOffset;
-        dmgTxt.text = "" + damage.ToString();
-        float currentAlpha = 1;
-
         //Play Flash, jitter, and Sound EFfect
-        StartCoroutine(PlayFlashEffect(enemy.gameObject.GetComponent<SpriteRenderer>(), dmgFlashColor, dmgFlashSmoothingIn, dmgFlashSmoothingOut));
+        if (!isBuffing && !isGainingArmor)
+            StartCoroutine(PlayFlashEffect(enemy, dmgFlashColor, dmgFlashSmoothingIn, dmgFlashSmoothingOut));
         StartCoroutine(PlayEnemyHitJitter(enemy));
+        StartCoroutine(NumberFlyOut(enemy.gameObject.transform.position + damageParticleOffset, damageParticleEndOffset, 
+            dmgParticleColor, damage.ToString()));
+
         PlayEnemyDamageSound();
-
-        //lerp the position of the text particle while fading out
-        while (Vector3.Distance(dmgTxt.gameObject.transform.position, enemy.gameObject.transform.position + damageParticleEndOffset) > 0.05f)
-        {
-            dmgTxt.gameObject.transform.position = //Slerp position
-                Vector3.Slerp(dmgTxt.gameObject.transform.position, enemy.gameObject.transform.position + damageParticleEndOffset, particleTransformSmoothing * Time.deltaTime);
-
-            currentAlpha = Mathf.Lerp(currentAlpha, 0f, particleColorSmoothing * Time.deltaTime);
-            dmgTxt.faceColor = new Color(dmgParticleColor.r, dmgParticleColor.g, dmgParticleColor.b, currentAlpha); //fade out text
-
-            yield return null;
-        }
-
-        //print("Particle Destroyed");
-        Destroy(dmgTxt.gameObject);
 
         foreach (Enemy e in Services.combatManager.AllMainEnemy)
         {
             e.is_Idle = true;
         }
+
+        yield return null;
+    }
+
+    IEnumerator NumberFlyOut(Vector3 startpos, Vector3 endOffset, Color color, string text)
+    {
+
+        TextMeshPro Txt = Instantiate(DamageTextPrefab);
+        Txt.gameObject.transform.position = startpos;
+        Txt.gameObject.transform.position += new Vector3(0, 0, 3f);
+        Txt.text = text;
+        float currentAlpha = 1;
+        print("" + Txt.gameObject.transform.position + " " + Txt.text);
+
+        while (Vector3.Distance(Txt.gameObject.transform.position, startpos + endOffset) > 0.05f)
+        {
+            Txt.gameObject.transform.position = //Slerp position
+                Vector3.Slerp(Txt.gameObject.transform.position, startpos + endOffset, particleTransformSmoothing * Time.deltaTime);
+
+            currentAlpha = Mathf.Lerp(currentAlpha, 0f, particleColorSmoothing * Time.deltaTime);
+            Txt.faceColor = new Color(color.r, color.g, color.b, currentAlpha); //fade out text
+
+            yield return null;
+        }
+
+        Destroy(Txt.gameObject);
 
         yield return null;
     }
@@ -206,6 +286,13 @@ public class VisualEffectManager : MonoBehaviour
 
         //screen shake to a degree based off the damage number
         StartCoroutine(PlayCameraShake(Remap(dmg, 0, 10, 0, 0.75f), Remap(dmg, 0, 10, 0, 0.4f), dampingSpeed));
+
+        //flash health bar red
+        StartCoroutine(PlayFlashEffect(healthBar.GetComponent<Image>(), dmgFlashColor, hpFlashSmoothingIn, hpFlashSmoothingOut));
+        StartCoroutine(PlayFlashEffect(healthBarFill.GetComponent<Image>(), dmgFlashColor, hpFlashSmoothingIn, hpFlashSmoothingOut));
+
+        //Number Fly Out
+        StartCoroutine(NumberFlyOut(healthBar.transform.position + hpParticleOffset, hpParticleEndOffset, hpParticleColor, "-" + dmg.ToString()));
 
         yield return null;
     }
@@ -287,9 +374,22 @@ public class VisualEffectManager : MonoBehaviour
 
     }
 
-    void PlayPlayerGainArmorEffect()
+    public void EnemyGainArmorEffect(GameObject gameObject)
     {
+        StartCoroutine(PlayEnemyGainArmorEffect(gameObject));
+    }
 
+    IEnumerator PlayEnemyGainArmorEffect(GameObject gameObject)
+    {
+        isGainingArmor = true;
+        ParticleSystem particles = Instantiate(armorParticles);
+        StartCoroutine(PlayFlashEffect(gameObject.GetComponent<SpriteRenderer>(), armorFlashColor, armorFlashSmoothingIn, armorFlashSmoothingOut));
+        PlayBuffSound();
+
+        yield return new WaitForSeconds(buffParticles.main.duration);
+        Destroy(particles);
+        isGainingArmor = false;
+        yield return null;
     }
 
     public void PlayBuffSound()
@@ -306,12 +406,14 @@ public class VisualEffectManager : MonoBehaviour
 
     IEnumerator PlayEnemyGainBuffEffect(GameObject gameObject)
     {
+        isBuffing = true;
         ParticleSystem particles = Instantiate(buffParticles);
         StartCoroutine(PlayFlashEffect(gameObject.GetComponent<SpriteRenderer>(), buffFlashColor, buffFlashSmoothingIn, buffFlashSmoothingOut));
         PlayBuffSound();
         
         yield return new WaitForSeconds(buffParticles.main.duration);
         Destroy(particles);
+        isBuffing = false;
         yield return null;
     }
 }

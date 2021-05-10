@@ -788,6 +788,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 148993130}
   m_CullTransparentMesh: 1
+--- !u!1 &177520764 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 282159262513374969, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+  m_PrefabInstance: {fileID: 1422835936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &190515898
 GameObject:
   m_ObjectHideFlags: 0
@@ -6485,6 +6490,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 358338542}
     - target: {fileID: 846327452558398873, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: blinkSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 846327452558398873, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: attackField
       value: 
       objectReference: {fileID: 1995537850}
@@ -6842,8 +6851,32 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.006
       objectReference: {fileID: 0}
+    - target: {fileID: 4985390629524072243, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985390629524072243, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985390629524072243, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5275495046731997495, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820346764994337966, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820346764994337966, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820346764994337966, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7194257763414182999, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
@@ -7121,21 +7154,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4070458609162924810, guid: 1d3f26029fd08974c99c3fe5041e3693, type: 3}
-      propertyPath: mainCam
+      propertyPath: healthBar
       value: 
-      objectReference: {fileID: 963194227}
+      objectReference: {fileID: 2107108773}
     - target: {fileID: 4070458609162924810, guid: 1d3f26029fd08974c99c3fe5041e3693, type: 3}
-      propertyPath: dampingSpeed
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: healthBarFill
+      value: 
+      objectReference: {fileID: 1617841419}
     - target: {fileID: 4070458609162924810, guid: 1d3f26029fd08974c99c3fe5041e3693, type: 3}
-      propertyPath: shakeDuration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070458609162924810, guid: 1d3f26029fd08974c99c3fe5041e3693, type: 3}
-      propertyPath: shakeMagnitude
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: healthBarText
+      value: 
+      objectReference: {fileID: 177520764}
     - target: {fileID: 4070458609162924811, guid: 1d3f26029fd08974c99c3fe5041e3693, type: 3}
       propertyPath: m_Name
       value: VisualEffectManager
@@ -7822,6 +7851,11 @@ RectTransform:
   m_AnchoredPosition: {x: 2, y: 46}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1617841419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5057880595799697224, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+  m_PrefabInstance: {fileID: 1422835936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1644998551
 GameObject:
   m_ObjectHideFlags: 0
@@ -8877,12 +8911,30 @@ MonoBehaviour:
   nextCycleSoundVolume: 0
   errorSound: {fileID: 0}
   errorSoundVolume: 0
+  buffSound: {fileID: 0}
+  buffSoundVolume: 0
+  buffParticles: {fileID: 0}
+  buffFlashColor: {r: 0, g: 0, b: 0, a: 0}
+  buffFlashSmoothingIn: 0
+  buffFlashSmoothingOut: 0
+  armorParticles: {fileID: 0}
+  armorFlashColor: {r: 0, g: 0, b: 0, a: 0}
+  armorFlashSmoothingIn: 0
+  armorFlashSmoothingOut: 0
   ErrorMsgTextPrefab: {fileID: 0}
   errorTxtColorSmoothing: 0
   popUpTime: 0
   shakeDuration: 0
   shakeMagnitude: 0
   dampingSpeed: 0
+  healthBar: {fileID: 0}
+  healthBarFill: {fileID: 0}
+  healthBarText: {fileID: 0}
+  hpFlashSmoothingIn: 0
+  hpFlashSmoothingOut: 0
+  hpParticleOffset: {x: 0, y: 0, z: 0}
+  hpParticleEndOffset: {x: 0, y: 0, z: 0}
+  hpParticleColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1795037928
 Transform:
   m_ObjectHideFlags: 0
@@ -11063,6 +11115,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094520338}
   m_CullTransparentMesh: 1
+--- !u!1 &2107108773 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6104471756010098341, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+  m_PrefabInstance: {fileID: 1422835936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2142325422
 PrefabInstance:
   m_ObjectHideFlags: 0

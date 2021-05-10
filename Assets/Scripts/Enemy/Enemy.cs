@@ -36,10 +36,11 @@ public class Enemy: MonoBehaviour
     [SerializeField] private float idleSmoothingUp;
     [SerializeField] private float idleSmoothingDown;
     [SerializeField] private Vector3 savedIdlePosOffset;
-    private Vector3 idlePosOffset;
     [SerializeField] private float waitTime;
     [SerializeField] private float hangTime;
     [SerializeField] private float cutOffVal;
+    public Color savedColor;
+    private Vector3 idlePosOffset;
     bool goingUp = true;
     //[HideInInspector]
     public Vector3 savedEnemyPos;
@@ -61,6 +62,7 @@ public class Enemy: MonoBehaviour
 
         //Update Idle Position Offset
         is_Idle = true;
+        savedColor = this.gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     public void updateIdlePosOffset()
@@ -89,6 +91,11 @@ public class Enemy: MonoBehaviour
         {
             if (this.gameObject)
                 Services.visualEffectManager.EnemyGainBuffEffect(this.gameObject);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (this.gameObject)
+                Services.visualEffectManager.EnemyGainArmorEffect(this.gameObject);
         }
 
         if (is_Idle && !playing_idle)
@@ -237,6 +244,8 @@ public class Enemy: MonoBehaviour
     }
     public void GainArmor(float value)
     {
+        Services.visualEffectManager.EnemyGainArmorEffect(this.gameObject);
+
         if (value > 0)
         {
 

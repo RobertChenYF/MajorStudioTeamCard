@@ -48,6 +48,12 @@ public class PlayerActionManager : MonoBehaviour
     private bool canPlayCard;
     [HideInInspector]public bool attacking;
     [SerializeField] private GameObject RunDeckButton;
+
+    //Visual Effects
+    bool attack_isblinking;
+    bool redraw_isblinking;
+    [SerializeField] private float blinkSpeed;
+
     private void UpdateBasicActionCost(AGPEvent e)
     {
         currentAttackCost -= 5;
@@ -82,6 +88,9 @@ public class PlayerActionManager : MonoBehaviour
     private void Start()
     {
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(UpdateBasicActionCost);
+
+        if (blinkSpeed == 0)
+            blinkSpeed = 0.5f;
     }
 
     // Update is called once per frame
@@ -90,6 +99,21 @@ public class PlayerActionManager : MonoBehaviour
         UpdateCardInHandPos();
         UpdateDragCardPos();
         UpdateCardInAttackField();
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            currentRedrawCost = 0;
+            currentAttackCost = 0;
+        }
+
+        if (currentAttackCost == 0 && !attack_isblinking)
+        {
+            StartCoroutine(blinkAttackCost());
+        }
+        if (currentRedrawCost == 0 && !redraw_isblinking)
+        {
+            StartCoroutine(blinkRedrawCost());
+        }
     }
 
     public void LowerDecompressCost(int amount)
@@ -98,8 +122,40 @@ public class PlayerActionManager : MonoBehaviour
         currentAttackCost = Mathf.Max(currentAttackCost,0);
         UpdateBasicActionCostDisplay();
     }
-    
-    private void UpdateBasicActionCostDisplay()
+
+    IEnumerator blinkAttackCost()
+    {
+        attack_isblinking = true;
+        while (currentAttackCost == 0)
+        {
+            if (attackButtonText.color == Color.green)
+                attackButtonText.color = Color.white;
+            else
+                attackButtonText.color = Color.green;
+            yield return new WaitForSeconds(blinkSpeed);
+        }
+        attackButtonText.color = Color.white;
+        attack_isblinking = false;
+        yield return null;
+    }
+
+    IEnumerator blinkRedrawCost()
+    {
+        redraw_isblinking = true;
+        while (currentRedrawCost == 0)
+        {
+            if (redrawButtonText.color == Color.green)
+                redrawButtonText.color = Color.white;
+            else
+                redrawButtonText.color = Color.green;
+            yield return new WaitForSeconds(blinkSpeed);
+        }
+        redrawButtonText.color = Color.white;
+        redraw_isblinking = false;
+        yield return null;
+    }
+
+        private void UpdateBasicActionCostDisplay()
     {
         attackButtonText.text = currentAttackCost.ToString() + " CPU";
         redrawButtonText.text = currentRedrawCost.ToString() + " GPU";
