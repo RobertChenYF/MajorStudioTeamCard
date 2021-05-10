@@ -194,6 +194,7 @@ public class Reward : RunState
 
         manager.RewardWindow.SetActive(true);
         manager.selectRing.SetActive(false);
+        Services.combatManager.PauseTimeCycle();
         manager.skipButton.gameObject.SetActive(true);
         manager.chooseButton.gameObject.SetActive(true);
         manager.chooseButton.interactable = false;

@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 75d65c16cb36dca44bf99afc3f432181, type: 3}
     - target: {fileID: 6721688822605510936, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510937, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_RootOrder
@@ -159,6 +159,10 @@ PrefabInstance:
     - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: maxHp
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: is_Idle
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: waitTime

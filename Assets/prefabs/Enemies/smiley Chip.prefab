@@ -128,6 +128,14 @@ PrefabInstance:
       propertyPath: startingArmor
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510939, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_Name
       value: middle chip
@@ -302,6 +310,14 @@ PrefabInstance:
       propertyPath: maxHp
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510939, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_Name
       value: left chip
@@ -419,6 +435,14 @@ PrefabInstance:
     - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: maxHp
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: moveSet.Array.data[0]

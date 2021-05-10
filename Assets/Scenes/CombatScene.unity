@@ -3663,7 +3663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &740440474
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6497,6 +6497,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 846327452558398872, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: PlaceHolderBuffIcon
+      value: 
+      objectReference: {fileID: -6540359874124514869, guid: 74f10a4c43580b64fadc4ebe4a7f91d0, type: 3}
     - target: {fileID: 846327452558398873, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: hand
       value: 
@@ -11464,6 +11468,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2102986043746973003, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2102986043746973003, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554763591075721825, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554763591075721825, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5729709659524325670, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
       propertyPath: m_Name
       value: BubbleEnemyFull
@@ -11471,6 +11491,14 @@ PrefabInstance:
     - target: {fileID: 5729709659524325670, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762039814681687680, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762039814681687680, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e074ce35d72c3384189a55f8d47787c9, type: 3}
@@ -11615,6 +11643,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5648549686386085221, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 3057950702536193192, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
+    - target: {fileID: 5648549686669183756, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 3057950702536193192, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
     - target: {fileID: 6352155520475969380, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11776,6 +11812,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 272717677861626446, guid: 77bf586546f5faa49a872995164b2539, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 272717677861626446, guid: 77bf586546f5faa49a872995164b2539, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1216940655989461081, guid: 77bf586546f5faa49a872995164b2539, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -11783,6 +11827,14 @@ PrefabInstance:
     - target: {fileID: 1216940656306148926, guid: 77bf586546f5faa49a872995164b2539, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2437125491203663204, guid: 77bf586546f5faa49a872995164b2539, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2437125491203663204, guid: 77bf586546f5faa49a872995164b2539, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3673242830541461363, guid: 77bf586546f5faa49a872995164b2539, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -11843,6 +11895,14 @@ PrefabInstance:
     - target: {fileID: 6926629549804000440, guid: 77bf586546f5faa49a872995164b2539, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289938050647615151, guid: 77bf586546f5faa49a872995164b2539, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289938050647615151, guid: 77bf586546f5faa49a872995164b2539, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8289938051807716227, guid: 77bf586546f5faa49a872995164b2539, type: 3}
       propertyPath: SpecialMoveset.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
