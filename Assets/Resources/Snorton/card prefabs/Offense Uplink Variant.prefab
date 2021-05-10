@@ -44,6 +44,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 819169116b7e97e4f838594b8638df6d, type: 2}
     - target: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: canBePlayed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943618274807540227, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: keywordTextBox
       value: 
       objectReference: {fileID: 8646056785360311871}
@@ -157,11 +161,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540230, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8863784
+      value: -1.0300002
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540230, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8184377
+      value: -2.45
       objectReference: {fileID: 0}
     - target: {fileID: 1943618274807540230, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_LocalPosition.z
@@ -220,6 +224,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e0b244b97ac173e4b91eec1f566481cf, type: 3}
+    - target: {fileID: 5773112989677189690, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7078395411102105010, guid: c8cf8fbef1025c74cbb26b0d1063be55, type: 3}
       propertyPath: m_Sprite
       value: 

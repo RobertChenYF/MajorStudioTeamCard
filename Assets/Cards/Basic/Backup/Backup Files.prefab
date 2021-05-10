@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2923554005924728535, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5159930978997696065, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_Sprite

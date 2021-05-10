@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_Name
-      value: Energy Conserver
+      value: Energy Conserver Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880401, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_IsActive
@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.347
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.73
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.z
@@ -77,6 +77,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 337f917fa91b4424693756f2194162b2, type: 2}
     - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: canBePlayed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: keywordTextBox
       value: 
       objectReference: {fileID: 4441275147203253540}
@@ -112,6 +116,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 8871750365745515610, guid: 52482b0533b94409f9c4b8731226fb10, type: 3}
+    - target: {fileID: 6586759900828659823, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7188295694883952053, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_Sprite
       value: 

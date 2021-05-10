@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.347
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.73
       objectReference: {fileID: 0}
     - target: {fileID: 1265500585949880403, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_LocalPosition.z
@@ -76,6 +76,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6f6047af48ce3dd49886b9035e14ec9c, type: 2}
     - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: canBePlayed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: triggered.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -102,6 +106,10 @@ PrefabInstance:
     - target: {fileID: 5028335317827130673, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: triggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586759900828659823, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6723421035481545281, guid: 359ea28d30c104343a5085e0693bf127, type: 3}
       propertyPath: m_text

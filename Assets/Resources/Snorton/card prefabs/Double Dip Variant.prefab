@@ -13,6 +13,10 @@ PrefabInstance:
 
         If your draw cost is at 0, draw 2 more cards.'
       objectReference: {fileID: 0}
+    - target: {fileID: 971907580599039899, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1458557976847202880, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -29,6 +33,10 @@ PrefabInstance:
       propertyPath: card
       value: 
       objectReference: {fileID: 11400000, guid: 7013acd8923b3d943a5be58ea83d169a, type: 2}
+    - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
+      propertyPath: canBePlayed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1871230434963033175, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: keywordTextBox
       value: 
@@ -107,7 +115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144293, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_Name
-      value: Double Dip
+      value: Double Dip Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144293, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_IsActive
@@ -119,11 +127,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.7648883
+      value: -0.03000021
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8500093
+      value: -2.45
       objectReference: {fileID: 0}
     - target: {fileID: 5159930979408144295, guid: 87151d38c4f1e3b4a86ae31ee837bfda, type: 3}
       propertyPath: m_LocalPosition.z
