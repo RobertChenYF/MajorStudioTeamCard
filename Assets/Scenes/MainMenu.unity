@@ -513,7 +513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &214437230
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2299,9 +2299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5b80369a104a743b24fbcd9c0edafc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PageOne: {fileID: 915905270}
-  PageTwo: {fileID: 0}
-  PageThree: {fileID: 0}
 --- !u!1 &897995835
 GameObject:
   m_ObjectHideFlags: 0
@@ -2926,7 +2923,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dialogs:
   - {fileID: 11400000, guid: 77a678b7c686fe743b707f43c63929fc, type: 2}
-  AdvDialogs: []
   InitialDialog: {fileID: 11400000, guid: 70be9636bba605147aead1ac9e4e7371, type: 2}
   klippyBody: {fileID: 1061739597}
   klippyDialog: {fileID: 877024373}
@@ -2937,7 +2933,6 @@ MonoBehaviour:
   specialEventHolder:
   - {fileID: 1132004328}
   - {fileID: 1389149528}
-  advanced: 0
 --- !u!4 &1274127439
 Transform:
   m_ObjectHideFlags: 0
