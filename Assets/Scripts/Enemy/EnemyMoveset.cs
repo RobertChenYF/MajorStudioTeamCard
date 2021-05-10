@@ -73,4 +73,12 @@ public class EnemyMoveset : MonoBehaviour
     {
         enemy.GainNewBuff(new GainHpWhenPlayerLoseHp(), 1);
     }
+
+    public void EveryEnemyGainHp(int amount)
+    {
+        foreach (Enemy a in Services.combatManager.AllMainEnemy)
+        {
+            a.GainHp(amount);
+        }
+    }
 }
