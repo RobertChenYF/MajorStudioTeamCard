@@ -48,6 +48,10 @@ public class PlayerStatsManager : MonoBehaviour
         {
             TakeDamage(5);
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            GainHp(5);
+        }
     }
 
     private void LoseArmorAtCycleEnd(AGPEvent e)
@@ -166,6 +170,7 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void GainHp(float value)
     {
+        Services.visualEffectManager.PlayPlayerGainHealthEffect(value);
         currentHp += value;
         currentHp = Mathf.Min(maxHp,currentHp);
     }

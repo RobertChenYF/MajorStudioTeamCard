@@ -40,14 +40,12 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private Color buffFlashColor;
     [SerializeField] private float buffFlashSmoothingIn;
     [SerializeField] private float buffFlashSmoothingOut;
-    private bool isBuffing;
 
     [Header("Gain Armor Effect")]
     [SerializeField] private ParticleSystem armorParticles;
     [SerializeField] private Color armorFlashColor;
     [SerializeField] private float armorFlashSmoothingIn;
     [SerializeField] private float armorFlashSmoothingOut;
-    private bool isGainingArmor;
 
     [Header("Error Message Pop Up")]
     [SerializeField] private TextMeshPro ErrorMsgTextPrefab;
@@ -70,6 +68,11 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private Vector3 hpParticleOffset;
     [SerializeField] private Vector3 hpParticleEndOffset;
     [SerializeField] private Color hpParticleColor;
+
+    [Header ("Player Gain Health EFfect")]
+    [SerializeField] private Color gainhpParticleColor;
+
+    private bool colorIsSpinning;
 
     // Start is called before the first frame update
     void Start()
@@ -114,6 +117,13 @@ public class VisualEffectManager : MonoBehaviour
 
     IEnumerator PlayFlashEffect(SpriteRenderer sr, Color color, float smoothIn, float smoothOut)
     {
+        while (colorIsSpinning)
+        {
+            yield return null;
+        }
+
+        colorIsSpinning = true;
+
         Color temp = sr.color;
 
         //print("Beginning Enemy Damage Flash");
@@ -137,11 +147,19 @@ public class VisualEffectManager : MonoBehaviour
     
         sr.color = temp;
 
+        colorIsSpinning = false;
         yield return null;
     }
 
     IEnumerator PlayFlashEffect(Image image, Color color, float smoothIn, float smoothOut)
     {
+        while (colorIsSpinning)
+        {
+            yield return null;
+        }
+
+        colorIsSpinning = true;
+
         Color temp = image.color;
 
         //print("Beginning Enemy Damage Flash");
@@ -165,11 +183,19 @@ public class VisualEffectManager : MonoBehaviour
 
         image.color = temp;
 
+        colorIsSpinning = false;
         yield return null;
     }
 
     IEnumerator PlayFlashEffect(Enemy enemy, Color color, float smoothIn, float smoothOut)
     {
+        while (colorIsSpinning)
+        {
+            yield return null;
+        }
+
+        colorIsSpinning = true;
+
         SpriteRenderer sr = enemy.gameObject.GetComponent<SpriteRenderer>();
         //print("Beginning Enemy Damage Flash");
 
@@ -192,11 +218,16 @@ public class VisualEffectManager : MonoBehaviour
 
         sr.color = enemy.savedColor;
 
+        colorIsSpinning = false;
         yield return null;
     }
 
     IEnumerator PlayEnemyHitJitter(Enemy enemy)
     {
+        foreach (Enemy e in Services.combatManager.AllMainEnemy)
+        {
+            e.is_Idle = false;
+        }
 
         Vector3 tempPos = enemy.gameObject.transform.position;
 
@@ -210,7 +241,12 @@ public class VisualEffectManager : MonoBehaviour
 
         enemy.gameObject.transform.position = tempPos;
 
-            yield return null;
+        foreach (Enemy e in Services.combatManager.AllMainEnemy)
+        {
+            e.is_Idle = true;
+        }
+
+        yield return null;
     }
 
     public void PlayEnemyTakeDamageEffect(Enemy enemy, float damage)
@@ -221,26 +257,21 @@ public class VisualEffectManager : MonoBehaviour
     //Damage Number Throw Out Effect
     IEnumerator EnemyTakeDamageEffect(Enemy enemy, float damage)
     {
-        foreach (Enemy e in Services.combatManager.AllMainEnemy)
-        {
-            e.is_Idle = false;
-        }
-
         //Play Flash, jitter, and Sound EFfect
-        if (!isBuffing && !isGainingArmor)
-            StartCoroutine(PlayFlashEffect(enemy, dmgFlashColor, dmgFlashSmoothingIn, dmgFlashSmoothingOut));
+        StartCoroutine(PlayFlashEffect(enemy, dmgFlashColor, dmgFlashSmoothingIn, dmgFlashSmoothingOut));
         StartCoroutine(PlayEnemyHitJitter(enemy));
         StartCoroutine(NumberFlyOut(enemy.gameObject.transform.position + damageParticleOffset, damageParticleEndOffset, 
             dmgParticleColor, damage.ToString()));
 
         PlayEnemyDamageSound();
 
-        foreach (Enemy e in Services.combatManager.AllMainEnemy)
-        {
-            e.is_Idle = true;
-        }
-
         yield return null;
+    }
+
+    public void PlayEnemyGainHealthEffect(Enemy enemy, float hp)
+    {
+        StartCoroutine(NumberFlyOut(enemy.gameObject.transform.position + damageParticleOffset, damageParticleEndOffset,
+            gainhpParticleColor, "+" + hp.ToString()));
     }
 
     IEnumerator NumberFlyOut(Vector3 startpos, Vector3 endOffset, Color color, string text)
@@ -369,9 +400,9 @@ public class VisualEffectManager : MonoBehaviour
         yield return null;
     }
 
-    void PlayPlayerGainHealthEffect()
+    public void PlayPlayerGainHealthEffect(float hp)
     {
-
+        StartCoroutine(NumberFlyOut(healthBar.transform.position + hpParticleOffset, hpParticleEndOffset, gainhpParticleColor, "+" + hp.ToString()));
     }
 
     public void EnemyGainArmorEffect(GameObject gameObject)
@@ -381,14 +412,12 @@ public class VisualEffectManager : MonoBehaviour
 
     IEnumerator PlayEnemyGainArmorEffect(GameObject gameObject)
     {
-        isGainingArmor = true;
         ParticleSystem particles = Instantiate(armorParticles);
         StartCoroutine(PlayFlashEffect(gameObject.GetComponent<SpriteRenderer>(), armorFlashColor, armorFlashSmoothingIn, armorFlashSmoothingOut));
         PlayBuffSound();
 
         yield return new WaitForSeconds(buffParticles.main.duration);
         Destroy(particles);
-        isGainingArmor = false;
         yield return null;
     }
 
@@ -406,14 +435,12 @@ public class VisualEffectManager : MonoBehaviour
 
     IEnumerator PlayEnemyGainBuffEffect(GameObject gameObject)
     {
-        isBuffing = true;
         ParticleSystem particles = Instantiate(buffParticles);
         StartCoroutine(PlayFlashEffect(gameObject.GetComponent<SpriteRenderer>(), buffFlashColor, buffFlashSmoothingIn, buffFlashSmoothingOut));
         PlayBuffSound();
         
         yield return new WaitForSeconds(buffParticles.main.duration);
         Destroy(particles);
-        isBuffing = false;
         yield return null;
     }
 }

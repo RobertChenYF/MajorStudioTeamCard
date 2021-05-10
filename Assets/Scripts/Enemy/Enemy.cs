@@ -97,6 +97,10 @@ public class Enemy: MonoBehaviour
             if (this.gameObject)
                 Services.visualEffectManager.EnemyGainArmorEffect(this.gameObject);
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            GainHp(5);
+        }
 
         if (is_Idle && !playing_idle)
         {
@@ -257,6 +261,7 @@ public class Enemy: MonoBehaviour
 
     public void GainHp(float value)
     {
+        Services.visualEffectManager.PlayEnemyGainHealthEffect(this.gameObject.GetComponent<Enemy>(), value);
         currentHp += value;
         currentHp = Mathf.Min(maxHp,currentHp);
         UpdateDisplayStat();
