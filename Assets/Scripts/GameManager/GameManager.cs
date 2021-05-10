@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public bool ShowGlossary;
     public bool PlayTutorial;
     public bool OpenPauseMenu;
+    public bool AdvancedTutorial;
     public GameObject PauseMenuCanvas;
     //private GameObject TutorialManager;
 
@@ -35,9 +36,9 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         currentState = StateType._PRELOAD;
         PlayGame = false;
-        ShowGlossary = false;
         PlayTutorial = false;
         OpenPauseMenu = false;
+        AdvancedTutorial = false;
     }
 
     private void Update()
@@ -57,16 +58,15 @@ public class GameManager : MonoBehaviour
                     SceneManager.LoadScene("CombatScene");
                     //SceneManager.LoadScene("Glossary");
                     currentState = StateType.InGame;
-                } else if (ShowGlossary == true)
-                {
-                    ShowGlossary = false;
-                    SceneManager.LoadScene("CombatScene");
-                    Debug.Log("No glossary scene");
-                    currentState = StateType.Glossary;
                 } else if (PlayTutorial == true)
                 {
                     PlayTutorial = false;
                     SceneManager.LoadScene("TutorialCombat");
+                    currentState = StateType.InGame;
+                } else if (AdvancedTutorial == true)
+                {
+                    AdvancedTutorial = false;
+                    SceneManager.LoadScene("TutorialCombatAdv");
                     currentState = StateType.InGame;
                 }
                 break;

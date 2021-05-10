@@ -8,6 +8,7 @@ TagManager:
   - Canvas
   - VisEffectManager
   - Klippy
+  - TutorialManager
   layers:
   - Default
   - TransparentFX

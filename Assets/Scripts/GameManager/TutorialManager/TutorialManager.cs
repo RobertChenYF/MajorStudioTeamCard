@@ -9,6 +9,7 @@ public class TutorialManager : MonoBehaviour
     //private GameObject Klippy;
     //private GameObject GameManager;
     public DialogScriptObject[] Dialogs;
+    //public DialogScriptObject[] AdvDialogs;
     public DialogScriptObject InitialDialog;
 
     public GameObject klippyBody;
@@ -17,9 +18,13 @@ public class TutorialManager : MonoBehaviour
     public GameObject Hold;
     public GameObject Back;
     public GameObject Next;
+    public GameObject[] specialEventHolder;
+    //public GameObject[] arrows;
 
-    public GameObject arrow;
+    //public bool advanced;
+    private GameObject arrow;
     private int count = -1;
+    //private int arrowCount = -1;
     private float timer = 0f;
     private string workingString;
     private string workedString;
@@ -55,25 +60,26 @@ public class TutorialManager : MonoBehaviour
         if (dialog.holdPlayer == true)
         {
             Hold.SetActive(true);
-            timer = 5;
+            timer = 3;
         } 
 
         if (dialog.arrowActive == true)
         {
             //opacityChanger.a = 1f;    
             //arrow.material.color.a = 1f;
-            arrow.GetComponent<Renderer>().enabled = true;
+            //arrowCount++;
+            //dialog.arrow.SetActive(true);
         } else if (dialog.arrowActive == false)
         {
             //opacityChanger.a = 0;
             //arrow.GetComponent<Renderer>().material.color.a = opacityChanger.a;
             //arrow.material.color.a = 0f;
-            arrow.GetComponent<Renderer>().enabled = false;
+            //dialog.arrow.SetActive(false);
         }
 
-        arrow.GetComponent<SpriteRenderer>().sprite = dialog.arrowImage;
-        arrow.transform.position = dialog.arrowPosition;
-        arrow.transform.rotation = dialog.arrowRotation;
+        //arrow.GetComponent<Image>().overrideSprite = dialog.arrowImage;
+        //arrow.GetComponent<RectTransform>().localPosition = dialog.arrowPosition;
+        //arrow.transform.rotation = dialog.arrowRotation;
 
     }
 
@@ -95,6 +101,14 @@ public class TutorialManager : MonoBehaviour
             Next.SetActive(true);
         }
         TutorialPositionText.GetComponent<TextMeshProUGUI>().text = $"{count + 2}/{dialogLength + 1}";
+
+        if (Dialogs[count].specialEvent == true)
+        {
+            foreach (GameObject element in specialEventHolder)
+            {
+                element.SetActive(true);
+            }
+        }
     }
 
     private void FixedUpdate()
