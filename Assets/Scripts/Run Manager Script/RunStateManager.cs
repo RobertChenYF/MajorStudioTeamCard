@@ -229,7 +229,7 @@ public class RunStateManager : MonoBehaviour
         GameObject a = Instantiate(AllEnemyList[currentStage]);
         a.transform.SetParent(enemyPreviewPos);
         a.transform.localPosition = Vector3.zero;
-        a.transform.localScale = new Vector3(45,45,1);
+        a.transform.localScale = new Vector3(40,40,1);
         EnemyIntroductionText.text = EnemyIntroduction[currentStage];
         EnemyNameText.text = EnemyName[currentStage];
         //a.GetComponent<Enemy>().enabled = false;
@@ -238,12 +238,12 @@ public class RunStateManager : MonoBehaviour
 
     public void moveTransform(GameObject a)
     {
-        a.transform.SetParent(Services.actionManager.enemyDefaultPos);
-        a.transform.localPosition = new Vector3(0, 0, 0);
+        a.transform.parent = null;
+        a.transform.position = Services.actionManager.enemyDefaultPos.position;
         a.transform.localScale = new Vector3(1, 1, 1);
         foreach (Enemy b in Services.combatManager.AllMainEnemy)
         {
-
+            b.transform.localPosition = new Vector3(b.transform.localPosition.x, b.transform.localPosition.y,0);
             b.GetComponent<Enemy>().IntentUI.SetActive(true);
             b.GetComponent<Enemy>().StatsUI.SetActive(true);
             b.GetComponent<Enemy>().enabled = true;
