@@ -56,7 +56,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4089394411136600997, guid: c1dcc9345c1ac584fb1ec8e632c8bb59, type: 2}
+  - {fileID: 3057950702536193192, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,7 +76,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6116655469434448049
 MonoBehaviour:
@@ -100,8 +100,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: DMG
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c1dcc9345c1ac584fb1ec8e632c8bb59, type: 2}
-  m_sharedMaterial: {fileID: 4089394411136600997, guid: c1dcc9345c1ac584fb1ec8e632c8bb59, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
+  m_sharedMaterial: {fileID: 3057950702536193192, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -168,4 +168,4 @@ MonoBehaviour:
   m_renderer: {fileID: 4952780378523145918}
   m_maskType: 0
   _SortingLayerID: 0
-  _SortingOrder: 0
+  _SortingOrder: 2

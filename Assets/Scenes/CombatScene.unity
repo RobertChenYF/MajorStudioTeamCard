@@ -6473,6 +6473,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 846327452558398872, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
+      propertyPath: PlaceHolderBuffIcon
+      value: 
+      objectReference: {fileID: -6540359874124514869, guid: 74f10a4c43580b64fadc4ebe4a7f91d0, type: 3}
     - target: {fileID: 846327452558398873, guid: c47534a2105f112419bbbe12a04b4704, type: 3}
       propertyPath: hand
       value: 
@@ -11615,6 +11619,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5648549686386085221, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 3057950702536193192, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
+    - target: {fileID: 5648549686669183756, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 3057950702536193192, guid: 3ecbf82454c45444a85d2a89ac8d6acc, type: 2}
     - target: {fileID: 6352155520475969380, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_IsActive
       value: 0
