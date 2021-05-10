@@ -72,7 +72,7 @@ public class RunStateManager : MonoBehaviour
     public void SpawnNewMainEnemy()
     {
         GameObject newEnemy = Instantiate(AllEnemyList[0], Services.actionManager.enemyDefaultPos.position,Quaternion.identity);
-        newEnemy.transform.position = new Vector3(0, 0, 0);
+        //newEnemy.transform.position = new Vector3(0, 0, 0);
         newEnemy.GetComponent<Enemy>().updateIdlePosOffset();
 
     }

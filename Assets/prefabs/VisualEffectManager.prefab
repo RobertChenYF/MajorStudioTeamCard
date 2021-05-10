@@ -71,6 +71,10 @@ MonoBehaviour:
   buffFlashColor: {r: 0.97073174, g: 0, b: 1, a: 0.3254902}
   buffFlashSmoothingIn: 1.1
   buffFlashSmoothingOut: 1
+  armorParticles: {fileID: 4091012782774764764, guid: 108c4c966ab6bd845ab18d4eb032cd15, type: 3}
+  armorFlashColor: {r: 0, g: 0.47725177, b: 1, a: 0.42352942}
+  armorFlashSmoothingIn: 1.1
+  armorFlashSmoothingOut: 1
   ErrorMsgTextPrefab: {fileID: 5348285721208537264, guid: 260da03536c8fc446b802e31ce42d12a, type: 3}
   errorTxtColorSmoothing: 3.66
   popUpTime: 0.5
