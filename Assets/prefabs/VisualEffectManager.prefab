@@ -57,14 +57,20 @@ MonoBehaviour:
   dmgFlashSmoothingIn: 15
   dmgFlashSmoothingOut: 0.5
   audioSource: {fileID: 0}
-  enemyDmgSound: {fileID: 8300000, guid: 0b725ad36e391fd4096f750d82e6b53d, type: 3}
+  enemyDmgSound: {fileID: 8300000, guid: d0dc609f6af5df743bd4f76934b446c3, type: 3}
   dmgSoundVolume: 0.2
   playerDmgSound: {fileID: 8300000, guid: b22e3b1b3052b914da482f2581e307c2, type: 3}
   playerDmgSoundVolume: 0.5
-  nextCycleSound: {fileID: 8300000, guid: e33c2383eb5d64842b19732384acf8be, type: 3}
+  nextCycleSound: {fileID: 8300000, guid: f74736c96ce6fad44ab9f47f19fa6698, type: 3}
   nextCycleSoundVolume: 0.26
-  errorSound: {fileID: 8300000, guid: aae140ffdd7e1d9479a6c6c969d80c05, type: 3}
+  errorSound: {fileID: 8300000, guid: 878cd2002da63344bb7558a013bf5614, type: 3}
   errorSoundVolume: 0.5
+  buffSound: {fileID: 8300000, guid: 5a3549d345ce240438a9867d7477bd0e, type: 3}
+  buffSoundVolume: 0.6
+  buffParticles: {fileID: 6790215039390768315, guid: 145316e35210a784bbf65baee9c7e4a6, type: 3}
+  buffFlashColor: {r: 0.97073174, g: 0, b: 1, a: 0.3254902}
+  buffFlashSmoothingIn: 1.1
+  buffFlashSmoothingOut: 1
   ErrorMsgTextPrefab: {fileID: 5348285721208537264, guid: 260da03536c8fc446b802e31ce42d12a, type: 3}
   errorTxtColorSmoothing: 3.66
   popUpTime: 0.5
