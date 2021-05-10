@@ -72,6 +72,8 @@ public class RunStateManager : MonoBehaviour
     public void SpawnNewMainEnemy()
     {
         GameObject newEnemy = Instantiate(AllEnemyList[0], Services.actionManager.enemyDefaultPos.position,Quaternion.identity);
+        newEnemy.transform.position = new Vector3(0, 0, 0);
+        newEnemy.GetComponent<Enemy>().updateIdlePosOffset();
 
     }
 
@@ -237,7 +239,7 @@ public class RunStateManager : MonoBehaviour
     public void moveTransform(GameObject a)
     {
         a.transform.SetParent(Services.actionManager.enemyDefaultPos);
-        a.transform.position = new Vector3(0, 0, 0);
+        a.transform.localPosition = new Vector3(0, 0, 0);
         a.transform.localScale = new Vector3(1, 1, 1);
         foreach (Enemy b in Services.combatManager.AllMainEnemy)
         {
@@ -245,6 +247,8 @@ public class RunStateManager : MonoBehaviour
             b.GetComponent<Enemy>().IntentUI.SetActive(true);
             b.GetComponent<Enemy>().StatsUI.SetActive(true);
             b.GetComponent<Enemy>().enabled = true;
+            //update savedPos
+            b.updateIdlePosOffset();
         }
 
     }

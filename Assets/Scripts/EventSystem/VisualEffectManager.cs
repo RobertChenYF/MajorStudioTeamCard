@@ -17,7 +17,7 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private Vector3 jitterOffset;
     [SerializeField] private float jitterSmoothing;
 
-    [Header ("Flash Effect")]
+    [Header ("Damage Flash Effect")]
     [SerializeField] private Color dmgFlashColor;
     [SerializeField] private float dmgFlashSmoothingIn;
     [SerializeField] private float dmgFlashSmoothingOut;
@@ -32,6 +32,14 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private float nextCycleSoundVolume;
     [SerializeField] private AudioClip errorSound;
     [SerializeField] private float errorSoundVolume;
+    [SerializeField] private AudioClip buffSound;
+    [SerializeField] private float buffSoundVolume;
+
+    [Header("Enemy Buff Effect")]
+    [SerializeField] private ParticleSystem buffParticles;
+    [SerializeField] private Color buffFlashColor;
+    [SerializeField] private float buffFlashSmoothingIn;
+    [SerializeField] private float buffFlashSmoothingOut;
 
     [Header("Error Message Pop Up")]
     [SerializeField] private TextMeshPro ErrorMsgTextPrefab;
@@ -284,8 +292,26 @@ public class VisualEffectManager : MonoBehaviour
 
     }
 
-    void PlayEnemyGainBuffEffect()
+    public void PlayBuffSound()
     {
+        audioSource.clip = buffSound;
+        audioSource.volume = buffSoundVolume;
+        audioSource.Play();
+    }
 
+    public void EnemyGainBuffEffect(GameObject gameObject)
+    {
+        StartCoroutine(PlayEnemyGainBuffEffect(gameObject));
+    }
+
+    IEnumerator PlayEnemyGainBuffEffect(GameObject gameObject)
+    {
+        ParticleSystem particles = Instantiate(buffParticles);
+        StartCoroutine(PlayFlashEffect(gameObject.GetComponent<SpriteRenderer>(), buffFlashColor, buffFlashSmoothingIn, buffFlashSmoothingOut));
+        PlayBuffSound();
+        
+        yield return new WaitForSeconds(buffParticles.main.duration);
+        Destroy(particles);
+        yield return null;
     }
 }

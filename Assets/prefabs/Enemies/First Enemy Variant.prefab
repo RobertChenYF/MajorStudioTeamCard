@@ -114,11 +114,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510937, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.43
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510937, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.737
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510937, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -155,6 +155,30 @@ PrefabInstance:
     - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: maxHp
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: waitTime
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: cutOffVal
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedIdlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedIdlePosOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedidlePosOffset.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: savedidlePosOffset.y
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6721688822605510938, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: startingMove.Array.size
