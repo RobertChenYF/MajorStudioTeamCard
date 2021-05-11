@@ -239,16 +239,15 @@ public class RunStateManager : MonoBehaviour
         a.transform.localScale = new Vector3(40,40,1);
         EnemyIntroductionText.text = EnemyIntroduction[currentStage];
         EnemyNameText.text = EnemyName[currentStage];
-        if (a.GetComponent<Enemy>())
+        if (a.transform.childCount > 0)
         {
-            if (a.transform.childCount > 0)
-            {
-                a.GetComponentInChildren<Enemy>().updateIdlePosOffset();
-            }
-            else
-            {
-                a.GetComponent<Enemy>().updateIdlePosOffset();
-            }
+            foreach (Transform child in a.transform)
+                if (child.gameObject.GetComponent<Enemy>())
+                    child.gameObject.GetComponent<Enemy>().updateIdlePosOffset();
+        }
+        else
+        {
+            a.GetComponent<Enemy>().updateIdlePosOffset();
         }
 
         //a.GetComponent<Enemy>().enabled = false;

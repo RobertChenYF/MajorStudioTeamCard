@@ -77,6 +77,8 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private Color gainhpParticleColor;
 
     private bool colorIsSpinning;
+    private bool animIsSpinning;
+    private bool clipIsPlaying;
 
     // Start is called before the first frame update
     void Start()
@@ -100,23 +102,17 @@ public class VisualEffectManager : MonoBehaviour
 
     void PlayEnemyDamageSound()
     {
-        audioSource.clip = enemyDmgSound;
-        audioSource.volume = dmgSoundVolume;
-        audioSource.Play();
+        PlayClip(enemyDmgSound, dmgSoundVolume);
     }
 
     void PlayErrorSound()
     {
-        audioSource.clip = errorSound;
-        audioSource.volume = errorSoundVolume;
-        audioSource.Play();
+        PlayClip(errorSound, errorSoundVolume);
     }
 
     void PlayPlayerTakeDamageSound()
     {
-        audioSource.clip = playerDmgSound;
-        audioSource.volume = playerDmgSoundVolume;
-        audioSource.Play();
+        PlayClip(playerDmgSound, playerDmgSoundVolume);
     }
 
     IEnumerator PlayFlashEffect(SpriteRenderer sr, Color color, float smoothIn, float smoothOut)
@@ -228,6 +224,13 @@ public class VisualEffectManager : MonoBehaviour
 
     IEnumerator PlayEnemyHitJitter(Enemy enemy)
     {
+        while (animIsSpinning)
+        {
+            yield return null;
+        }
+
+        animIsSpinning = true;
+
         foreach (Enemy e in Services.combatManager.AllMainEnemy)
         {
             e.is_Idle = false;
@@ -250,47 +253,78 @@ public class VisualEffectManager : MonoBehaviour
             e.is_Idle = true;
         }
 
+        animIsSpinning = false;
+
         yield return null;
     }
 
     IEnumerator EnemyDealDamageEffect(Enemy enemy)
     {
 
+        while (animIsSpinning)
+        {
+            yield return null;
+        }
+
+        animIsSpinning = true;
+
+        foreach (Enemy e in Services.combatManager.AllMainEnemy)
+        {
+            e.is_Idle = false;
+        }
+
+        //Leap forward while lerping scale
+
+        //idle for a time
+
+        //leap back into place and lerp scale to normal
+
+        foreach (Enemy e in Services.combatManager.AllMainEnemy)
+        {
+            e.is_Idle = true;
+        }
+
+        animIsSpinning = false;
 
         yield return null;
+    }
+
+    public static float EaseInExpo(float start, float end, float value)
+    {
+        end -= start;
+        return end * Mathf.Pow(2, 10 * (value - 1)) + start;
+    }
+
+    public static Vector3 EaseInExpo(Vector3 start, Vector3 end, float value)
+    {
+        return new Vector3(EaseInExpo(start.x, end.x, value), EaseInExpo(start.y, end.y, value), EaseInExpo(start.z, end.z, value));
     }
 
     public void PlayEnemyTakeDamageEffect(Enemy enemy, float damage)
     {
-        StartCoroutine(EnemyTakeDamageEffect(enemy, damage));
-    }
-
-    //Damage Number Throw Out Effect
-    IEnumerator EnemyTakeDamageEffect(Enemy enemy, float damage)
-    {
-        //Play Flash, jitter, and Sound EFfect
         StartCoroutine(PlayFlashEffect(enemy, dmgFlashColor, dmgFlashSmoothingIn, dmgFlashSmoothingOut));
         StartCoroutine(PlayEnemyHitJitter(enemy));
-        StartCoroutine(NumberFlyOut(enemy.gameObject.transform.position + damageParticleOffset, damageParticleEndOffset, 
+        StartCoroutine(NumberFlyOut(enemy.gameObject.transform.position + damageParticleOffset, damageParticleEndOffset,
             dmgParticleColor, damage.ToString()));
 
         PlayEnemyDamageSound();
-
-        yield return null;
     }
 
     public void PlayDecompresSound()
     {
-        audioSource.clip = decompressSound;
-        audioSource.volume = decompressSoundVolume;
+        PlayClip(decompressSound, decompressSoundVolume);
+    }
+
+    void PlayClip(AudioClip clip, float volume)
+    {
+        audioSource.clip = clip;
+        audioSource.volume = volume;
         audioSource.Play();
     }
 
     public void PlayRedrawSound()
     {
-        audioSource.clip = redrawSound;
-        audioSource.volume = redrawSoundVolume;
-        audioSource.Play();
+        PlayClip(redrawSound, redrawSoundVolume);
     }
 
     public void PlayEnemyGainHealthEffect(Enemy enemy, float hp)
@@ -308,7 +342,6 @@ public class VisualEffectManager : MonoBehaviour
         Txt.gameObject.transform.position += new Vector3(0, 0, 3f);
         Txt.text = text;
         float currentAlpha = 1;
-        //print("" + Txt.gameObject.transform.position + " " + Txt.text);
 
         while (Vector3.Distance(Txt.gameObject.transform.position, startpos + endOffset) > 0.05f)
         {
@@ -379,9 +412,7 @@ public class VisualEffectManager : MonoBehaviour
 
     void PlayNextCycleSound()
     {
-        audioSource.clip = nextCycleSound;
-        audioSource.volume = nextCycleSoundVolume;
-        audioSource.Play();
+        PlayClip(nextCycleSound, nextCycleSoundVolume);
     }
 
     public void PlayUpdateCycleEffect()
@@ -439,6 +470,7 @@ public class VisualEffectManager : MonoBehaviour
     IEnumerator PlayEnemyGainArmorEffect(GameObject gameObject)
     {
         ParticleSystem particles = Instantiate(armorParticles);
+        particles.transform.position = gameObject.transform.position;
         StartCoroutine(PlayFlashEffect(gameObject.GetComponent<SpriteRenderer>(), armorFlashColor, armorFlashSmoothingIn, armorFlashSmoothingOut));
         PlayBuffSound();
 
@@ -449,9 +481,7 @@ public class VisualEffectManager : MonoBehaviour
 
     public void PlayBuffSound()
     {
-        audioSource.clip = buffSound;
-        audioSource.volume = buffSoundVolume;
-        audioSource.Play();
+        PlayClip(buffSound, buffSoundVolume);
     }
 
     public void EnemyGainBuffEffect(GameObject gameObject)
@@ -462,6 +492,7 @@ public class VisualEffectManager : MonoBehaviour
     IEnumerator PlayEnemyGainBuffEffect(GameObject gameObject)
     {
         ParticleSystem particles = Instantiate(buffParticles);
+        particles.transform.position = gameObject.transform.position;
         StartCoroutine(PlayFlashEffect(gameObject.GetComponent<SpriteRenderer>(), buffFlashColor, buffFlashSmoothingIn, buffFlashSmoothingOut));
         PlayBuffSound();
         

@@ -61,7 +61,7 @@ public class Enemy: MonoBehaviour
         // currentHp = maxHp;
 
         //Update Idle Position Offset
-        //is_Idle = true;
+        is_Idle = true;
         savedColor = this.gameObject.GetComponent<SpriteRenderer>().color;
     }
 
