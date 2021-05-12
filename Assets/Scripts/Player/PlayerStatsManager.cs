@@ -43,18 +43,21 @@ public class PlayerStatsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Effect Testing
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Services.visualEffectManager.debug)
         {
-            TakeDamage(5);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            GainHp(5);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Services.visualEffectManager.PlayPlayerGainArmorEffect(5);
+            //Effect Testing
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                TakeDamage(5);
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                GainHp(5);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Services.visualEffectManager.PlayPlayerGainArmorEffect(5);
+            }
         }
     }
 

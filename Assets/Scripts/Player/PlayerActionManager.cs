@@ -100,10 +100,13 @@ public class PlayerActionManager : MonoBehaviour
         UpdateDragCardPos();
         UpdateCardInAttackField();
 
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Services.visualEffectManager.debug)
         {
-            currentRedrawCost = 0;
-            currentAttackCost = 0;
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                currentRedrawCost = 0;
+                currentAttackCost = 0;
+            }
         }
 
         if (currentAttackCost == 0 && !attack_isblinking)
@@ -114,6 +117,7 @@ public class PlayerActionManager : MonoBehaviour
         {
             StartCoroutine(blinkRedrawCost());
         }
+
     }
 
     public void LowerDecompressCost(int amount)

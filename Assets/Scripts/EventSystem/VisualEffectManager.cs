@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class VisualEffectManager : MonoBehaviour
 {
+    [HideInInspector] public bool debug;
+
     [Header ("Enemy Damage Particle Effect")]
     [SerializeField] private TextMeshPro DamageTextPrefab;
     [SerializeField] private Vector3 damageParticleOffset;
@@ -114,7 +116,14 @@ public class VisualEffectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            debug = true;
+        }
+        else
+        {
+            debug = false;
+        }
     }
 
     //Update to death sprite with particle effect explosion?
@@ -340,7 +349,7 @@ public class VisualEffectManager : MonoBehaviour
         //lerp the x, scale, and rotation
         while (Mathf.Abs(enemy.gameObject.transform.position.x - (enemy.savedEnemyPos.x + jumpDist)) > 0.05f)
         {
-            print("" + Mathf.Abs(enemy.gameObject.transform.position.x - (enemy.savedEnemyPos.x + jumpDist)).ToString());
+            //print("" + Mathf.Abs(enemy.gameObject.transform.position.x - (enemy.savedEnemyPos.x + jumpDist)).ToString());
             enemy.gameObject.transform.position =
                 new Vector3(Mathf.Lerp(enemy.gameObject.transform.position.x, enemy.savedEnemyPos.x + jumpDist, jumpSmoothingx * Time.deltaTime),
                 enemy.gameObject.transform.position.y, 0);
