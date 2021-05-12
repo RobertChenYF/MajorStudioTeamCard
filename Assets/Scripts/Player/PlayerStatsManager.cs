@@ -166,6 +166,7 @@ public class PlayerStatsManager : MonoBehaviour
         {
             Services.runStateManager.ChangeState(new Gameover(Services.runStateManager));
         }
+        TempUpdateDisplayStat();
     }
 
     public class LoseHpEvent : AGPEvent
@@ -182,6 +183,7 @@ public class PlayerStatsManager : MonoBehaviour
         Services.visualEffectManager.PlayPlayerGainHealthEffect(value);
         currentHp += value;
         currentHp = Mathf.Min(maxHp,currentHp);
+        TempUpdateDisplayStat();
     }
     /*
     public void GainTempAttack(float value)

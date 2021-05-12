@@ -53,7 +53,7 @@ public class PlayerActionManager : MonoBehaviour
     bool attack_isblinking;
     bool redraw_isblinking;
     [SerializeField] private float blinkSpeed;
-
+    public Coroutine attackCoroutine;
     private void UpdateBasicActionCost(AGPEvent e)
     {
         currentAttackCost -= 5;
@@ -218,7 +218,7 @@ public class PlayerActionManager : MonoBehaviour
             //DrawDeck[0].TriggerEffect();
             DrawDeck.RemoveAt(index);
             //trigger add to hand animation;
-            Debug.Log("draw a card");
+            //Debug.Log("draw a card");
 
             Services.actionManager.UpdateCardCanPlay();
             return temp;
@@ -422,11 +422,20 @@ public class PlayerActionManager : MonoBehaviour
             attackButton.interactable = false;
             attacking = true;
             Services.visualEffectManager.PlayDecompresSound();
-            StartCoroutine(AttackCoroutine());
+            attackCoroutine = StartCoroutine(AttackCoroutine());
             
         }
         UpdateCardCanPlay();
         Debug.Log("attack");
+    }
+
+    public void StopAttack()
+    {
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+        }
+        
     }
     IEnumerator AttackCoroutine()
     {

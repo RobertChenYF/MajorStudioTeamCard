@@ -23,6 +23,8 @@ public class CardList : MonoBehaviour
     public Sprite AttackIntentIcon;
     public Sprite ArmorIntentIcon;
     public Sprite SpecialIntentIcon;
+
+    public GameObject AngryKlippy;
     // Start is called before the first frame update
     void Awake()
     {

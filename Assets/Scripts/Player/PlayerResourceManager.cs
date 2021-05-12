@@ -94,6 +94,11 @@ public class PlayerResourceManager : MonoBehaviour
         else return false;
     }
 
+    public void resetResource()
+    {
+        currentAttackBarValue = defaultStartBarValue;
+        currentDrawBarValue = defaultStartBarValue;
+    }
     public void ConsumeDrawBar(float value)
     {
         currentDrawBarValue -= value;

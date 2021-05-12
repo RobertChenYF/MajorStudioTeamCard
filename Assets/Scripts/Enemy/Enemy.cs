@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using System;
 
@@ -48,6 +49,12 @@ public class Enemy: MonoBehaviour
 
     private EnemyMoveset currentChargeMove;
     private int currentChargeCycleTimer;
+    [SerializeField] protected UnityEvent BeginningBuff;
+
+    public void Awake()
+    {
+        Services.combatManager.AllMainEnemy.Add(this);
+    }
     public virtual void Start()
     {
         enemyBuffList = new List<EnemyBuff>();
@@ -56,10 +63,10 @@ public class Enemy: MonoBehaviour
         currentArmor = startingArmor;
         UpdateDisplayStat();
         StartAmove();
-        Services.combatManager.AllMainEnemy.Add(this);
+        ;
         Services.eventManager.Register<CombatManager.TimeCycleEnd>(CycleChargeReduce);
         // currentHp = maxHp;
-
+        BeginningBuff.Invoke();
         //Update Idle Position Offset
         savedColor = this.gameObject.GetComponent<SpriteRenderer>().color;
     }
@@ -185,7 +192,7 @@ public class Enemy: MonoBehaviour
         BuffDisplayList.Clear();
         foreach (EnemyBuff a in enemyBuffList)
         {
-            GameObject newBuff = Instantiate(buffDisplayPrefab,enemyBuffPos.transform.position,Quaternion.identity,enemyBuffPos);
+            GameObject newBuff = Instantiate(buffDisplayPrefab,enemyBuffPos.transform.position + new Vector3(enemyBuffList.IndexOf(a)*0.3f,0,0),Quaternion.identity,enemyBuffPos);
             newBuff.GetComponent<BuffHoverDisplay>().thisBuff = a;
             newBuff.GetComponent<BuffHoverDisplay>().MakeBuff();
             newBuff.GetComponent<BuffHoverDisplay>().UpdateCount(a.getStack());
@@ -219,6 +226,7 @@ public class Enemy: MonoBehaviour
     
     public virtual void Die()
     {
+        Services.eventManager.Fire(new DieEvent(this));
         if (Services.actionManager.currentTargetEnemy == this)
         {
             Services.actionManager.currentTargetEnemy = null;
@@ -226,16 +234,30 @@ public class Enemy: MonoBehaviour
         Services.eventManager.Unregister<CombatManager.TimeCycleEnd>(CycleChargeReduce);
         while (enemyBuffList.Count > 0)
         {
-            RemoveBuff(enemyBuffList[0]);
+            if (enemyBuffList[0]!=null)
+            {
+                RemoveBuff(enemyBuffList[0]);
+            }
+            
         }
+        
         Services.combatManager.AllMainEnemy.Remove(this);
         gameObject.SetActive(false);
+    }
+
+    public class DieEvent : AGPEvent
+    {
+        public Enemy deadEnemy;
+        public DieEvent(Enemy enemy)
+        {
+            deadEnemy = enemy;
+        }
     }
 
     public void GainNewBuff(EnemyBuff newBuff, int stack)
     {
 
-        Services.visualEffectManager.EnemyGainBuffEffect(this.gameObject);
+        
 
         if (CheckBuff(newBuff) == -1)
         {
@@ -414,6 +436,11 @@ public class Enemy: MonoBehaviour
         Debug.Log("change target enemy to" + name);
         }
         
+    }
+
+    public void SummonFollower(GameObject a)
+    {
+        Instantiate(a);
     }
 }
 

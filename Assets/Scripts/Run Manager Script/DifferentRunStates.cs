@@ -25,7 +25,7 @@ public class BeforeCombat : RunState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("start");
+        //Debug.Log("start");
 
         //manager.SpawnNewMainEnemy();
         tempEnemy = manager.InstantiateEnemyPreview();
@@ -49,7 +49,7 @@ public class BeforeCombat : RunState
 
 public class Combat : RunState
 {
-
+    private float countDown;
     public Combat(RunStateManager runStateManager) : base(runStateManager)
     {
 
@@ -60,16 +60,20 @@ public class Combat : RunState
         //if all main enemy die
         if (Services.combatManager.AllMainEnemy.Count == 0)
         {
-            manager.currentStage++;
-            if (manager.currentStage >= Services.runStateManager.AllEnemyList.Count)
+            if (countDown > 1.5f)
             {
-                manager.ChangeState(new GameWin(manager));
+                manager.currentStage++;
+                if (manager.currentStage >= Services.runStateManager.AllEnemyList.Count)
+                {
+                    manager.ChangeState(new GameWin(manager));
+                }
+                else
+                {
+                    manager.ChangeState(new Reward(manager));
+                }
             }
-            else
-            {
-                manager.ChangeState(new Reward(manager));
-            }
-            
+
+            countDown += Time.deltaTime;
         }
 
     }
@@ -79,10 +83,11 @@ public class Combat : RunState
         base.Enter();
         
         Services.actionManager.ResetBasicActionCost();
+        Services.resourceManager.resetResource();
         Services.combatManager.resetCycleTimer();
         manager.AllCardsInGame.SetActive(true);
         manager.CombatUICanvasSet(true);
-        Debug.Log("combat");
+        //Debug.Log("combat");
         manager.EmptyAllList();
 
         manager.CombatSetup();
@@ -104,6 +109,7 @@ public class Combat : RunState
 
         Services.eventManager.Fire(new CombatEndEvent());
         //clear all deck list
+        //Services.actionManager.StopAttack();
         Services.combatManager.PauseTimeCycle();
         //Services.combatManager.PauseTimeCycle();
         manager.AllCardsInGame.SetActive(false);
@@ -170,7 +176,7 @@ public class GameWin : RunState
 
 public class Reward : RunState
 {
-
+    List<GameObject> rewardCards = new List<GameObject>();
     public Reward(RunStateManager runStateManager) : base(runStateManager)
     {
 
@@ -178,6 +184,8 @@ public class Reward : RunState
 
     public override void StateBehavior()
     {
+        Services.combatManager.PauseTimeCycle();
+        
         //if player picked all reward go to combat overview state
         if (manager.currentSelectCard != null)
         {
@@ -200,9 +208,9 @@ public class Reward : RunState
         manager.chooseButton.interactable = false;
         // List<GameObject> rewardCards = manager.GenerateReward(manager.currentActiveClass1);
 
-        List<GameObject> rewardCards = manager.GenerateRewardMixPool(manager.currentActiveClass1,manager.currentActiveClass2);
+        rewardCards = manager.GenerateRewardMixPool(manager.currentActiveClass1,manager.currentActiveClass2);
         manager.DisplayReward(rewardCards);
-        Debug.Log("reward");
+        //Debug.Log("reward");
         //system choose reward
         //display reward
     }
@@ -210,6 +218,10 @@ public class Reward : RunState
     public override void Leave()
     {
         base.Leave();
+        foreach (GameObject a in rewardCards)
+        {
+            a.SetActive(false);
+        }
         manager.RewardWindow.SetActive(false);
         manager.skipButton.gameObject.SetActive(false);
         manager.chooseButton.gameObject.SetActive(false);

@@ -1212,6 +1212,9 @@ MonoBehaviour:
   hangTime: 0.5
   savedColor: {r: 0, g: 0, b: 0, a: 0}
   savedEnemyPos: {x: 0, y: 0, z: 0}
+  BeginningBuff:
+    m_PersistentCalls:
+      m_Calls: []
   Mainbody: {fileID: 0}
 --- !u!61 &6721688822605510933
 BoxCollider2D:

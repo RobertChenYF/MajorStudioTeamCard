@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class EnemyMoveset : MonoBehaviour
 {
-    public enum moveType {dealDamage,GainArmor,Special};
-    [HideInInspector]public Enemy enemy;
+    public enum moveType { dealDamage, GainArmor, Special };
+    [HideInInspector] public Enemy enemy;
     [SerializeField] public int CycleBeforeMove;
     [SerializeField] public int damageAmount;
     [SerializeField] public int armorAmount;
@@ -20,19 +20,29 @@ public class EnemyMoveset : MonoBehaviour
         {
             if (a == moveType.dealDamage)
             {
+                Services.eventManager.Fire(new EnemyDealDamage(enemy));
                 Services.statsManager.TakeDamage(damageAmount);
             }
             else if (a == moveType.GainArmor)
             {
+
                 enemy.GainArmor(armorAmount);
             }
             else if (a == moveType.Special)
             {
+                Services.visualEffectManager.EnemyGainBuffEffect(enemy.gameObject);
                 SpecialMoveset.Invoke();
             }
         }
     }
-
+    public class EnemyDealDamage : AGPEvent
+    {
+        Enemy thisEnemy;
+        public EnemyDealDamage(Enemy a)
+        {
+            thisEnemy = a;
+        }
+    }
     public virtual string MoveDisplay()
     {
         string moveString = "";
@@ -73,6 +83,10 @@ public class EnemyMoveset : MonoBehaviour
     {
         enemy.GainNewBuff(new GainHpWhenPlayerLoseHp(), 1);
     }
+    public void KlippyBuff()
+    {
+        enemy.GainNewBuff(new KlippyDie(),1);
+    }
 
     public void EveryEnemyGainHp(int amount)
     {
@@ -81,4 +95,21 @@ public class EnemyMoveset : MonoBehaviour
             a.GainHp(amount);
         }
     }
+
+    public void SummonEnemy(GameObject enemy)
+    {
+        Instantiate(enemy);
+    }
+
+    public void GainUSBBuff()
+    {
+        enemy.GainNewBuff(new USBDie(),1);
+    }
+
+    public void Explode(int damage)
+    {
+        Services.statsManager.TakeDamage(damage);
+        enemy.Die();
+    }
+
 }

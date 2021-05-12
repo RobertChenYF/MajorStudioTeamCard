@@ -326,6 +326,10 @@ PrefabInstance:
       propertyPath: armorAmount
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6721688824167742518, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
+      propertyPath: damageAmount
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6721688824617617338, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -462,7 +466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6721688824167742518, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: damageAmount
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6721688824167742518, guid: 25409ef70f9021147aaa4cb68169434e, type: 3}
       propertyPath: CycleBeforeMove

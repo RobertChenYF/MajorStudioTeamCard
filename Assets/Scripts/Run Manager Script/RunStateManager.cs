@@ -212,7 +212,8 @@ public class RunStateManager : MonoBehaviour
 
     public void PressChooseButton()
     {
-        AddToRunReck(currentSelectCard);
+        GameObject a = Instantiate(currentSelectCard.gameObject);
+        AddToRunReck(a.GetComponent<CardFunction>());
         currentSelectCard = null;
         draftLeft--;
         if (draftLeft == 0)
