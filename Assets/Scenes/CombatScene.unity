@@ -3663,7 +3663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &740440474
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8923,6 +8923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46a189f2d80d2647a665bb966f3e68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   DamageTextPrefab: {fileID: 6116655469434448049, guid: 64a235d589401184abc9335075016d0d, type: 3}
   damageParticleOffset: {x: 0.6, y: 0.4, z: 0}
   damageParticleEndOffset: {x: 2, y: 2, z: 0}
