@@ -52,6 +52,10 @@ public class PlayerStatsManager : MonoBehaviour
         {
             GainHp(5);
         }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Services.visualEffectManager.PlayPlayerGainArmorEffect(5);
+        }
     }
 
     private void LoseArmorAtCycleEnd(AGPEvent e)
@@ -130,16 +134,17 @@ public class PlayerStatsManager : MonoBehaviour
     {
         if (value > 0)
         {
-           
-        Services.eventManager.Fire(new GainArmorEvent(value));
-        currentArmor += value;
-        TempUpdateDisplayStat();
+            Services.visualEffectManager.PlayPlayerGainArmorEffect(value);
+            Services.eventManager.Fire(new GainArmorEvent(value));
+            currentArmor += value;
+            TempUpdateDisplayStat();
         }
         
     }
 
     public void LoseArmor(float dmg)
     {
+        Services.visualEffectManager.PlayPlayerLoseArmorEffect(dmg);
         currentArmor -= dmg;
         currentArmor = Mathf.Max(0, currentArmor);
         TempUpdateDisplayStat();

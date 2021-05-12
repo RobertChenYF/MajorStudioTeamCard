@@ -101,10 +101,18 @@ public class Enemy: MonoBehaviour
         {
             GainHp(5);
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Services.visualEffectManager.PlayEnemyDealDamageEffect(this.gameObject.GetComponent<Enemy>());
+        }
 
         if (is_Idle && !playing_idle)
         {
             StartCoroutine(PlayEnemyIdleAnimation());
+        }
+        if (!is_Idle && playing_idle)
+        {
+            playing_idle = false;
         }
     }
     IEnumerator PlayEnemyIdleAnimation()
@@ -112,21 +120,31 @@ public class Enemy: MonoBehaviour
         playing_idle = true;
         while (is_Idle)
         {
-            if (goingUp)
+            if (goingUp && is_Idle)
             {
                 while (Vector3.Distance(this.gameObject.transform.position, idlePosOffset) > 0.05f)
                 {
-                    //print(EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothing * Time.deltaTime).ToString());
+                    if (!is_Idle)
+                    {
+                        playing_idle = false;
+                        yield break;
+                    }
                     this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothingUp * Time.deltaTime);
                     yield return null;
                 }
                 goingUp = false;
                 yield return new WaitForSeconds(hangTime);
             }
-            else
+            else if (is_Idle)
             {
                 while (Vector3.Distance(this.gameObject.transform.position, savedEnemyPos) > 0.05f)
                 {
+                    if (!is_Idle)
+                    {
+                        playing_idle = false;
+                        yield break;
+                    }
+                    print("here2");
                     this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, savedEnemyPos, idleSmoothingDown * Time.deltaTime);
                     yield return null;
                 }
@@ -295,6 +313,8 @@ public class Enemy: MonoBehaviour
         LoseArmor(2);
         if (currentChargeCycleTimer == 0)
         {
+            if (currentChargeMove.moves[0] == EnemyMoveset.moveType.dealDamage)
+                Services.visualEffectManager.PlayEnemyDealDamageEffect(this.gameObject.GetComponent<Enemy>());
             currentChargeMove.MoveTrigger();
             NextMove();
         }
