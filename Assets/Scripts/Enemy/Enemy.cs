@@ -32,7 +32,7 @@ public class Enemy: MonoBehaviour
 
     //VisualEffects
     [Header ("Idle Animation")]
-    [HideInInspector] public bool is_Idle;
+    public bool is_Idle;
     [SerializeField] private float idleSmoothingUp;
     [SerializeField] private float idleSmoothingDown;
     [SerializeField] private Vector3 savedIdlePosOffset;
@@ -61,14 +61,16 @@ public class Enemy: MonoBehaviour
         // currentHp = maxHp;
 
         //Update Idle Position Offset
-        is_Idle = true;
         savedColor = this.gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     public void updateIdlePosOffset()
     {
         savedEnemyPos = this.gameObject.transform.position;
-        idlePosOffset = new Vector3(savedIdlePosOffset.x + savedEnemyPos.x, savedIdlePosOffset.y + savedEnemyPos.y, 0);
+        //print(this.gameObject.transform.position.ToString());
+        idlePosOffset = new Vector3(savedIdlePosOffset.x + savedEnemyPos.x, 
+            savedIdlePosOffset.y + savedEnemyPos.y, savedIdlePosOffset.z + savedEnemyPos.z);
+        is_Idle = true;
     }
 
     public virtual void Update()
@@ -82,51 +84,74 @@ public class Enemy: MonoBehaviour
         */
 
         //for damage effect testing
-        if(Input.GetKeyDown(KeyCode.D))
+        if (Services.visualEffectManager.debug)
         {
-            if(this.gameObject)
-                TakeDamage(1);
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                if (this.gameObject)
+                    TakeDamage(1);
+            }
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                if (this.gameObject)
+                    Services.visualEffectManager.EnemyGainBuffEffect(this.gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                if (this.gameObject)
+                    Services.visualEffectManager.EnemyGainArmorEffect(this.gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                GainHp(5);
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                Services.visualEffectManager.PlayEnemyDealDamageEffect(this.gameObject.GetComponent<Enemy>());
+            }
         }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (this.gameObject)
-                Services.visualEffectManager.EnemyGainBuffEffect(this.gameObject);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (this.gameObject)
-                Services.visualEffectManager.EnemyGainArmorEffect(this.gameObject);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            GainHp(5);
-        }
+
 
         if (is_Idle && !playing_idle)
         {
             StartCoroutine(PlayEnemyIdleAnimation());
         }
+        if (!is_Idle && playing_idle)
+        {
+            playing_idle = false;
+        }
     }
     IEnumerator PlayEnemyIdleAnimation()
     {
+        //print(this.gameObject.transform.position.ToString());
         playing_idle = true;
         while (is_Idle)
         {
-            if (goingUp)
+            if (goingUp && is_Idle)
             {
                 while (Vector3.Distance(this.gameObject.transform.position, idlePosOffset) > 0.05f)
                 {
-                    //print(EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothing * Time.deltaTime).ToString());
+                    if (!is_Idle)
+                    {
+                        playing_idle = false;
+                        yield break;
+                    }
                     this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, idlePosOffset, idleSmoothingUp * Time.deltaTime);
                     yield return null;
                 }
                 goingUp = false;
                 yield return new WaitForSeconds(hangTime);
             }
-            else
+            else if (is_Idle)
             {
                 while (Vector3.Distance(this.gameObject.transform.position, savedEnemyPos) > 0.05f)
                 {
+                    if (!is_Idle)
+                    {
+                        playing_idle = false;
+                        yield break;
+                    }
+                    //print("here2");
                     this.gameObject.transform.position = EaseInOutQuad(this.gameObject.transform.position, savedEnemyPos, idleSmoothingDown * Time.deltaTime);
                     yield return null;
                 }
@@ -295,6 +320,8 @@ public class Enemy: MonoBehaviour
         LoseArmor(2);
         if (currentChargeCycleTimer == 0)
         {
+            if (currentChargeMove.moves[0] == EnemyMoveset.moveType.dealDamage)
+                Services.visualEffectManager.PlayEnemyDealDamageEffect(this.gameObject.GetComponent<Enemy>());
             currentChargeMove.MoveTrigger();
             NextMove();
         }

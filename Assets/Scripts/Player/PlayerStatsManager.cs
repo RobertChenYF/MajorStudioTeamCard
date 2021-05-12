@@ -43,14 +43,21 @@ public class PlayerStatsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Effect Testing
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Services.visualEffectManager.debug)
         {
-            TakeDamage(5);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            GainHp(5);
+            //Effect Testing
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                TakeDamage(5);
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                GainHp(5);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Services.visualEffectManager.PlayPlayerGainArmorEffect(5);
+            }
         }
     }
 
@@ -130,16 +137,18 @@ public class PlayerStatsManager : MonoBehaviour
     {
         if (value > 0)
         {
-           
-        Services.eventManager.Fire(new GainArmorEvent(value));
-        currentArmor += value;
-        TempUpdateDisplayStat();
+            Services.visualEffectManager.PlayPlayerGainArmorEffect(value);
+            Services.eventManager.Fire(new GainArmorEvent(value));
+            currentArmor += value;
+            TempUpdateDisplayStat();
         }
         
     }
 
     public void LoseArmor(float dmg)
     {
+        if (currentArmor > 0)
+            Services.visualEffectManager.PlayPlayerLoseArmorEffect(dmg);
         currentArmor -= dmg;
         currentArmor = Mathf.Max(0, currentArmor);
         TempUpdateDisplayStat();

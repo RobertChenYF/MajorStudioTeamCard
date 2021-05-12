@@ -56,6 +56,19 @@ MonoBehaviour:
   dmgFlashColor: {r: 1, g: 0, b: 0, a: 0}
   dmgFlashSmoothingIn: 15
   dmgFlashSmoothingOut: 0.5
+  jumpPeak: 1
+  jumpBottom: -0.4
+  jumpDist: -1.5
+  finalScale: {x: 1.2, y: 1.2, z: 1.2}
+  zRotation: 10
+  jumpSmoothingx: 12
+  jumpSmoothingUp: 12
+  jumpSmoothingDown: 16
+  jumpSmoothingS: 3
+  jumpSmoothingR: 7
+  jumpWaitTime: 1
+  jumpHoldWaitTime: 0.3
+  jumpReturnSmoothing: 7
   audioSource: {fileID: 0}
   enemyDmgSound: {fileID: 8300000, guid: d0dc609f6af5df743bd4f76934b446c3, type: 3}
   dmgSoundVolume: 0.2
@@ -71,14 +84,20 @@ MonoBehaviour:
   decompressSoundVolume: 1
   redrawSound: {fileID: 8300000, guid: d285de4a819b0254eb23d27405b72274, type: 3}
   redrawSoundVolume: 1
+  armorSound: {fileID: 8300000, guid: 1f6050e6f1dd5b74c8fb55fcd5785bee, type: 3}
+  armorSoundVolume: 0.6
   buffParticles: {fileID: 6790215039390768315, guid: 145316e35210a784bbf65baee9c7e4a6, type: 3}
   buffFlashColor: {r: 0.97073174, g: 0, b: 1, a: 0.3254902}
   buffFlashSmoothingIn: 1.1
   buffFlashSmoothingOut: 1
   armorParticles: {fileID: 4091012782774764764, guid: 108c4c966ab6bd845ab18d4eb032cd15, type: 3}
+  armorParticlesSmall: {fileID: 140252635514826711, guid: a69ece772baa6a5439787933519bc561, type: 3}
   armorFlashColor: {r: 0, g: 0.47725177, b: 1, a: 0.42352942}
   armorFlashSmoothingIn: 1.1
   armorFlashSmoothingOut: 1
+  armorNumParticleOffset: {x: -1.5, y: 0.3, z: 0}
+  armorNumParticleEndOffset: {x: -2.1, y: 1.5, z: 0}
+  armorNumParticleColor: {r: 0, g: 0.31932735, b: 1, a: 0}
   ErrorMsgTextPrefab: {fileID: 5348285721208537264, guid: 260da03536c8fc446b802e31ce42d12a, type: 3}
   errorTxtColorSmoothing: 3.66
   popUpTime: 0.5
@@ -90,8 +109,8 @@ MonoBehaviour:
   healthBarText: {fileID: 0}
   hpFlashSmoothingIn: 8
   hpFlashSmoothingOut: 4
-  hpParticleOffset: {x: 0.3, y: 0.5, z: 0}
-  hpParticleEndOffset: {x: 1, y: 1.5, z: 0}
+  hpParticleOffset: {x: -0.8, y: 0.3, z: 0}
+  hpParticleEndOffset: {x: -1.8, y: 1.3, z: 0}
   hpParticleColor: {r: 1, g: 1, b: 1, a: 0}
   gainhpParticleColor: {r: 0.10529864, g: 1, b: 0, a: 0}
 --- !u!82 &4070458609162924804

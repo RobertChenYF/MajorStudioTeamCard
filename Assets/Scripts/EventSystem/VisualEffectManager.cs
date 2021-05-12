@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class VisualEffectManager : MonoBehaviour
 {
+    [HideInInspector] public bool debug;
+
     [Header ("Enemy Damage Particle Effect")]
     [SerializeField] private TextMeshPro DamageTextPrefab;
     [SerializeField] private Vector3 damageParticleOffset;
@@ -21,6 +23,23 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private Color dmgFlashColor;
     [SerializeField] private float dmgFlashSmoothingIn;
     [SerializeField] private float dmgFlashSmoothingOut;
+
+    [Header("Enemy Deal Damage Jump")]
+    [SerializeField] private float jumpPeak;
+    [SerializeField] private float jumpBottom;
+    [SerializeField] private float jumpDist;
+    [SerializeField] private Vector3 finalScale;
+    [SerializeField] private float zRotation;
+    [SerializeField] private float jumpSmoothingx;
+    [SerializeField] private float jumpSmoothingUp;
+    [SerializeField] private float jumpSmoothingDown;
+    [SerializeField] private float jumpSmoothingS;
+    [SerializeField] private float jumpSmoothingR;
+    [SerializeField] private float jumpWaitTime;
+    [SerializeField] private float jumpHoldWaitTime;
+    [SerializeField] private float jumpReturnSmoothing;
+    bool is_jumping;
+    bool deal_dmgflag;
 
     [Header ("Audio Effect Settings")]
     [SerializeField] private AudioSource audioSource;
@@ -38,6 +57,8 @@ public class VisualEffectManager : MonoBehaviour
     [SerializeField] private float decompressSoundVolume;
     [SerializeField] private AudioClip redrawSound;
     [SerializeField] private float redrawSoundVolume;
+    [SerializeField] private AudioClip armorSound;
+    [SerializeField] private float armorSoundVolume;
 
     [Header("Enemy Buff Effect")]
     [SerializeField] private ParticleSystem buffParticles;
@@ -47,9 +68,13 @@ public class VisualEffectManager : MonoBehaviour
 
     [Header("Gain Armor Effect")]
     [SerializeField] private ParticleSystem armorParticles;
+    [SerializeField] private ParticleSystem armorParticlesSmall;
     [SerializeField] private Color armorFlashColor;
     [SerializeField] private float armorFlashSmoothingIn;
     [SerializeField] private float armorFlashSmoothingOut;
+    [SerializeField] private Vector3 armorNumParticleOffset;
+    [SerializeField] private Vector3 armorNumParticleEndOffset;
+    [SerializeField] private Color armorNumParticleColor;
 
     [Header("Error Message Pop Up")]
     [SerializeField] private TextMeshPro ErrorMsgTextPrefab;
@@ -91,7 +116,14 @@ public class VisualEffectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            debug = true;
+        }
+        else
+        {
+            debug = false;
+        }
     }
 
     //Update to death sprite with particle effect explosion?
@@ -258,6 +290,40 @@ public class VisualEffectManager : MonoBehaviour
         yield return null;
     }
 
+    IEnumerator EnemyDealDamageJump(Enemy enemy)
+    {
+        is_jumping = true;
+
+        while (Mathf.Abs(enemy.gameObject.transform.position.y - (enemy.savedEnemyPos.y + jumpPeak)) > 0.05f)
+        {
+            enemy.gameObject.transform.position =
+                new Vector3(enemy.gameObject.transform.position.x,
+                Mathf.Lerp(enemy.gameObject.transform.position.y, enemy.savedEnemyPos.y + jumpPeak, jumpSmoothingUp * Time.deltaTime), 0);
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(jumpHoldWaitTime);
+
+        while (Mathf.Abs(enemy.gameObject.transform.position.y - (enemy.savedEnemyPos.y + jumpBottom)) > 0.05f)
+        {
+            enemy.gameObject.transform.position =
+                new Vector3(enemy.gameObject.transform.position.x,
+                Mathf.Lerp(enemy.gameObject.transform.position.y, enemy.savedEnemyPos.y + jumpBottom, jumpSmoothingDown * Time.deltaTime), 0);
+
+            yield return null;
+        }
+
+        deal_dmgflag = true;
+        is_jumping = false;
+        PlayEnemyDamageSound();
+    }
+
+    public void PlayEnemyDealDamageEffect(Enemy enemy)
+    {
+        StartCoroutine(EnemyDealDamageEffect(enemy));
+    }
+
     IEnumerator EnemyDealDamageEffect(Enemy enemy)
     {
 
@@ -273,11 +339,53 @@ public class VisualEffectManager : MonoBehaviour
             e.is_Idle = false;
         }
 
-        //Leap forward while lerping scale
+        Vector3 tempScale = enemy.gameObject.transform.localScale;
+        Quaternion tempRotation = enemy.gameObject.transform.rotation;
+        Vector3 savedPos = enemy.gameObject.transform.position;
+
+        //Leap the y
+        StartCoroutine(EnemyDealDamageJump(enemy));
+
+        //lerp the x, scale, and rotation
+        while (Mathf.Abs(enemy.gameObject.transform.position.x - (enemy.savedEnemyPos.x + jumpDist)) > 0.05f)
+        {
+            //print("" + Mathf.Abs(enemy.gameObject.transform.position.x - (enemy.savedEnemyPos.x + jumpDist)).ToString());
+            enemy.gameObject.transform.position =
+                new Vector3(Mathf.Lerp(enemy.gameObject.transform.position.x, enemy.savedEnemyPos.x + jumpDist, jumpSmoothingx * Time.deltaTime),
+                enemy.gameObject.transform.position.y, 0);
+
+            enemy.gameObject.transform.localScale = Vector3.Lerp(enemy.gameObject.transform.localScale, finalScale, jumpSmoothingS * Time.deltaTime);
+
+            Quaternion newRotation = new Quaternion();
+            newRotation.eulerAngles = new Vector3(enemy.gameObject.transform.rotation.eulerAngles.x, enemy.gameObject.transform.rotation.eulerAngles.y,
+                Mathf.Lerp(enemy.gameObject.transform.rotation.eulerAngles.z, zRotation, jumpSmoothingR * Time.deltaTime));
+            enemy.gameObject.transform.rotation = newRotation;
+
+            yield return null;
+        }
 
         //idle for a time
 
+        while (is_jumping) //Wait for the other coroutine to finish
+        {
+            yield return null;
+        }
+
         //leap back into place and lerp scale to normal
+        while (Vector3.Distance(enemy.gameObject.transform.position, savedPos) > 0.05f)
+        {
+            enemy.gameObject.transform.position =
+                Vector3.Slerp(enemy.gameObject.transform.position, savedPos, jumpReturnSmoothing * Time.deltaTime);
+
+            enemy.gameObject.transform.localScale = Vector3.Lerp(enemy.gameObject.transform.localScale, tempScale, jumpReturnSmoothing * Time.deltaTime);
+
+            enemy.gameObject.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, tempRotation, jumpReturnSmoothing * Time.deltaTime);
+
+            yield return null;
+        }
+        enemy.gameObject.transform.position = savedPos;
+        enemy.gameObject.transform.localScale = tempScale;
+        enemy.gameObject.transform.rotation = tempRotation;
 
         foreach (Enemy e in Services.combatManager.AllMainEnemy)
         {
@@ -289,10 +397,27 @@ public class VisualEffectManager : MonoBehaviour
         yield return null;
     }
 
+    public static float EaseInCubic(float start, float end, float value)
+    {
+        end -= start;
+        return end * value * value * value + start;
+    }
+
+    public static float EaseInCirc(float start, float end, float value)
+    {
+        end -= start;
+        return -end * (Mathf.Sqrt(1 - value * value) - 1) + start;
+    }
+
     public static float EaseInExpo(float start, float end, float value)
     {
         end -= start;
         return end * Mathf.Pow(2, 10 * (value - 1)) + start;
+    }
+    public static float EaseOutExpo(float start, float end, float value)
+    {
+        end -= start;
+        return end * (-Mathf.Pow(2, -10 * value) + 1) + start;
     }
 
     public static Vector3 EaseInExpo(Vector3 start, Vector3 end, float value)
@@ -372,6 +497,13 @@ public class VisualEffectManager : MonoBehaviour
 
     IEnumerator PlayerTakeDamageEffect(float dmg)
     {
+        while (!deal_dmgflag) //wait to play
+        {
+            yield return null;
+        }
+
+        deal_dmgflag = false;
+
         PlayPlayerTakeDamageSound();
 
         //screen shake to a degree based off the damage number
@@ -467,14 +599,25 @@ public class VisualEffectManager : MonoBehaviour
         StartCoroutine(PlayEnemyGainArmorEffect(gameObject));
     }
 
+    public void PlayPlayerLoseArmorEffect(float value)
+    {
+        StartCoroutine(NumberFlyOut(healthBar.gameObject.transform.position + armorNumParticleOffset,
+            healthBar.gameObject.transform.position + armorNumParticleEndOffset, armorNumParticleColor, "-" + value.ToString()));
+    }
+
+    void PlayArmorSound()
+    {
+        PlayClip(armorSound, armorSoundVolume);
+    }
+
     IEnumerator PlayEnemyGainArmorEffect(GameObject gameObject)
     {
         ParticleSystem particles = Instantiate(armorParticles);
         particles.transform.position = gameObject.transform.position;
         StartCoroutine(PlayFlashEffect(gameObject.GetComponent<SpriteRenderer>(), armorFlashColor, armorFlashSmoothingIn, armorFlashSmoothingOut));
-        PlayBuffSound();
+        PlayArmorSound();
 
-        yield return new WaitForSeconds(buffParticles.main.duration);
+        yield return new WaitForSeconds(armorParticles.main.duration);
         Destroy(particles);
         yield return null;
     }
@@ -482,6 +625,24 @@ public class VisualEffectManager : MonoBehaviour
     public void PlayBuffSound()
     {
         PlayClip(buffSound, buffSoundVolume);
+    }
+
+    public void PlayPlayerGainArmorEffect(float value)
+    {
+        StartCoroutine(PlayerGainArmorEffect(value));
+    }
+
+    IEnumerator PlayerGainArmorEffect(float value)
+    {
+        ParticleSystem particles = Instantiate(armorParticlesSmall);
+        particles.transform.position = healthBar.gameObject.transform.position;
+        StartCoroutine(NumberFlyOut(healthBar.gameObject.transform.position + armorNumParticleOffset, 
+            healthBar.gameObject.transform.position + armorNumParticleEndOffset, armorNumParticleColor, "+" + value.ToString()));
+        PlayArmorSound();
+
+        yield return new WaitForSeconds(armorParticlesSmall.main.duration);
+        Destroy(particles);
+        yield return null;
     }
 
     public void EnemyGainBuffEffect(GameObject gameObject)

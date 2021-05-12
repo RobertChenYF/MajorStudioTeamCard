@@ -3814,7 +3814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &699681366
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4750,6 +4750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46a189f2d80d2647a665bb966f3e68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   DamageTextPrefab: {fileID: 6116655469434448049, guid: 64a235d589401184abc9335075016d0d, type: 3}
   damageParticleOffset: {x: 0.6, y: 0.4, z: 0}
   damageParticleEndOffset: {x: 2, y: 2, z: 0}
@@ -4762,6 +4763,19 @@ MonoBehaviour:
   dmgFlashColor: {r: 1, g: 0, b: 0, a: 0}
   dmgFlashSmoothingIn: 0
   dmgFlashSmoothingOut: 0
+  jumpPeak: 0
+  jumpBottom: 0
+  jumpDist: 0
+  finalScale: {x: 0, y: 0, z: 0}
+  zRotation: 0
+  jumpSmoothingx: 0
+  jumpSmoothingUp: 0
+  jumpSmoothingDown: 0
+  jumpSmoothingS: 0
+  jumpSmoothingR: 0
+  jumpWaitTime: 0
+  jumpHoldWaitTime: 0
+  jumpReturnSmoothing: 0
   audioSource: {fileID: 0}
   enemyDmgSound: {fileID: 0}
   dmgSoundVolume: 0.2
@@ -4777,14 +4791,20 @@ MonoBehaviour:
   decompressSoundVolume: 0
   redrawSound: {fileID: 0}
   redrawSoundVolume: 0
+  armorSound: {fileID: 0}
+  armorSoundVolume: 0
   buffParticles: {fileID: 0}
   buffFlashColor: {r: 0, g: 0, b: 0, a: 0}
   buffFlashSmoothingIn: 0
   buffFlashSmoothingOut: 0
   armorParticles: {fileID: 0}
+  armorParticlesSmall: {fileID: 0}
   armorFlashColor: {r: 0, g: 0, b: 0, a: 0}
   armorFlashSmoothingIn: 0
   armorFlashSmoothingOut: 0
+  armorNumParticleOffset: {x: 0, y: 0, z: 0}
+  armorNumParticleEndOffset: {x: 0, y: 0, z: 0}
+  armorNumParticleColor: {r: 0, g: 0, b: 0, a: 0}
   ErrorMsgTextPrefab: {fileID: 0}
   errorTxtColorSmoothing: 0
   popUpTime: 0
