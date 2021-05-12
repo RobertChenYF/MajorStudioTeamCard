@@ -144,7 +144,8 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void LoseArmor(float dmg)
     {
-        Services.visualEffectManager.PlayPlayerLoseArmorEffect(dmg);
+        if (currentArmor > 0)
+            Services.visualEffectManager.PlayPlayerLoseArmorEffect(dmg);
         currentArmor -= dmg;
         currentArmor = Mathf.Max(0, currentArmor);
         TempUpdateDisplayStat();

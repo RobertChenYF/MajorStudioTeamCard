@@ -32,7 +32,7 @@ public class Enemy: MonoBehaviour
 
     //VisualEffects
     [Header ("Idle Animation")]
-    [HideInInspector] public bool is_Idle;
+    public bool is_Idle;
     [SerializeField] private float idleSmoothingUp;
     [SerializeField] private float idleSmoothingDown;
     [SerializeField] private Vector3 savedIdlePosOffset;
@@ -61,7 +61,6 @@ public class Enemy: MonoBehaviour
         // currentHp = maxHp;
 
         //Update Idle Position Offset
-        is_Idle = true;
         savedColor = this.gameObject.GetComponent<SpriteRenderer>().color;
     }
 
@@ -69,6 +68,7 @@ public class Enemy: MonoBehaviour
     {
         savedEnemyPos = this.gameObject.transform.position;
         idlePosOffset = new Vector3(savedIdlePosOffset.x + savedEnemyPos.x, savedIdlePosOffset.y + savedEnemyPos.y, 0);
+        is_Idle = true;
     }
 
     public virtual void Update()
@@ -117,6 +117,7 @@ public class Enemy: MonoBehaviour
     }
     IEnumerator PlayEnemyIdleAnimation()
     {
+        print(this.gameObject.transform.position.ToString());
         playing_idle = true;
         while (is_Idle)
         {
